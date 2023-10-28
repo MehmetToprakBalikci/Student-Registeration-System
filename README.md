@@ -1,7 +1,7 @@
 # CSE3063F23P1_GRP1
 Project for Object Oriented Software Design Course CSE3063
 # Contributors
-Group 1
+Group 1 <br>
 1 150121043 Bora Duman <br>
 2 150121051 Arda Öztürk <br>
 3 150120076 Furkan Gökgöz <br>
