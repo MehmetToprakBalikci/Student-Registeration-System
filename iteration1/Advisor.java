@@ -23,4 +23,12 @@ class Advisor extends Lecturer {
     public void startActions() {
         // Implementation needed
     }
+    
+    @Override
+    Person signIn(String username, String password) {
+		return null;
+	}
+    
 }
+
+

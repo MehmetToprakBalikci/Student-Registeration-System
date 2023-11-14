@@ -8,4 +8,13 @@ public class Lecturer extends Staff {
 		super(name, lastName);
 	}
 
+	@Override
+	Person signIn(String username, String password) {
+		
+		return null;
+	}
+
+	
+	
+
 }

@@ -5,6 +5,8 @@ import java.util.Scanner;
 abstract class Person {
     protected String name;
     protected String lastName;
+    private String userName;
+    private String password;
 
     // Constructor
     public Person(String name, String lastName) {
@@ -16,10 +18,13 @@ abstract class Person {
     public void startActions() {
         // Implementation needed
     }
+    
+    public boolean compareCredentials(String username, String password) {
+    	
+    	return true;
+    }
 
     // Method for sign-in process
-    public boolean signIn(String username, String password) {
-        // Implementation needed
-        return false;
-    }
+    abstract Person signIn(String username, String password);
 }
+
