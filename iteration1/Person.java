@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 abstract class Person {
     protected String name;
@@ -15,7 +18,7 @@ abstract class Person {
     }
 
     // Method for sign-in process
-    public boolean signin(String username, String password) {
+    public boolean signIn(String username, String password) {
         // Implementation needed
         return false;
     }

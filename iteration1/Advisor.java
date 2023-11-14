@@ -2,9 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
-// Advisor class
-class Advisor extends Person {
+class Advisor extends Lecturer {
     // Method to create advisor
     public static Advisor create(String name, String lastName) {
         return new Advisor(name, lastName);
