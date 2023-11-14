@@ -1,17 +1,7 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
-
-// Base class for all people in the system
-class Person {
+abstract class Person {
     protected String name;
     protected String lastName;
-
-    // Method to create person
-    public static Person create(String name, String lastName) {
-        return new Person(name, lastName);
-    }
 
     // Constructor
     public Person(String name, String lastName) {
