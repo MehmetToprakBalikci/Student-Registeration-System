@@ -1,24 +1,60 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 // Controller class
 class Controller {
-    private FileSystem fileSystem;
+    private UniversityFileSystem universityFileSystem;
+
+    public UI getUi() {
+        return ui;
+    }
+
+    private UI ui;
+    private Person person;
+
+    public Controller() {
+        universityFileSystem = new UniversityFileSystem();
+        ui = new UI();
+        ui.initialize();
+    }
 
     // Constructor
-    public Controller(FileSystem fileSystem) {
-        this.fileSystem = fileSystem;
+
+    public void start() {
+        // load all json course and person files
+        universityFileSystem.loadFiles();
+        do {
+            String[] userInfo = ui.requestCredentials();
+            person = universityFileSystem.getSignedPerson(userInfo);
+            if (person == null) {
+                System.out.println("Wrong userName or Password try again!!");
+            }
+        } while (person == null);
+        person.startActions(this);
+
+
     }
 
     // Request credentials from the user
-    public void requestCredentials() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter username:");
-        String username = scanner.nextLine();
-        System.out.println("Enter password:");
-        String password = scanner.nextLine();
-        // Further processing needed
+
+
+    public int getAction(String[] actionList) {
+        int actionSize = actionList.length;
+        int selection;
+        boolean isInvalid;
+        do {
+            selection = ui.requestActionNumber();
+            isInvalid = isInvalidSelection(actionSize, selection);
+            if (isInvalid) {
+                System.out.println("TRY TO SELECT VALID ACTION AGAIN");
+            }
+        } while (isInvalid);
+
+
+        return selection;
+    }
+
+    private boolean isInvalidSelection(int actionSize, int selection) {
+        return selection < 0 || selection > actionSize;
     }
 
     // Other controller methods need to be implemented

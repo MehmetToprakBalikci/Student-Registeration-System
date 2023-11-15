@@ -10,12 +10,14 @@ class Course {
     private String courseName;
     private int courseCredit;
     private Grade grade;
+    private Lecturer lecturer;
 
     // Constructor
-    public Course(String courseCode, String courseName, int courseCredit) {
+    public Course(String courseCode, String courseName, int courseCredit,Lecturer lecturer) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.courseCredit = courseCredit;
+        this.lecturer=lecturer;
         this.grade = new Grade();
     }
 }

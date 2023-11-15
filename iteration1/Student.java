@@ -1,24 +1,45 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
 
 
 // Student class
-class Student extends Person {
+class Student extends Person implements User{
     private List<Course> availableCourseList;
     private List<Course> registrationWaitingCourses;
 
     // Method to create student
-    public static Student create(String name, String lastName) {
+   /* public static Student create(String name, String lastName) {
         return new Student(name, lastName);
-    }
+    }*/
 
     // Constructor
-    private Student(String name, String lastName) {
-        super(name, lastName);
+    private Student(String name, String lastName,String username,String password) {
+        super(name, lastName,username,password);
         this.availableCourseList = new ArrayList<>();
         this.registrationWaitingCourses = new ArrayList<>();
+    }
+
+    @Override
+    public String[] getActionList() {
+        return new String[0];
+    }
+
+    @Override
+    public void runUserAction(int actionNumber) {
+
+    }
+
+
+    @Override
+    public void startActions(Controller controller) {
+        String[] actionList= getActionList();
+        int actionNumber =controller.getAction(actionList);
+        runUserAction(actionNumber);
+    }
+
+    @Override
+    Person signIn(String username, String password) {
+        return null;
     }
 
     // Method to add course to available list
