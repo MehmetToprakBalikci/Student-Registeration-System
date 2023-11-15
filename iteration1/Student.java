@@ -38,8 +38,30 @@ class Student extends Person implements User{
     }
 
     @Override
-    Person signIn(String username, String password) {
-        return null;
+        public boolean signIn(String username, String password) {
+        // Implement the JSON file reading and checking logic here
+        JSONParser parser = new JSONParser();
+        try (FileReader reader = new FileReader("data.json")) {
+            JSONObject jsonObject = (JSONObject) parser.parse(reader);
+            JSONArray persons = (JSONArray) jsonObject.get("persons");
+
+            for (Object o : persons) {
+                JSONObject person = (JSONObject) o;
+                String uname = (String) person.get("username");
+                String pwd = (String) person.get("password");
+
+                if (uname.equals(username) && pwd.equals(password)) {
+                    // Assign the properties to the fields if needed
+                    this.name = (String) person.get("name");
+                    this.lastName = (String) person.get("lastName");
+                    // ... other fields
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     // Method to add course to available list
