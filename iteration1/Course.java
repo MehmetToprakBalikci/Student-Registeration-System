@@ -9,19 +9,27 @@ class Course {
     private String courseCode;
     private String courseName;
     private int courseCredit;
-    private Grade grade;
+    private int courseYear;
+    private CourseSection section;
+    //private Grade grade;
     private Lecturer lecturer;
 
+
     // Constructor
-    public Course(String courseCode, String courseName, int courseCredit,Lecturer lecturer) {
+    public Course(String courseCode, String courseName, int courseCredit, int courseYear, CourseSection section, Lecturer lecturer) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.courseCredit = courseCredit;
+        this.courseYear = courseYear;
+        this.section = section;
         this.lecturer=lecturer;
-        this.grade = new Grade();
+        //this.grade = new Grade();
     }
 
-    public boolean checkYearMatching(int Year){
+    public boolean checkYearMatching(int year){
+        if(courseYear == year){
+            return true;
+        }
         return false;
     }
 
