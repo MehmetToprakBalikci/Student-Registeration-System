@@ -13,30 +13,38 @@ class Student extends Person implements User{
     }*/
 
     // Constructor
-    private Student(String name, String lastName,String username,String password) {
-        super(name, lastName,username,password);
+    private Student(String name, String lastName,String username,String password, String studentID) {
+        super(name, lastName,username,password, studentID);
         this.availableCourseList = new ArrayList<>();
         this.registrationWaitingCourses = new ArrayList<>();
     }
-
+/*
     @Override
     public String[] getActionList() {
         return new String[0];
     }
+*/
+    //@Override
+ //   public void runUserAction(int actionNumber) {
 
-    @Override
-    public void runUserAction(int actionNumber) {
+//    }
 
-    }
+   public String[] toStringAdvisor() {
+   String[] returnedVal = new String[3]
+   returnedVal[0] = this.name;
+    returnedVal[1] = this.surname;
+       returnedVal[2] = this.studentID;
+    return returnedVal;
+   }
 
-
+/*
     @Override
     public void startActions(Controller controller) {
         String[] actionList= getActionList();
         int actionNumber =controller.getAction(actionList);
         runUserAction(actionNumber);
     }
-
+*/
     @Override
         public boolean signIn(String username, String password) {
         // Implement the JSON file reading and checking logic here
@@ -68,7 +76,7 @@ class Student extends Person implements User{
     public void addToAvailableCourseList(Course course) {
         availableCourseList.add(course);
     }
-
+/*
     // Placeholder for starting student actions
     public void startAction() {
         // Implementation needed
@@ -95,3 +103,4 @@ class Student extends Person implements User{
         // Implementation needed
     }
 }
+*/
