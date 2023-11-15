@@ -1,0 +1,40 @@
+{
+  "persons": [
+    {
+      "type": "student",
+      "name": "John",
+      "lastName": "Doe",
+      "username": "john.doe",
+      "password": "password123",
+      "studentID": 1001,
+      "classLevel": 3
+    },
+    {
+      "type": "advisor",
+      "name": "Jane",
+      "lastName": "Smith",
+      "username": "jane.smith",
+      "password": "password456"
+    },
+    {
+      "type": "staff",
+      "name": "James",
+      "lastName": "Johnson",
+      "username": "james.johnson",
+      "password": "password789"
+    }
+  ],
+  "courses": [
+    {
+      "courseCode": "CS101",
+      "courseName": "Introduction to Computer Science",
+      "courseCredit": 3
+    },
+    {
+      "courseCode": "CS102",
+      "courseName": "Data Structures",
+      "courseCredit": 4,
+      "prerequisites": ["CS101"]
+    }
+  ]
+}
