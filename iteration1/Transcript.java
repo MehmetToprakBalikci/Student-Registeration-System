@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 //Transcript class for each student
@@ -24,13 +25,65 @@ public class Transcript {
     private int studentCredits;
 
 
-    //TODO
-    public void calculateTranscriptFromCourseInside() {
+    public int calculateCredit() {
+        int totalCredit = 0;
 
+        for(int i = 0; i < listOfCourses.size(); i++) {
+            totalCredit += listOfCourses.get(i).getCourseCredit();
+        }
+        return totalCredit;
     }
+
+
+    //Method to calculate current gpa
+    public float calculateGPA() {
+        float gpa = 0;
+
+        List<Integer> weightedValues = null;
+
+        //Calculate Weighted Values
+        for(int i = 0; i < listOfCourses.size(); i++) {
+            int credit = listOfCourses.get(i).getCourseCredit();
+            int grade = listOfGrades.get(i).getNumericalGrade();
+            weightedValues.add(credit * grade);
+        }
+
+        int totalWeightedValues = 0;
+        for(int i = 0; i < listOfCourses.size(); i++) {
+            totalWeightedValues += weightedValues.get(i);
+        }
+
+        //calculate gpa
+        gpa = (float)(totalWeightedValues) / ((float)(this.calculateCredit()) * 25);
+
+        return gpa;
+    }
+
+    //calculate semester depending on the current credit
+    //RIGHT NOW USES A PREDEFINED VALUE FOR EACH SEMESTERS WORTH!!
+    public int calculateSemesterFromCredit() {
+        int creditPreSemester = 26, semesterLimit = 16;
+        int semester = 0;
+        int completedCredits = this.calculateCredit();
+
+
+        //used for instead of switch for future compatibility
+        for(int i = 0; i < semesterLimit; i++) {
+            if(completedCredits >= creditPreSemester) {
+                semester++;
+                completedCredits -= creditPreSemester;
+            }
+        }
+
+        return semester;
+    }
+
+
     //TODO
     public void getTranscriptString() {
-
+        System.out.println("Cumulative Gpa: " + this.calculateGPA());
+        System.out.println("Cumulative Credits: " + this.calculateGPA());
+        System.out.println("Current Semester: " + this.calculateSemesterFromCredit());
     }
 
 }
