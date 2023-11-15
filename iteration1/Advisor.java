@@ -1,12 +1,16 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 class Advisor extends Lecturer implements User {
-    // Method to create advisor
-    public static Advisor create(String name, String lastName) {
-        return new Advisor(name, lastName);
-    }
+	
+	private ArrayList<Student> studentList = new ArrayList<>();
+	
 
     // Constructor
-    private Advisor(String name, String lastName) {
+    public Advisor(String name, String lastName, ArrayList<Student> studentList) {
         super(name, lastName);
+        this.studentList = studentList;
     }
 
     // Get advisor information as a String
@@ -14,32 +18,94 @@ class Advisor extends Lecturer implements User {
         // Implementation needed
         return "Advisor: " + this.name + " " + this.lastName;
     }
+    
     // Placeholder for starting advisor actions
     @Override
     public void startActions(Controller controller) {
-        String[] actionList= getActionList();
-            int actionNumber =controller.getAction(actionList);
-            runUserAction(actionNumber);
-        }
-        // Implementation needed
-
-    
-    @Override
-    Person signIn(String username, String password) {
-		return null;
-	}
-
-
-
+        String[] actionList = getActionList();
+            int actionNumber = controller.printListReturnSelection(actionList);
+            //runUserAction(actionNumber);
+            
+    		}    
+ 
     @Override
     public String[] getActionList() {
-        return new String[0];
+    	
+    	String[] actionList = new String[3];
+    	
+    	actionList[0] = "Select an action.";
+    	actionList[1] = "1) See students.";
+    	actionList[2] = "2) Log out.";
+    	
+        return actionList;
     }
-
+    
     @Override
-    public void runUserAction(int actionNumber) {
-
+    public void runUserAction(int actionNumber, Controller controller) {
+    	
+    	switch (actionNumber) {
+		
+		case 1: int studentNumber = studentList.size();
+    	String[] studentMenuList = new String[studentNumber+1];
+    
+    	studentMenuList[0] = "Select a student for action.";
+    	
+    	for(int i = 1; i<=studentNumber; i++) {
+    		
+    		studentMenuList[i] = studentList.get(i-1).toStringAdvisor();	// Öðrenci isim soyisim ve numaralarý listeleniyor
+    		}
+    		
+    	actionNumber = controller.printListReturnSelection(studentMenuList);	// liste printlenip öðrenci seçimi alýnýyor
+    	
+    	String[] courseMenuList = new String[studentList.get(actionNumber-1).getRegistrationWaitingCourses().size()+1];
+    	courseMenuList[0] = "Choose a course for action.";
+    	
+    	for(int j = 1; j<=courseMenuList.length; j++) {	// Loop içinde kurslar printlenecek advisorun seçimi için.
+    	//courseMenuList[j] = studentList.get(actionNumber-1).getRegistrationWaitingCourses().get(j)
+    	}
+			
+		break;
+		
+		case 2:
+		break;
+    	}
     }
 }
+
+    
+   /* public String[] secondActionList(int actionNumber) {
+    	
+    	switch (actionNumber) {
+		
+		case 1: int studentNumber = studentList.size();
+    	String[] actionList = new String[studentNumber+1];
+    
+    	actionList[0] = "Select a student for action.";
+    	
+    	for(int i = 1; i<studentNumber; i++) {
+    		actionList[i] = studentList.get(i).toStringAdvisor();
+    		}
+    	return actionList;
+			
+		break;
+		
+		case 2: 
+		break;
+	}
+    	*/
+    	/*int studentNumber = studentList.size();
+    	String[] actionList = new String[studentNumber+1];
+    
+    	actionList[0] = "Select a student for action.";
+    	
+    	for(int i = 1; i<studentNumber; i++) {
+    		actionList[i] = studentList.get(i).toStringAdvisor;
+    		}
+    	return actionList;
+    	
+    }*/
+    
+    
+    
 
 
