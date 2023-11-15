@@ -14,7 +14,7 @@ class Student extends Person implements User{
     }*/
 
     // Constructor
-    private Student(String name, String lastName,String username,String password, String studentID) {
+    public Student(String name, String lastName,String username,String password, String studentID) {
         super(name, lastName,username,password);
         this.studentID = studentID;
         this.availableCourseList = new ArrayList<>();
