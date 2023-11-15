@@ -20,4 +20,8 @@ class Course {
         this.lecturer=lecturer;
         this.grade = new Grade();
     }
+
+    public int getCourseCredit() {
+        return courseCredit;
+    }
 }
