@@ -52,15 +52,15 @@ class Advisor extends Lecturer implements User {
     	
     	for(int i = 1; i<=studentNumber; i++) {
     		
-    		studentMenuList[i] = studentList.get(i-1).toStringAdvisor();	// Öðrenci isim soyisim ve numaralarý listeleniyor
+    		studentMenuList[i] = studentList.get(i-1).toStringAdvisor();	// ï¿½ï¿½renci isim soyisim ve numaralarï¿½ listeleniyor
     		}
     		
-    	actionNumber = controller.printListReturnSelection(studentMenuList);	// liste printlenip öðrenci seçimi alýnýyor
+    	actionNumber = controller.printListReturnSelection(studentMenuList);	// liste printlenip ï¿½ï¿½renci seï¿½imi alï¿½nï¿½yor
     	
     	String[] courseMenuList = new String[studentList.get(actionNumber-1).getRegistrationWaitingCourses().size()+1];
     	courseMenuList[0] = "Choose a course for action.";
     	
-    	for(int j = 1; j<=courseMenuList.length; j++) {	// Loop içinde kurslar printlenecek advisorun seçimi için.
+    	for(int j = 1; j<=courseMenuList.length; j++) {	// Loop iï¿½inde kurslar printlenecek advisorun seï¿½imi iï¿½in.
     	//courseMenuList[j] = studentList.get(actionNumber-1).getRegistrationWaitingCourses().get(j)
     	}
 			

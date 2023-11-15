@@ -3,11 +3,6 @@ import java.util.Scanner;
 // Controller class
 class Controller {
     private UniversityFileSystem universityFileSystem;
-
-    public UI getUi() {
-        return ui;
-    }
-
     private UI ui;
     private Person person;
 
@@ -18,44 +13,26 @@ class Controller {
     }
 
     // Constructor
-
     public void start() {
         // load all json course and person files
         universityFileSystem.loadFiles();
         do {
             String[] userInfo = ui.requestCredentials();
-            person = universityFileSystem.getSignedPerson(userInfo);
-            if (person == null) {
-                System.out.println("Wrong userName or Password try again!!");
-            }
+            person = universityFileSystem.getSignedPerson(userInfo, this);
         } while (person == null);
         person.startActions(this);
-
-
+        universityFileSystem.saveFiles();
+        ui.callEndMessage(0);
     }
-
     // Request credentials from the user
-
-
-    public int getAction(String[] actionList) {
-        int actionSize = actionList.length;
-        int selection;
-        boolean isInvalid;
-        do {
-            selection = ui.requestActionNumber();
-            isInvalid = isInvalidSelection(actionSize, selection);
-            if (isInvalid) {
-                System.out.println("TRY TO SELECT VALID ACTION AGAIN");
-            }
-        } while (isInvalid);
-
-
-        return selection;
+    public void printErrorMessage(String errorMessage){
+        ui.printConsoleErrorMessage(errorMessage);
     }
-
-    private boolean isInvalidSelection(int actionSize, int selection) {
-        return selection < 0 || selection > actionSize;
+    public int printListReturnSelection(String[] studentMenuList) {
+        return ui.printConsoleListReturnSelection(studentMenuList);
     }
-
+    public void printList(String[] stringList){
+        ui.printConsoleList(stringList);
+    }
     // Other controller methods need to be implemented
 }

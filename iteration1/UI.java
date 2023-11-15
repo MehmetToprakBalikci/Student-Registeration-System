@@ -37,5 +37,45 @@ public class UI {
         System.out.println("SELECT WHAT YOU WANT TO DO IN THE SYSTEM");
         return scanner.nextInt();
     }
+
+    public void printConsoleErrorMessage(String errorMessage) {
+        printString(errorMessage);
+    }
+
+
+    public void callEndMessage(int status) {
+        System.out.println("Press enter to close this program...");
+        scanner.next();
+        System.exit(status);
+    }
+
+    public int printConsoleListReturnSelection(String[] studentMenuList){
+        int chosenInt = studentMenuList.length;
+        if (chosenInt == 0) {
+            try {
+                throw new Exception("emptyListStringException");
+            } catch (Exception e) {
+                callEndMessage(1);
+            }
+        }
+        do{
+            printConsoleList(studentMenuList);
+            chosenInt = scanner.nextInt();
+        }while(chosenInt >= studentMenuList.length || chosenInt <= 0);
+
+        return chosenInt;
+    }
+
+    public void printConsoleList(String[] stringList) {
+        for(int i = 0; i < stringList.length; i++){
+            System.out.println(stringList[i]);
+        }
+        System.out.println("--------------------------");
+        return;
+    }
+
+    private void printString(String outputStr){
+         System.out.println(outputStr);
+    }
 }
 
