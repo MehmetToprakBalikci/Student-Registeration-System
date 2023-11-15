@@ -34,7 +34,7 @@ class Student extends Person implements User{
    public String[] toStringAdvisor() {
    String[] returnedVal = new String[3];
    returnedVal[0] = this.name;
-    returnedVal[1] = this.surname;
+    returnedVal[1] = this.lastName;
        returnedVal[2] = this.studentID;
     return returnedVal;
    }
