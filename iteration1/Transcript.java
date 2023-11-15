@@ -39,7 +39,7 @@ public class Transcript {
     public float calculateGPA() {
         float gpa = 0;
 
-        List<Integer> weightedValues = null;
+        List<Integer> weightedValues = new ArrayList<Integer>();
 
         //Calculate Weighted Values
         for(int i = 0; i < listOfCourses.size(); i++) {
