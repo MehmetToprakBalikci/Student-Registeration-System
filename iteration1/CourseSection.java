@@ -5,12 +5,25 @@ import java.util.Scanner;
 
 // CourseSection class
 class CourseSection {
-    private Course course;
+    private int dayNumber;
     private int sectionNumber;
 
     // Constructor
-    public CourseSection(Course course, int sectionNumber) {
-        this.course = course;
+    public CourseSection(int dayNumber, int sectionNumber) {
+        this.dayNumber = dayNumber;
         this.sectionNumber = sectionNumber;
+    }
+
+    // Compare to see if this course section is available or not
+    public boolean compareAvailability(CourseSection sectionToCompare){
+        if (this.dayNumber == sectionToCompare.dayNumber && this.sectionNumber == sectionToCompare.sectionNumber) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    public String getCourseSectionString(){
+        return "";
     }
 }
