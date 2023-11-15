@@ -6,7 +6,8 @@ import java.util.List;
 class Student extends Person implements User{
     private List<Course> availableCourseList;
     private List<Course> registrationWaitingCourses;
-
+    private String studentID; // Additional field for student ID
+    
     // Method to create student
    /* public static Student create(String name, String lastName) {
         return new Student(name, lastName);
@@ -14,7 +15,8 @@ class Student extends Person implements User{
 
     // Constructor
     private Student(String name, String lastName,String username,String password, String studentID) {
-        super(name, lastName,username,password, studentID);
+        super(name, lastName,username,password);
+        this.studentID = studentID;
         this.availableCourseList = new ArrayList<>();
         this.registrationWaitingCourses = new ArrayList<>();
     }
@@ -30,7 +32,7 @@ class Student extends Person implements User{
 //    }
 
    public String[] toStringAdvisor() {
-   String[] returnedVal = new String[3]
+   String[] returnedVal = new String[3];
    returnedVal[0] = this.name;
     returnedVal[1] = this.surname;
        returnedVal[2] = this.studentID;
