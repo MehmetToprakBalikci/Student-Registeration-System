@@ -13,7 +13,7 @@ class Grade {
     }
 
     // Convert numerical grade to letter grade
-    public String getGradeLetter(String numericalGrade) {
+    public String getGradeLetter(int numericalGrade) {
         if (numericalGrade >= 90 && numericalGrade <= 100) {
             return "AA";
         } else if (numericalGrade >= 80 && numericalGrade < 90) {

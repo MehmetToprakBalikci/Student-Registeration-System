@@ -37,17 +37,17 @@ class Course {
     // Check if this course conflicts with any other courses section
     public boolean checkCourseSection(List<Course> registrationCompleteCourse, List<Course> registrationWaitingCourse, List<Course> cancelWaitingCourse){
         for (Course course : registrationCompleteCourse) {
-            if (course.getSection().compareAvailabilty(this.section)) {
+            if (course.getSection().compareAvailability(this.section)) {
                 return false;
             }
         }
         for (Course course : registrationWaitingCourse) {
-            if (course.getSection().compareAvailabilty(this.section)) {
+            if (course.getSection().compareAvailability(this.section)) {
                 return false;
             }
         }
         for (Course course : cancelWaitingCourse) {
-            if (course.getSection().compareAvailabilty(this.section)) {
+            if (course.getSection().compareAvailability(this.section)) {
                 return false;
             }
         }
