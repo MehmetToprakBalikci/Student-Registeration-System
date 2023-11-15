@@ -1,0 +1,6 @@
+{
+  "courseCode": "CS102",
+  "courseName": "Data Structures",
+  "courseCredit": 4,
+  "prerequisites": ["CS101"]
+}

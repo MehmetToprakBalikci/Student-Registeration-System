@@ -1,0 +1,9 @@
+{
+  "type": "student",
+  "name": "John",
+  "lastName": "Doe",
+  "username": "john.doe",
+  "password": "password123",
+  "studentID": 1001,
+  "classLevel": 3
+}
