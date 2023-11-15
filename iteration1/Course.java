@@ -3,7 +3,6 @@ import java.util.List;
 import java.util.Scanner;
 
 
-
 // Course class
 class Course {
     private String courseCode;
@@ -13,6 +12,7 @@ class Course {
     private CourseSection section;
     //private Grade grade;
     private Lecturer lecturer;
+    private List<Course> preRequisite;
 
 
     // Constructor
@@ -22,10 +22,11 @@ class Course {
         this.courseCredit = courseCredit;
         this.courseYear = courseYear;
         this.section = section;
-        this.lecturer=lecturer;
+        this.lecturer = lecturer;
         //this.grade = new Grade();
     }
 
+    // Check if this student in the appropriate semester to take this course?
     public boolean checkYearMatching(int year){
         if(courseYear == year){
             return true;
@@ -33,23 +34,48 @@ class Course {
         return false;
     }
 
+    // Check if this course conflicts with any other courses section
     public boolean checkCourseSection(List<Course> registrationCompleteCourse, List<Course> registrationWaitingCourse, List<Course> cancelWaitingCourse){
-        return false;
+        for (Course course : registrationCompleteCourse) {
+            if (course.getSection().compareAvailabilty(this.section)) {
+                return false;
+            }
+        }
+        for (Course course : registrationWaitingCourse) {
+            if (course.getSection().compareAvailabilty(this.section)) {
+                return false;
+            }
+        }
+        for (Course course : cancelWaitingCourse) {
+            if (course.getSection().compareAvailabilty(this.section)) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    public boolean checkPreRequisite(){
+
+    public boolean checkPreRequisite(List<Course> completedCourses){
         return false;
     }
 
     public String getCourseString(){
-        return 0;
+        return "";
     }
 
     public String getCourseTranscriptFormatString(){
-        return 0;
+        return "";
     }
 
     public int getCourseCredit() {
         return courseCredit;
+    }
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public CourseSection getSection() {
+        return section;
     }
 }
