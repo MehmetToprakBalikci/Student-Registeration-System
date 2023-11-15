@@ -41,17 +41,14 @@ class CourseSection {
             day = "Invalid Day";
         }
 
-        //8.30 9.30 10.30 11.30  13 14 15 16 17 18
-        if (sectionNumber >= 1 && sectionNumber <= 6) {
-            int startingHour = 8;
-            int hourIncrement = 1;
-            hour = String.format("%d.%02d", startingHour + (sectionNumber - 1) / 2, (sectionNumber - 1) % 2 * 30);
+        // 8.30  9.30  10.30  11.30  13  14  15  16  17  18
+        // 1     2     3      4      5   6   7   8   9   10
+        if (sectionNumber >= 1 && sectionNumber <= 4) {
+            hour = String.format("%d.30", sectionNumber + 7);
         } else {
-            int afternoonSectionNumber = sectionNumber - 6;
-            int startingHour = 13;
-            int hourIncrement = 1;
-            hour = String.format("%d.%02d", startingHour + (afternoonSectionNumber - 1) / 2, (afternoonSectionNumber - 1) % 2 * 30);
+            hour = String.format("%d.00", sectionNumber + 8);
         }
+
 
         return day + " " + hour;
     }

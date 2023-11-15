@@ -54,13 +54,27 @@ class Course {
         return true;
     }
 
-
+    // Check if given student can take this course, according to prerequisite and given completed courses
     public boolean checkPreRequisite(List<Course> completedCourses){
+        if(preRequisite.isEmpty()){
+            return true;
+        }
+
+        List<Course> copy = new ArrayList<>(preRequisite);
+
+        for (Course course : completedCourses) {
+            copy.removeIf(preCourse -> course.getCourseCode().equals(preCourse.getCourseCode()));
+            if(copy.isEmpty()){
+                return true;
+            }
+        }
+
         return false;
     }
 
+    // Returns course information, code and name
     public String getCourseString(){
-        return "";
+        return courseCode + " " + courseName;
     }
 
     public String getCourseTranscriptFormatString(){
