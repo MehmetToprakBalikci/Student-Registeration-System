@@ -102,7 +102,7 @@ public class UniversityFileSystem {
 
     }
     public static void readStudents() {
-
+        HashMap<String, Student> students = new HashMap<String, Student>();
         File directoryPath = new File("Students");
         File[] fileList =directoryPath .listFiles();
         try{
@@ -116,6 +116,7 @@ public class UniversityFileSystem {
                 String lastName = (String) jsonObject.get("lastName");
                 String username = (String) jsonObject.get("username");
                 String password = (String) jsonObject.get("password");
+                String studentID = (String) jsonObject.get("studentID");
 
                 JSONArray cancelWaitingCoursesJsonArray = (JSONArray) jsonObject.get("cancelWaitingCourses");
                 JSONArray registrationCompleteCoursesJsonArray = (JSONArray) jsonObject.get("registrationCompleteCourses");
@@ -132,6 +133,10 @@ public class UniversityFileSystem {
 
                 System.out.println("Name : " + name + " Lastname : " + lastName + " Username : " + username + " Password : " + password   );
 
+                students.put(studentID, createCourse());
+
+
+
             }
 
         } catch (FileNotFoundException e) {
@@ -147,6 +152,17 @@ public class UniversityFileSystem {
         }
 
     }
+
+    private static Student createStudent(String studentID, String name, String lastName, String username, String password) {
+        HashMap<Integer, Transcript> transcriptsHashMap = readTranscripts();
+        //HashMap<Integer, Transcript> advisorsHashMap = readAdvisors();
+        //Advisor advisor = advisorsHashMap.get();
+        Transcript transcript = transcriptsHashMap.get(studentID);
+
+        Student student = new Student(name, lastName, username, password, studentID, transcript, advisor);//TODO
+        return  student;
+    }
+
 
     public static HashMap<Integer, Transcript> readTranscripts() {
         HashMap<Integer, Transcript> transcripts = new HashMap<Integer, Transcript>();
@@ -232,10 +248,10 @@ public class UniversityFileSystem {
     }*/
 
     void loadFiles() {
-        //readCourses() Move advisor info
-        //readTranscripts Make jsons
-        //readStudents() Check type here
-        //readStaff() Discriminate between types here
+        //readCourses() Move advisor info -- TODO
+        //readTranscripts Make jsons -- Done
+        //readStudents() Check type here -- Done
+        //readStaff() Discriminate between types here -- TODO
 
     }
 
