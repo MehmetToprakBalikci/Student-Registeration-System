@@ -78,6 +78,54 @@ public class UniversityFileSystem {
 
     }
 
+    public  static void readTranscripts() {
+        File directoryPath = new File("Transcripts");
+        File[] fileList =directoryPath .listFiles();
+        try{
+            JSONParser jsonParser = new JSONParser();
+            for (File file : fileList) {
+                FileReader fileReader = new FileReader(file);
+                Object object = jsonParser.parse(fileReader);
+                JSONObject jsonObject = (JSONObject)object;
+
+                // getting course attributes
+                int studentID = (int) jsonObject.get("studentID");
+
+                JSONArray coursesArray = (JSONArray) jsonObject.get("listOfCourses");
+                JSONArray gradesArray = (JSONArray) jsonObject.get("listOfGrades");
+
+
+                System.out.println("Student id  -> " + studentID);
+
+                Object [] courseObjects = coursesArray.toArray();
+                Object [] gradeObjects = gradesArray.toArray();
+
+                for (Object obj : courseObjects) {
+                    System.out.println((String)obj);
+                }
+
+                System.out.println("CourseArray -> "  + coursesArray.toJSONString());
+                for (Object obj : gradeObjects) {
+                    System.out.println(obj);
+                }
+
+
+            }
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (File file : fileList) {
+            System.out.println(file);
+        }
+
+    }
+
     void saveFiles() {
 
     }
