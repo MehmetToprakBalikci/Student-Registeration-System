@@ -45,23 +45,92 @@ public class UniversityFileSystem {
 
                 JSONArray prerequisitesArray = (JSONArray) jsonObject.get("prerequisites");
                 JSONArray courseSectionArray = (JSONArray) jsonObject.get("courseSection");
+                JSONArray lecturerArray = (JSONArray) jsonObject.get("lecturer");
 
 
+                // printing all values
                 System.out.println("Course Code  -> " + courseCode + " Course Name ->  " + courseName +
                         " Course year -> " + courseYear + " Course Credit -> " + courseCredit);
                 System.out.println("Prerequisites -> "  + prerequisitesArray.toJSONString());
-                Object [] objects = prerequisitesArray.toArray();
-                Object [] courseSectionObjects = courseSectionArray.toArray();
 
-                for (Object obj : objects) {
+
+                System.out.println("CourseSection -> "  + courseSectionArray.toJSONString());
+                System.out.println("Lecturer -> " + lecturerArray.toJSONString());
+
+                Object [] prerequisitesObjects = prerequisitesArray.toArray();
+                Object [] courseSectionObjects = courseSectionArray.toArray();
+                Object []  lecturerObjects = lecturerArray.toArray();
+                ArrayList<String> preRequisites = new ArrayList<>();
+                ArrayList<Long> courseSectionInfo = new ArrayList<>();
+                ArrayList<String> lecturerInfo = new ArrayList<>();
+
+
+                for (Object obj : prerequisitesObjects) {
+                    preRequisites.add((String)obj);
                     System.out.println((String)obj);
                 }
 
                 System.out.println("CourseSection -> "  + courseSectionArray.toJSONString());
                 for (Object obj : courseSectionObjects) {
+                    courseSectionInfo.add((Long)obj);
                     System.out.println(obj);
                 }
+                // courseSection object is created
+                CourseSection courseSection = new CourseSection(courseSectionInfo.get(0).intValue(),courseSectionInfo.get(1).intValue());
 
+                for (Object obj : lecturerObjects) {
+                    lecturerInfo.add((String)obj);
+                    System.out.println((String)obj);
+                }
+                // lecturer object is created
+                Lecturer lecturer = new Lecturer(lecturerInfo.get(0),lecturerInfo.get(1),lecturerInfo.get(2));
+
+
+            }
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (File file : fileList) {
+            System.out.println(file);
+        }
+
+    }
+    public static void readStudents() {
+
+        File directoryPath = new File("Students");
+        File[] fileList =directoryPath .listFiles();
+        try{
+            JSONParser jsonParser = new JSONParser();
+            for (File file : fileList) {
+                FileReader fileReader = new FileReader(file);
+                Object object = jsonParser.parse(fileReader);
+                JSONObject jsonObject = (JSONObject)object;
+
+                String name = (String) jsonObject.get("name");
+                String lastName = (String) jsonObject.get("lastName");
+                String username = (String) jsonObject.get("username");
+                String password = (String) jsonObject.get("password");
+
+                JSONArray cancelWaitingCoursesJsonArray = (JSONArray) jsonObject.get("cancelWaitingCourses");
+                JSONArray registrationCompleteCoursesJsonArray = (JSONArray) jsonObject.get("registrationCompleteCourses");
+                JSONArray registrationWaitingCoursesJsonArray = (JSONArray) jsonObject.get("registrationWaitingCourses");
+
+                Object [] cancelWaitingCoursesObjectsArray = cancelWaitingCoursesJsonArray.toArray();
+                Object [] registrationCompleteCoursesObjectsArray = registrationCompleteCoursesJsonArray.toArray();
+                Object []  registrationWaitingCoursesObjectsArray =  registrationWaitingCoursesJsonArray.toArray();
+
+                ArrayList<String> cancelWaitingCoursesArrayList = new ArrayList<>();
+                ArrayList<String> registrationCompleteCoursesArrayList = new ArrayList<>();
+                ArrayList<String> registrationWaitingCourseArrayList = new ArrayList<>();
+
+
+                System.out.println("Name : " + name + " Lastname : " + lastName + " Username : " + username + " Password : " + password   );
 
             }
 

@@ -33,5 +33,12 @@ abstract class Person {
         return lastName;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }
 
