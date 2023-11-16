@@ -27,8 +27,8 @@ class Controller {
     public void printErrorMessage(String errorMessage){
         ui.printConsoleErrorMessage(errorMessage);
     }
-    public int printListReturnSelection(String[] studentMenuList) {
-        return ui.printConsoleListReturnSelection(studentMenuList);
+    public int printListReturnSelection(String[] stringsList) {
+        return ui.printConsoleListReturnSelection(stringsList);
     }
     public void printList(String[] stringList){
         ui.printConsoleList(stringList);

@@ -50,7 +50,7 @@ public class UI {
     }
     
     //First string of the array is the title string
-    public int printConsoleListReturnSelection(String[] studentMenuList){
+    public int printConsoleListReturnSelection(String[] stringList){
         int chosenInt = -1; //
         if (chosenInt == 0) {
             try {
@@ -60,9 +60,9 @@ public class UI {
             }
         }
         do{
-            printConsoleList(studentMenuList);
+            printConsoleList(stringList);
             chosenInt = scanner.nextInt();
-        }while(chosenInt >= studentMenuList.length || chosenInt <= 0);
+        }while(chosenInt >= stringList.length || chosenInt <= 0);
 
         return chosenInt;
     }
