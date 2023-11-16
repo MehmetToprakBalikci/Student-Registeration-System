@@ -4,14 +4,21 @@ import java.util.Scanner;
 
 public class Lecturer extends Person {
 
-	public Lecturer(String name, String lastName) {
+	private String lecturerID;
+	
+	public Lecturer(String name, String lastName, String lecturerID) {
 		super(name, lastName);
+		this.lecturerID = lecturerID;
 	}
 
 	@Override
 	void startActions(Controller controller) {
-		// lecturers actions
+		controller.printErrorMessage("You do not have permission to access the system.");
 	}
+	
+	
+
+	
 
 
 	
