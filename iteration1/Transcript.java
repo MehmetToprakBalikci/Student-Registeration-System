@@ -78,8 +78,6 @@ public class Transcript {
         return semester;
     }
 
-
-    //TODO
     public void getTranscriptString() {
         System.out.println("Cumulative Gpa: " + this.calculateGPA());
         System.out.println("Cumulative Credits: " + this.calculateGPA());

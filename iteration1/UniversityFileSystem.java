@@ -3,12 +3,19 @@ import java.util.List;
 
 // Interface for file system operations
 public class UniversityFileSystem {
-    List<Person> personList;
-    List<Person>courseList;
+
+    List<Person> personList;//obsolete now??
+    List<Course> courseList;
+    List<Transcript> transcriptList;
+    List<Person> studentList;
+    List<Person> staffList;
 
     public UniversityFileSystem() {
-        personList = new ArrayList<>();
-        courseList=new ArrayList<>();
+        staffList = new ArrayList<>();
+        courseList = new ArrayList<>();
+        transcriptList = new ArrayList<>();
+        studentList = new ArrayList<>();
+
     }
 
     void saveFiles() {
