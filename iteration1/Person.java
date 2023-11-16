@@ -26,9 +26,6 @@ abstract class Person {
     	return true;
     }
 
-    // Method for sign-in process
-    abstract Person signIn(String username, String password);
-
     public String getName() {
         return name;
     }

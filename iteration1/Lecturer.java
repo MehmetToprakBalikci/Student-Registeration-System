@@ -13,11 +13,6 @@ public class Lecturer extends Person {
 		// lecturers actions
 	}
 
-	@Override
-	Person signIn(String username, String password) {
-		
-		return null;
-	}
 
 	
 	
