@@ -62,7 +62,7 @@ public class UniversityFileSystem {
                 Object [] courseSectionObjects = courseSectionArray.toArray();
                 Object []  lecturerObjects = lecturerArray.toArray();
                 ArrayList<String> preRequisites = new ArrayList<>();
-                ArrayList<Long> courseSectionInfo = new ArrayList<>();
+                ArrayList<Integer> courseSectionInfo = new ArrayList<>();
                 ArrayList<String> lecturerInfo = new ArrayList<>();
 
 
@@ -73,7 +73,7 @@ public class UniversityFileSystem {
 
                 System.out.println("CourseSection -> "  + courseSectionArray.toJSONString());
                 for (Object obj : courseSectionObjects) {
-                    courseSectionInfo.add((Long)obj);
+                    courseSectionInfo.add((int)obj);
                     System.out.println(obj);
                 }
                 // courseSection object is created
@@ -89,7 +89,7 @@ public class UniversityFileSystem {
 
 
                 courses.put(courseCode, createCourse(courseCode, courseName, courseCredit, courseYear
-                        , courseSection, lecturer, preRequisites));
+                        , courseSectionInfo.get(0), courseSectionInfo.get(1)));
 
             }
 
@@ -115,6 +115,17 @@ public class UniversityFileSystem {
 
         Course course = new Course(courseCode, courseName, courseCredit, courseYear
                 , section, lecturer, preRequisites);
+        return  course;
+    }
+
+    private static Course createCourse(String courseCode, String courseName, int courseCredit, int courseYear
+            , int section1, int section2) {
+
+        //TODO
+
+
+        Course course = new Course(courseCode, courseName, courseCredit, courseYear
+                , section1, section2, null, null);
         return  course;
     }
 
