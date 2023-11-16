@@ -85,9 +85,6 @@ class Course {
             return courseCode + " " + courseName + " " + this.lecturer.getName() + " " + this.lecturer.getLastName();
         }
     }
-    public String getCourseTranscriptFormatString(){
-        return "";
-    }
 
     public int getCourseCredit() {
         return courseCredit;
