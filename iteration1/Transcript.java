@@ -28,6 +28,11 @@ public class Transcript {
     public int calculateCredit() {
         int totalCredit = 0;
 
+        if (listOfCourses.isEmpty()) {
+            System.out.println("No Courses For Student Found!");
+            return -1;
+        }
+
         for(int i = 0; i < listOfCourses.size(); i++) {
             totalCredit += listOfCourses.get(i).getCourseCredit();
         }
@@ -37,9 +42,18 @@ public class Transcript {
 
     //Method to calculate current gpa
     public float calculateGPA() {
+        if (listOfCourses.isEmpty()) {
+            System.out.println("No Courses For Student Found!");
+            return -1;
+        }
+        if (listOfGrades.isEmpty()) {
+            System.out.println("No Grades For Student Found!");
+            return -1;
+        }
+
         float gpa = 0;
 
-        List<Integer> weightedValues = new ArrayList<Integer>();
+        List<Integer> weightedValues = new ArrayList<>();
 
         //Calculate Weighted Values
         for(int i = 0; i < listOfCourses.size(); i++) {
