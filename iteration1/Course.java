@@ -82,7 +82,7 @@ class Course {
             return courseCode + " " + courseName;
         }
         else {
-            return courseCode + " " + courseName + " " + this.lecturer.getName() + " " + this.lecturer.getLastName();
+            return courseCode + " " + courseName + " " + this.lecturer.toString();
         }
     }
 
