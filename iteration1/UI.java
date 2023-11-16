@@ -8,6 +8,9 @@ public class UI {
     public UI(){
         scanner=new Scanner(System.in);
     }
+     public UI(Scanner input){
+        scanner=input;
+    }
 
     public Controller getSystem() {
         return controller;
@@ -51,7 +54,7 @@ public class UI {
     
     //First string of the array is the title string
     public int printConsoleListReturnSelection(String[] stringList){
-        int chosenInt = -1; //
+        int chosenInt = -1; 
         if (chosenInt == 0) {
             try {
                 throw new Exception("emptyListStringException");
@@ -69,7 +72,9 @@ public class UI {
 
     public void printConsoleList(String[] stringList) {
         for(int i = 0; i < stringList.length; i++){
-            System.out.println(stringList[i]);
+            if (stringList[i] != null) {
+                 System.out.println(stringList[i]);
+            }
         }
         System.out.println("--------------------------");
         return;

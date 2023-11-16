@@ -116,8 +116,8 @@ public class Transcript {
         int courseCount = listOfGrades.size();
         String[] transcriptString = new String[courseCount + 1];
         transcriptString[0] = this.toString();
-        for(int i = 1; i < courseCount; i++){
-            transcriptString[i] = i + "-)" + listOfCourses.get(i).toString() + listOfGrades.get(i).toString();
+        for(int i = 1; i < courseCount + 1; i++){
+            transcriptString[i] = i + "-)" + listOfCourses.get(i-1).toString() + " " + listOfGrades.get(i-1).toString();
         }
         return transcriptString;
     }

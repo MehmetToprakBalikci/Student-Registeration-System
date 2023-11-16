@@ -1,4 +1,4 @@
-
+import java.util.*;
 // Controller class
 class Controller {
     private UniversityFileSystem universityFileSystem;
@@ -10,6 +10,13 @@ class Controller {
         ui = new UI();
         ui.initialize();
     }
+
+    public Controller(Scanner input) {
+        universityFileSystem = new UniversityFileSystem();
+        ui = new UI(input);
+        ui.initialize();
+    }
+
 
     // Constructor
     public void start() {

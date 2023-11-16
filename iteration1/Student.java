@@ -65,9 +65,11 @@ class Student extends Person implements User{
     public void startActions(Controller controller) {
         String[] actionList= getActionList();
         int actionNumber = 0;
-        
+         final int maxAction = 7;
+        do{
         actionNumber = controller.printListReturnSelection(actionList);
         runUserAction(actionNumber, controller);
+        }while(actionNumber != maxAction);
         return;
     }
 
@@ -77,16 +79,14 @@ class Student extends Person implements User{
     @Override
     public void runUserAction(int actionNumber, Controller controller) {
         // Student selection part
-        final int maxAction = 7;
         int currentUserSelection;
         Course currentCourse;
-        while(actionNumber != maxAction){
             switch (actionNumber) {
             
                 case 1: currentUserSelection = controller.printListReturnSelection(
                     getCourseReturnListString("Courses that are available to you, choose a course to add:" ,currentAvailableCourses));
                     if(currentUserSelection != 1){
-                        currentCourse = currentAvailableCourses.get(currentUserSelection);
+                        currentCourse = currentAvailableCourses.get(currentUserSelection - 2);
                         if(currentCourse.checkCourseSection(registrationCompleteCourses, registrationWaitingCourses, cancelWaitingCourses)){
                             removeElementFromCurrentAvailableCourses(currentCourse);
                             registrationWaitingCourses.add(currentCourse);
@@ -99,7 +99,7 @@ class Student extends Person implements User{
                 case 2: currentUserSelection = controller.printListReturnSelection(
                     getCourseReturnListString("Courses that have finalized registeration, choose course to cancel:", registrationCompleteCourses));
                     if(currentUserSelection != 1){
-                        currentCourse = registrationCompleteCourses.get(currentUserSelection);
+                        currentCourse = registrationCompleteCourses.get(currentUserSelection - 2);
                         removeElementFromRegistrationCompleteCourses(currentCourse);
                         cancelWaitingCourses.add(currentCourse);
                     }
@@ -121,9 +121,9 @@ class Student extends Person implements User{
             }
             
             
-            }
+        }
     
-    }
+    
 
 
     private String[] stringToList(String giveString) {
@@ -134,11 +134,11 @@ class Student extends Person implements User{
 
     private String[] getCourseReturnListString(String titleString, List<Course> coursesList) {
         int size = coursesList.size();
-        String[] courseListString = new String[size + 1];
+        String[] courseListString = new String[size + 2];
         courseListString[0] = titleString; 
         courseListString[1] = "1-)Return back";
-        for(int i = 2; i < coursesList.size(); i++){
-            courseListString[i] = i + "-)" + coursesList.get(i).toStringFormatted(1);
+        for(int i = 2; i < coursesList.size() + 2; i++){
+            courseListString[i] = i + "-)" + coursesList.get(i - 2).toStringFormatted(1);
         }
         return courseListString;
     }
@@ -147,23 +147,23 @@ class Student extends Person implements User{
         int size = coursesList.size();
         String[] courseListString = new String[size + 1];
         courseListString[0] = titleString;
-        for(int i = 1; i < coursesList.size(); i++){
-            courseListString[i] = i + "-)" + coursesList.get(i).toStringFormatted(1);
+        for(int i = 1; i < coursesList.size() + 1; i++){
+            courseListString[i] = i + "-)" + coursesList.get(i - 1).toStringFormatted(1);
         }
         return courseListString;
     }
 
-    public void removeElementFromCurrentAvailableCourses(Course course) {
-        currentAvailableCourses.remove(course);
+    public boolean removeElementFromCurrentAvailableCourses(Course course) {
+       return currentAvailableCourses.remove(course);
     }
-    public void removeElementFromRegistrationWaitingCourses(Course course) {
-        registrationWaitingCourses.remove(course);
+    public boolean removeElementFromRegistrationWaitingCourses(Course course) {
+        return registrationWaitingCourses.remove(course);
     }
-    public void removeElementFromRegistrationCompleteCourses(Course course) {
-        registrationCompleteCourses.remove(course);
+    public boolean removeElementFromRegistrationCompleteCourses(Course course) {
+        return registrationCompleteCourses.remove(course);
     }
-    public void removeElementFromCancelWaitingCourses(Course course) {
-        cancelWaitingCourses.remove(course);
+    public boolean removeElementFromCancelWaitingCourses(Course course) {
+        return cancelWaitingCourses.remove(course);
     }
     public void addElementToCurrentAvailableCourses(Course course) {
         currentAvailableCourses.add(course);

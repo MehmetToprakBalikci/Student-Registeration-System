@@ -34,7 +34,7 @@ class Grade {
     }
     @Override
     public String toString(){
-        return "Grade : " + numericalGrade + ", Letter Grade : " + getGradeLetter(numericalGrade); 
+        return "Grade : " + numericalGrade + ", Letter Grade : " + getGradeLetter(); 
     }
     public int getNumericalGrade() {
         return numericalGrade;

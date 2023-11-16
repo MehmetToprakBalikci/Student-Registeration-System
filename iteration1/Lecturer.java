@@ -7,6 +7,10 @@ public class Lecturer extends Person {
 		super(name, lastName);
 		this.lecturerID = lecturerID;
 	}
+	public Lecturer(String name, String lastName, String username, String password, String lecturerID) {
+		super(name, lastName);
+		this.lecturerID = lecturerID;
+	}
 	@Override
 	public String toString(){
 		return "Advisor: " + this.name + " " + this.lastName;

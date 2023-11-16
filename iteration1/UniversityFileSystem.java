@@ -104,7 +104,7 @@ public class UniversityFileSystem {
         for (File file : fileList) {
             System.out.println(file);
         }
-
+        return null;
     }
 
     private static Course createCourse(String courseCode, String courseName, int courseCredit, int courseYear
@@ -182,8 +182,8 @@ public class UniversityFileSystem {
         //Advisor advisor = advisorsHashMap.get();
         Transcript transcript = transcriptsHashMap.get(studentID);
 
-        Student student = new Student(name, lastName, username, password, studentID, transcript, advisor);//TODO
-        return  student;
+//Student student = new Student(name, lastName, username, password, studentID, transcript, advisor);//TODO
+        return  null;
     }
 
 
