@@ -48,9 +48,10 @@ public class UI {
         scanner.next();
         System.exit(status);
     }
-
+    
+    //First string of the array is the title string
     public int printConsoleListReturnSelection(String[] studentMenuList){
-        int chosenInt = studentMenuList.length;
+        int chosenInt = -1; //
         if (chosenInt == 0) {
             try {
                 throw new Exception("emptyListStringException");

@@ -34,7 +34,10 @@ class Grade {
 
         return "Invalid Grade";
     }
-
+    @Override
+    public String toString(){
+        return "Grade : " + numericalGrade + ", Letter Grade : " + getGradeLetter(numericalGrade); 
+    }
     public int getNumericalGrade() {
         return numericalGrade;
     }
