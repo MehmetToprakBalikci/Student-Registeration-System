@@ -38,7 +38,7 @@ class Student extends Person implements User{
 @Override
     public String[] getActionList() {
     	
-    	String[] actionList = new String[3];
+    	String[] actionList = new String[8];
     	
     	actionList[0] = "Select an action.";
     	actionList[1] = "1) Check courses available to register.";

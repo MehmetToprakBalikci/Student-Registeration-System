@@ -175,15 +175,15 @@ public class UniversityFileSystem {
      Person person = null;
 
         int errorCode = checkUsernamePasswordLength(userInfo);
+        String userName= userInfo[0];
+        String password=userInfo[1];
          if(errorCode == 0) {
-            for (int i = 0; i < personList.size(); i++) {
-                person = personList.get(i);
-                String userName=person.getUserName();
-                String password=person.getPassword();
-                if (userName.equals(userInfo[0]) && password.equals(userInfo[1])){
-                    return person;
-                }
-            }
+             for (Person current : personList) {
+                 person = current;
+                 if (person.compareCredentials(userName, password)) {
+                     return person;
+                 }
+             }
          }
          else {
             if(errorCode == 1)
