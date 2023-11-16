@@ -57,7 +57,7 @@ class Student extends Person implements User{
     @Override
    public String toString() {
     
-    return "Name : " + this.name + ", Last Name :" + this.lastName + ", ";
+    return "Name: " + this.name + ", Last Name: " + this.lastName + ", ";
    }
 
 
