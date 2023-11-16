@@ -19,10 +19,10 @@ abstract class Person {
 
     // Placeholder for person's actions
     abstract void startActions(Controller controller);
+    private boolean compareCredentials(String username, String password) {
+        return this.userName.equals(username) && this.password.equals(password);
 
-    public boolean compareCredentials(String username, String password) {
-    	
-    	return true;
+
     }
 
     public String getName() {
@@ -33,12 +33,5 @@ abstract class Person {
         return lastName;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
 }
 

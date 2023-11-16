@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 // Interface for file system operations
@@ -76,6 +77,81 @@ public class UniversityFileSystem {
             System.out.println(file);
         }
 
+    }
+
+    public static HashMap<Integer, Transcript> readTranscripts() {
+        HashMap<Integer, Transcript> transcripts = new HashMap<Integer, Transcript>();
+        File directoryPath = new File("Transcripts");
+        File[] fileList = directoryPath.listFiles();
+        try {
+            JSONParser jsonParser = new JSONParser();
+            for (File file : fileList) {
+                FileReader fileReader = new FileReader(file);
+                Object object = jsonParser.parse(fileReader);
+                JSONObject jsonObject = (JSONObject) object;
+
+                // getting course attributes
+                long studentID = (long) (jsonObject.get("studentID"));
+
+                JSONArray coursesArray = (JSONArray) jsonObject.get("listOfCourses");
+                JSONArray gradesArray = (JSONArray) jsonObject.get("listOfGrades");
+
+
+                System.out.println("Student id  -> " + studentID);
+
+                Object[] courseObjects = coursesArray.toArray();
+                Object[] gradeObjects = gradesArray.toArray();
+
+                List<String> coursesList = new ArrayList<>();
+                List<Integer> gradesList = new ArrayList<>();
+
+
+                for (Object obj : courseObjects) {
+                    coursesList.add((String) obj);
+                }
+                for(int i = 0; i < coursesList.size(); i++)
+                    System.out.println(coursesList.get(i));
+
+                for (Object obj : gradeObjects) {
+                    gradesList.add((int)obj);
+                }
+                for(int i = 0; i < gradesList.size(); i++)
+                    System.out.println(gradesList.get(i));
+
+
+                //puts individual transcript data together to make an object and adds to hashmap
+                transcripts.put((int) studentID, createTranscript(coursesList, gradesList));
+            }
+
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        return transcripts;
+
+    }
+
+    private static Transcript createTranscript(List<String> listOfCourseCodes, List<Integer> listOfNumericalGrades) {
+        List<Grade> listOfGrades = new ArrayList<>();
+        List<Course> listOfCourses = new ArrayList<>();
+
+        for (int i = 0; i < listOfNumericalGrades.size(); i++) {
+            Grade grade = new Grade(listOfNumericalGrades.get(i));
+            listOfGrades.add(grade);
+        }
+
+        for (int i = 0; i < listOfCourseCodes.size(); i++) {
+            //Course course = createCourse(); TODO
+            //listOfGrades.add(course);
+        }
+
+        Transcript transcript = new Transcript(listOfCourses, listOfGrades);
+        return  transcript;
     }
 
     void saveFiles() {

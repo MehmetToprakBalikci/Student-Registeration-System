@@ -16,14 +16,14 @@ class Course {
 
 
     // Constructor
-    public Course(String courseCode, String courseName, int courseCredit, int courseYear, CourseSection section, Lecturer lecturer) {
+    public Course(String courseCode, String courseName, int courseCredit, int courseYear, CourseSection section, Lecturer lecturer,List<Course> preRequisite) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.courseCredit = courseCredit;
         this.courseYear = courseYear;
         this.section = section;
         this.lecturer = lecturer;
-        //this.grade = new Grade();
+        this.preRequisite = preRequisite;
     }
 
     // Check if this student in the appropriate semester to take this course?

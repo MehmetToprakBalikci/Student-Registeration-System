@@ -25,12 +25,11 @@ public class Transcript {
     private int studentCredits;
 
 
-    public int calculateCredit() {
+    public int calculateCredit() throws ArrayIndexOutOfBoundsException {
         int totalCredit = 0;
 
         if (listOfCourses.isEmpty()) {
-            System.out.println("No Courses For Student Found!");
-            return -1;
+            throw new ArrayIndexOutOfBoundsException("No Courses For Student Found!");
         }
 
         for(int i = 0; i < listOfCourses.size(); i++) {
@@ -41,34 +40,32 @@ public class Transcript {
 
 
     //Method to calculate current gpa
-    public float calculateGPA() {
+    public float calculateGPA() throws ArrayIndexOutOfBoundsException {
+        float gpa = 0;
         if (listOfCourses.isEmpty()) {
-            System.out.println("No Courses For Student Found!");
-            return -1;
+            throw new ArrayIndexOutOfBoundsException("No Courses For Student Found!");
         }
         if (listOfGrades.isEmpty()) {
-            System.out.println("No Grades For Student Found!");
-            return -1;
+            throw new ArrayIndexOutOfBoundsException("No Grades For Student Found!");
         }
 
-        float gpa = 0;
 
         List<Integer> weightedValues = new ArrayList<>();
 
         //Calculate Weighted Values
-        for(int i = 0; i < listOfCourses.size(); i++) {
+        for (int i = 0; i < listOfCourses.size(); i++) {
             int credit = listOfCourses.get(i).getCourseCredit();
             int grade = listOfGrades.get(i).getNumericalGrade();
             weightedValues.add(credit * grade);
         }
 
         int totalWeightedValues = 0;
-        for(int i = 0; i < listOfCourses.size(); i++) {
+        for (int i = 0; i < listOfCourses.size(); i++) {
             totalWeightedValues += weightedValues.get(i);
         }
 
         //calculate gpa
-        gpa = (float)(totalWeightedValues) / ((float)(this.calculateCredit()) * 25);
+        gpa = (float) (totalWeightedValues) / ((float) (this.calculateCredit()) * 25);
 
         return gpa;
     }
@@ -94,19 +91,26 @@ public class Transcript {
 
     @Override
     public String toString() {
-        float gpa = this.calculateGPA();
-        int credits = this.calculateCredit();
-        int semester = this.calculateSemesterFromCredit();
+        String s = null;
+        try {
+            float gpa = this.calculateGPA();
+            int credits = this.calculateCredit();
+            int semester = this.calculateSemesterFromCredit();
 
 
-        //adjust digit precision
-        int digitPrecision = 2;
-        int temp = (int) (gpa * Math.pow(10, digitPrecision));
-        gpa = (float)((float) temp / Math.pow(10, digitPrecision));
+            //adjust digit precision
+            int digitPrecision = 2;
+            int temp = (int) (gpa * Math.pow(10, digitPrecision));
+            gpa = (float) ((float) temp / Math.pow(10, digitPrecision));
 
 
-        return "Cumulative Gpa: " + gpa + "\nCumulative Credits: " + credits +
-                "\nCurrent Semester: " + semester;
+            s = "Cumulative Gpa: " + gpa + "\nCumulative Credits: " + credits +
+                    "\nCurrent Semester: " + semester;
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(e.toString());
+        }
+        return s;
     }
     public String[] getStudentTranscriptStringList(){
         int courseCount = listOfGrades.size();

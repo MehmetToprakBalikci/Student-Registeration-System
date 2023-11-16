@@ -1,0 +1,12 @@
+{
+  "type": "student",
+  "name": "Toprak",
+  "lastName": "Balikcioglu",
+  "username": "toprak.doe",
+  "password": "toprak1234",
+  "studentID": "1002",
+  "classLevel": "2",
+  "cancelWaitingCourses" : ["CS101","CS102"],
+  "registrationCompleteCourses" : ["CS103","CS102"],
+  "registrationWaitingCourses" : ["CS103","CS102"]
+}
