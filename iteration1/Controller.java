@@ -1,4 +1,3 @@
-import java.util.Scanner;
 
 // Controller class
 class Controller {
