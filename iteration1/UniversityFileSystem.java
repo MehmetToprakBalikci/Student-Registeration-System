@@ -27,7 +27,7 @@ public class UniversityFileSystem {
         studentList = new ArrayList<>();
 
     }
-    public  static void readCourses() {
+    public  static  HashMap<String, Course> readCourses() {
         HashMap<String, Course> courses = new HashMap<String, Course>();
         File directoryPath = new File("Courses");
         File[] fileList =directoryPath .listFiles();
@@ -108,21 +108,15 @@ public class UniversityFileSystem {
     }
 
     private static Course createCourse(String courseCode, String courseName, int courseCredit, int courseYear
-            , CourseSection section, Lecturer lecturer, List<Course> preRequisites) {
-
-        //TODO
-
+            , int section1, int section2, Lecturer lecturer, List<Course> preRequisites) {
 
         Course course = new Course(courseCode, courseName, courseCredit, courseYear
-                , section, lecturer, preRequisites);
+                , section1, section2, lecturer, preRequisites);
         return  course;
     }
 
     private static Course createCourse(String courseCode, String courseName, int courseCredit, int courseYear
             , int section1, int section2) {
-
-        //TODO
-
 
         Course course = new Course(courseCode, courseName, courseCredit, courseYear
                 , section1, section2, null, null);
@@ -260,8 +254,9 @@ public class UniversityFileSystem {
         }
 
         for (int i = 0; i < listOfCourseCodes.size(); i++) {
-            //Course course = createCourse(); TODO
-            //listOfGrades.add(course);
+            HashMap<String, Course> coursesHashMap = readCourses();
+            Course course = coursesHashMap.get(listOfCourseCodes.get(i));
+            listOfCourses.add(course);
         }
 
         Transcript transcript = new Transcript(listOfCourses, listOfGrades);
