@@ -11,6 +11,13 @@ public class Lecturer extends Person {
 		this.lecturerID = lecturerID;
 	}
 
+	@Override
+	void startActions(Controller controller) {
+		controller.printErrorMessage("You do not have permission to access the system.");
+	}
+	
+	
+
 	
 
 
