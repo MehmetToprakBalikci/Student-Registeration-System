@@ -133,7 +133,7 @@ public class UniversityFileSystem {
 
                 System.out.println("Name : " + name + " Lastname : " + lastName + " Username : " + username + " Password : " + password   );
 
-                students.put(studentID, createCourse());
+                students.put(studentID, createStudent(studentID, name, lastName, username, password));
 
 
 
