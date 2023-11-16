@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 class Advisor extends Lecturer implements User {
 	
@@ -22,14 +20,15 @@ class Advisor extends Lecturer implements User {
     // Placeholder for starting advisor actions
     @Override
     public void startActions(Controller controller) {
-    	
-    	String[] actionList = getActionList();
-        int actionNumber = controller.printListReturnSelection(actionList);
-        if (actionNumber != 2) {
-        	runUserAction(actionNumber, controller);
-        }
-        
-		}    
+    	while (true) {
+	    	String[] actionList = getActionList();
+	        int actionNumber = controller.printListReturnSelection(actionList);
+	        if (actionNumber != 2) {
+	        	runUserAction(actionNumber, controller);
+	        }
+	        else return;
+    	}
+	}    
  
     // First menu for advisor
     @Override
@@ -52,25 +51,28 @@ class Advisor extends Lecturer implements User {
     	
 		case 1: 
 		
-		boolean controlFlag = true;
-		while (controlFlag) {
+		
+		while (true) {
 			
 			int studentSize = studentList.size();
 	    	String[] studentMenuList = new String[studentSize+2];
 	    
 	    	studentMenuList[0] = "Select a student for action.";
-	    	studentMenuList[studentSize] = "Go back.";
+	    	studentMenuList[studentSize+1] = "Go back.";
 	    	
 	    	for(int i = 1; i<=studentSize; i++) {
 	    		
 	    		studentMenuList[i] = studentList.get(i-1).toStringAdvisor();	
 	    		}
 	    		
-	    	actionNumber = controller.printListReturnSelection(studentMenuList);	
+	    	actionNumber = controller.printListReturnSelection(studentMenuList);
+	    	if (actionNumber == studentSize+1) {	// If action is go back
+	    		return;
+	    	}
 	    	Student selectedStudent = studentList.get(actionNumber-1);
 	    	
-	    	boolean controlFlag2 = true;
-	    	while (controlFlag2) {
+	    	boolean controlFlag = true;
+	    	while (controlFlag) {
 		    	// Course selection part
 		    	int registrationWaitingCoursesSize = selectedStudent.getRegistrationWaitingCourses().size();
 		    	int cancelWaitingCoursesSize = selectedStudent.getCancelWaitingCourses().size();
@@ -137,13 +139,11 @@ class Advisor extends Lecturer implements User {
 		    	
 		    	else {		// Go back
 		    		if (actionNumber != courseMenuList.length-1) {controller.printErrorMessage("Error in Advisor");}
-		    		controlFlag2 = false;
+		    		controlFlag = false;
 		    	}
 		    }
 		}
     	
-    	
-		break;
 		
 		case 2:
 		break;

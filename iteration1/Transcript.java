@@ -112,6 +112,13 @@ public class Transcript {
         }
         return s;
     }
-
-
+    public String[] getStudentTranscriptStringList(){
+        int courseCount = listOfGrades.size();
+        String[] transcriptString = new String[courseCount + 1];
+        transcriptString[0] = this.toString();
+        for(int i = 1; i < courseCount; i++){
+            transcriptString[i] = i + "-)" + listOfCourses.get(i).toString() + listOfGrades.get(i).toString();
+        }
+        return transcriptString;
+    }
 }

@@ -72,11 +72,19 @@ class Course {
         return false;
     }
 
-    // Returns course information, code and name
-    public String getCourseString(){
+    // Returns course information, code and 
+    @Override
+    public String toString(){
         return courseCode + " " + courseName;
     }
-
+    public String toStringFormatted(int format){
+        if(format == 1){
+            return courseCode + " " + courseName;
+        }
+        else {
+            return courseCode + " " + courseName + " " + this.lecturer.getName() + " " + this.lecturer.getLastName();
+        }
+    }
     public String getCourseTranscriptFormatString(){
         return "";
     }
