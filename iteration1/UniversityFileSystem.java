@@ -28,6 +28,7 @@ public class UniversityFileSystem {
 
     }
     public  static void readCourses() {
+        HashMap<String, Course> courses = new HashMap<String, Course>();
         File directoryPath = new File("Courses");
         File[] fileList =directoryPath .listFiles();
         try{
@@ -40,8 +41,8 @@ public class UniversityFileSystem {
                 // getting course attributes
                 String courseCode = (String) jsonObject.get("courseCode");
                 String courseName = (String) jsonObject.get("courseName");
-                String courseCredit = (String) jsonObject.get("courseCredit");
-                String courseYear = (String) jsonObject.get("courseYear");
+                int courseCredit = (int) jsonObject.get("courseCredit");
+                int courseYear = (int) jsonObject.get("courseYear");
 
                 JSONArray prerequisitesArray = (JSONArray) jsonObject.get("prerequisites");
                 JSONArray courseSectionArray = (JSONArray) jsonObject.get("courseSection");
@@ -84,7 +85,11 @@ public class UniversityFileSystem {
                 }
                 // lecturer object is created
                 Lecturer lecturer = new Lecturer(lecturerInfo.get(0),lecturerInfo.get(1),lecturerInfo.get(2));
+                //TODO figure out how to do courseSection lecturer and Prerequisites
 
+
+                courses.put(courseCode, createCourse(courseCode, courseName, courseCredit, courseYear
+                        , courseSection, lecturer, preRequisites));
 
             }
 
@@ -101,6 +106,19 @@ public class UniversityFileSystem {
         }
 
     }
+
+    private static Course createCourse(String courseCode, String courseName, int courseCredit, int courseYear
+            , CourseSection section, Lecturer lecturer, List<Course> preRequisites) {
+
+        //TODO
+
+
+        Course course = new Course(courseCode, courseName, courseCredit, courseYear
+                , section, lecturer, preRequisites);
+        return  course;
+    }
+
+
     public static void readStudents() {
         HashMap<String, Student> students = new HashMap<String, Student>();
         File directoryPath = new File("Students");
@@ -248,7 +266,7 @@ public class UniversityFileSystem {
     }*/
 
     void loadFiles() {
-        //readCourses() Move advisor info -- TODO
+        //readCourses() Move advisor info -- TODO Getting Done
         //readTranscripts Make jsons -- Done
         //readStudents() Check type here -- Done
         //readStaff() Discriminate between types here -- TODO
