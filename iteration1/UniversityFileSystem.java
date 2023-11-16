@@ -27,7 +27,8 @@ public class UniversityFileSystem {
         studentList = new ArrayList<>();
 
     }
-    public  static void readCourses() {
+    public  static  HashMap<String, Course> readCourses() {
+        HashMap<String, Course> courses = new HashMap<String, Course>();
         File directoryPath = new File("Courses");
         File[] fileList =directoryPath .listFiles();
         try{
@@ -40,8 +41,8 @@ public class UniversityFileSystem {
                 // getting course attributes
                 String courseCode = (String) jsonObject.get("courseCode");
                 String courseName = (String) jsonObject.get("courseName");
-                String courseCredit = (String) jsonObject.get("courseCredit");
-                String courseYear = (String) jsonObject.get("courseYear");
+                int courseCredit = (int) jsonObject.get("courseCredit");
+                int courseYear = (int) jsonObject.get("courseYear");
 
                 JSONArray prerequisitesArray = (JSONArray) jsonObject.get("prerequisites");
                 JSONArray courseSectionArray = (JSONArray) jsonObject.get("courseSection");
@@ -61,7 +62,7 @@ public class UniversityFileSystem {
                 Object [] courseSectionObjects = courseSectionArray.toArray();
                 Object []  lecturerObjects = lecturerArray.toArray();
                 ArrayList<String> preRequisites = new ArrayList<>();
-                ArrayList<Long> courseSectionInfo = new ArrayList<>();
+                ArrayList<Integer> courseSectionInfo = new ArrayList<>();
                 ArrayList<String> lecturerInfo = new ArrayList<>();
 
 
@@ -72,7 +73,7 @@ public class UniversityFileSystem {
 
                 System.out.println("CourseSection -> "  + courseSectionArray.toJSONString());
                 for (Object obj : courseSectionObjects) {
-                    courseSectionInfo.add((Long)obj);
+                    courseSectionInfo.add((int)obj);
                     System.out.println(obj);
                 }
                 // courseSection object is created
@@ -84,7 +85,11 @@ public class UniversityFileSystem {
                 }
                 // lecturer object is created
                 Lecturer lecturer = new Lecturer(lecturerInfo.get(0),lecturerInfo.get(1),lecturerInfo.get(2));
+                //TODO figure out how to do courseSection lecturer and Prerequisites
 
+
+                courses.put(courseCode, createCourse(courseCode, courseName, courseCredit, courseYear
+                        , courseSectionInfo.get(0), courseSectionInfo.get(1)));
 
             }
 
@@ -101,8 +106,26 @@ public class UniversityFileSystem {
         }
 
     }
-    public static void readStudents() {
 
+    private static Course createCourse(String courseCode, String courseName, int courseCredit, int courseYear
+            , int section1, int section2, Lecturer lecturer, List<Course> preRequisites) {
+
+        Course course = new Course(courseCode, courseName, courseCredit, courseYear
+                , section1, section2, lecturer, preRequisites);
+        return  course;
+    }
+
+    private static Course createCourse(String courseCode, String courseName, int courseCredit, int courseYear
+            , int section1, int section2) {
+
+        Course course = new Course(courseCode, courseName, courseCredit, courseYear
+                , section1, section2, null, null);
+        return  course;
+    }
+
+
+    public static void readStudents() {
+        HashMap<String, Student> students = new HashMap<String, Student>();
         File directoryPath = new File("Students");
         File[] fileList =directoryPath .listFiles();
         try{
@@ -116,6 +139,7 @@ public class UniversityFileSystem {
                 String lastName = (String) jsonObject.get("lastName");
                 String username = (String) jsonObject.get("username");
                 String password = (String) jsonObject.get("password");
+                String studentID = (String) jsonObject.get("studentID");
 
                 JSONArray cancelWaitingCoursesJsonArray = (JSONArray) jsonObject.get("cancelWaitingCourses");
                 JSONArray registrationCompleteCoursesJsonArray = (JSONArray) jsonObject.get("registrationCompleteCourses");
@@ -132,6 +156,10 @@ public class UniversityFileSystem {
 
                 System.out.println("Name : " + name + " Lastname : " + lastName + " Username : " + username + " Password : " + password   );
 
+                students.put(studentID, createStudent(studentID, name, lastName, username, password));
+
+
+
             }
 
         } catch (FileNotFoundException e) {
@@ -147,6 +175,17 @@ public class UniversityFileSystem {
         }
 
     }
+
+    private static Student createStudent(String studentID, String name, String lastName, String username, String password) {
+        HashMap<Integer, Transcript> transcriptsHashMap = readTranscripts();
+        //HashMap<Integer, Transcript> advisorsHashMap = readAdvisors();
+        //Advisor advisor = advisorsHashMap.get();
+        Transcript transcript = transcriptsHashMap.get(studentID);
+
+        Student student = new Student(name, lastName, username, password, studentID, transcript, advisor);//TODO
+        return  student;
+    }
+
 
     public static HashMap<Integer, Transcript> readTranscripts() {
         HashMap<Integer, Transcript> transcripts = new HashMap<Integer, Transcript>();
@@ -215,8 +254,9 @@ public class UniversityFileSystem {
         }
 
         for (int i = 0; i < listOfCourseCodes.size(); i++) {
-            //Course course = createCourse(); TODO
-            //listOfGrades.add(course);
+            HashMap<String, Course> coursesHashMap = readCourses();
+            Course course = coursesHashMap.get(listOfCourseCodes.get(i));
+            listOfCourses.add(course);
         }
 
         Transcript transcript = new Transcript(listOfCourses, listOfGrades);
@@ -232,10 +272,10 @@ public class UniversityFileSystem {
     }*/
 
     void loadFiles() {
-        //readCourses() Move advisor info
-        //readTranscripts Make jsons
-        //readStudents() Check type here
-        //readStaff() Discriminate between types here
+        //readCourses() Move advisor info -- TODO Getting Done
+        //readTranscripts Make jsons -- Done
+        //readStudents() Check type here -- Done
+        //readStaff() Discriminate between types here -- TODO
 
     }
 
