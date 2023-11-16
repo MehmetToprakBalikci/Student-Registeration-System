@@ -1,0 +1,6 @@
+{
+  "studentID": 1001,
+  "studentCredits": "Introduction to Computer Science",
+  "listOfCourses":["cs101", "cs102"],
+  "listOfGrades":[80, 45]
+}
