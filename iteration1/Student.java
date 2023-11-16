@@ -54,13 +54,10 @@ class Student extends Person implements User{
     	
         return actionList;
     }
-
-   public String[] toStringAdvisor() {
-   String[] returnedVal = new String[3];
-   returnedVal[0] = this.name;
-    returnedVal[1] = this.lastName;
-       returnedVal[2] = this.studentID;
-    return returnedVal;
+    @Override
+   public String toString() {
+    
+    return "Name : " + this.name + ", Last Name :" + this.lastName + ", ";
    }
 
 
@@ -115,7 +112,7 @@ class Student extends Person implements User{
                 break;
                 case 5: controller.printList(currentTranscript.getStudentTranscriptStringList());
                 break; 
-                case 6: controller.printList(stringToList(currentAdvisor.getAdvisorString()));
+                case 6: controller.printList(stringToList(currentAdvisor.toString()));
                 break;
                 case 7:
                 break; 
@@ -179,5 +176,13 @@ class Student extends Person implements User{
     }
     public void addElementToCancelWaitingCourses(Course course) {
         cancelWaitingCourses.add(course);
+    }
+
+    public List<Course> getCancelWaitingCourses() {
+        return cancelWaitingCourses;
+    }
+
+    public List<Course> getRegistrationWaitingCourses() {
+        return registrationWaitingCourses;
     }
 }

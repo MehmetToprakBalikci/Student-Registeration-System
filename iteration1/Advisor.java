@@ -12,7 +12,8 @@ class Advisor extends Lecturer implements User {
     }
 
     // Get advisor information as a String
-    public String getAdvisorString() {
+    @Override
+	public String toString() {
         // Implementation needed
         return "Advisor: " + this.name + " " + this.lastName;
     }
@@ -62,7 +63,7 @@ class Advisor extends Lecturer implements User {
 	    	
 	    	for(int i = 1; i<=studentSize; i++) {
 	    		
-	    		studentMenuList[i] = studentList.get(i-1).toStringAdvisor();	
+	    		studentMenuList[i] = studentList.get(i-1).toString();	
 	    		}
 	    		
 	    	actionNumber = controller.printListReturnSelection(studentMenuList);
@@ -78,24 +79,24 @@ class Advisor extends Lecturer implements User {
 		    	int cancelWaitingCoursesSize = selectedStudent.getCancelWaitingCourses().size();
 		    	
 		    	String[] courseMenuList = new String[registrationWaitingCoursesSize + cancelWaitingCoursesSize + 2];
-		    	courseMenuList[0] = selectedStudent.toStringAdvisor() + "\n\nChoose a course for action.";	// Title for course list
+		    	courseMenuList[0] = selectedStudent.toString() + "\n\nChoose a course for action.";	// Title for course list
 		    	courseMenuList[courseMenuList.length -1] = "Go back.";		
 		    	
 		    	
 		    	for(int j = 1; j<=registrationWaitingCoursesSize; j++) {	
 		    		if (j == 1) {
-		    			courseMenuList[j] = "Registration Waiting Courses:\n" + j + ") " + selectedStudent.getRegistrationWaitingCourses().get(j-1).getCourseString();
+		    			courseMenuList[j] = "Registration Waiting Courses:\n" + j + ") " + selectedStudent.getRegistrationWaitingCourses().get(j-1).toString();
 		    		}
 		    		else {
-		    			courseMenuList[j] = j + ") " + selectedStudent.getRegistrationWaitingCourses().get(j-1).getCourseString();
+		    			courseMenuList[j] = j + ") " + selectedStudent.getRegistrationWaitingCourses().get(j-1).toString();
 		    		}
 		    		}
 		    	
 		    	for(int j = registrationWaitingCoursesSize+1; j<=courseMenuList.length; j++) {	
 		    		if (j == registrationWaitingCoursesSize+1) {
-		    			courseMenuList[j] = "Cancel Waiting Courses:\n" + j + ") " + selectedStudent.getCancelWaitingCourses().get(j-1).getCourseString();
+		    			courseMenuList[j] = "Cancel Waiting Courses:\n" + j + ") " + selectedStudent.getCancelWaitingCourses().get(j-1).toString();
 		    		}
-		        	courseMenuList[j] = j + ") " + selectedStudent.getCancelWaitingCourses().get(j-1).getCourseString();
+		        	courseMenuList[j] = j + ") " + selectedStudent.getCancelWaitingCourses().get(j-1).toString();
 		        	}
 		    	
 		    	
@@ -114,7 +115,7 @@ class Advisor extends Lecturer implements User {
 		    	String[] courseActionMenuList = new String[3];
 		    	
 		    	if (actionNumber <= registrationWaitingCoursesSize) {	// Registration waiting course
-		    		courseActionMenuList[0] = selectedStudent.toStringAdvisor() + "\n" + courseMenuList[actionNumber];
+		    		courseActionMenuList[0] = selectedStudent.toString() + "\n" + courseMenuList[actionNumber];
 		    		courseActionMenuList[1] = "1) Accept registration request.";
 		    		courseActionMenuList[2] = "2) Reject registration request.";
 		    		
@@ -125,7 +126,7 @@ class Advisor extends Lecturer implements User {
 		    	}
 		    	
 		    	else if (actionNumber < courseMenuList.length -1) {		// Cancel waiting course
-		    		courseActionMenuList[0] = selectedStudent.toStringAdvisor() + "\n" + courseMenuList[actionNumber];
+		    		courseActionMenuList[0] = selectedStudent.toString() + "\n" + courseMenuList[actionNumber];
 		    		courseActionMenuList[1] = "1) Accept cancel request.";
 		    		courseActionMenuList[2] = "2) Reject cancel request.";
 		    		

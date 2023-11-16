@@ -7,6 +7,11 @@ public class Lecturer extends Person {
 		super(name, lastName);
 		this.lecturerID = lecturerID;
 	}
+	@Override
+	public String toString(){
+		return "Advisor: " + this.name + " " + this.lastName;
+	}
+	
 
 	@Override
 	void startActions(Controller controller) {
