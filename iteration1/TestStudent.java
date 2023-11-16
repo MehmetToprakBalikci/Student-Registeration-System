@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class StudentTest {
+public class TestStudent {
     static FileWriter testOutputFile;
     public static void main(String args[]){
         try {
