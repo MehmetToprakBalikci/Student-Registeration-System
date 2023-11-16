@@ -20,7 +20,10 @@ public class UniversityFileSystem {
     }*/
 
     void loadFiles() {
-
+        //readCourses() Move advisor info
+        //readTranscripts Make jsons
+        //readStudents() Check type here
+        //readStaff() Discriminate between types here
 
     }
 
