@@ -16,12 +16,12 @@ class Course {
 
 
     // Constructor
-    public Course(String courseCode, String courseName, int courseCredit, int courseYear, CourseSection section, Lecturer lecturer,List<Course> preRequisite) {
+    public Course(String courseCode, String courseName, int courseCredit, int courseYear, int section1, int section2, Lecturer lecturer,List<Course> preRequisite) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.courseCredit = courseCredit;
         this.courseYear = courseYear;
-        this.section = section;
+        this.section = new CourseSection(section1,section2);
         this.lecturer = lecturer;
         this.preRequisite = preRequisite;
     }
