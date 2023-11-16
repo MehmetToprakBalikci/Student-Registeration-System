@@ -51,8 +51,8 @@ class Advisor extends Lecturer implements User {
     	
 		case 1: 
 		
-		boolean controlFlag = true;
-		while (controlFlag) {
+		
+		while (true) {
 			
 			int studentSize = studentList.size();
 	    	String[] studentMenuList = new String[studentSize+2];
@@ -71,8 +71,8 @@ class Advisor extends Lecturer implements User {
 	    	}
 	    	Student selectedStudent = studentList.get(actionNumber-1);
 	    	
-	    	boolean controlFlag2 = true;
-	    	while (controlFlag2) {
+	    	boolean controlFlag = true;
+	    	while (controlFlag) {
 		    	// Course selection part
 		    	int registrationWaitingCoursesSize = selectedStudent.getRegistrationWaitingCourses().size();
 		    	int cancelWaitingCoursesSize = selectedStudent.getCancelWaitingCourses().size();
@@ -139,13 +139,11 @@ class Advisor extends Lecturer implements User {
 		    	
 		    	else {		// Go back
 		    		if (actionNumber != courseMenuList.length-1) {controller.printErrorMessage("Error in Advisor");}
-		    		controlFlag2 = false;
+		    		controlFlag = false;
 		    	}
 		    }
 		}
     	
-    	
-		break;
 		
 		case 2:
 		break;
