@@ -7,17 +7,17 @@ public class Transcript {
 
     //Copy constructor,
     //Constructor to be used with an already existing Transcript Object
-    private Transcript(Transcript transcript) {
+    public Transcript(Transcript transcript) {
         this.listOfCourses = transcript.listOfCourses;
         this.listOfGrades = transcript.listOfGrades;
         this.studentCredits = transcript.studentCredits;
     }
 
     //Constructor with parameters
-    private Transcript(List<Course> listOfCourses, List<Grade> listOfGrades, int studentCredits) {
+    public Transcript(List<Course> listOfCourses, List<Grade> listOfGrades) {
         this.listOfCourses = listOfCourses;
         this.listOfGrades = listOfGrades;
-        this.studentCredits = studentCredits;
+        this.studentCredits = calculateCredit();
     }
 
     private List<Course> listOfCourses;
@@ -78,10 +78,21 @@ public class Transcript {
         return semester;
     }
 
-    public void getTranscriptString() {
-        System.out.println("Cumulative Gpa: " + this.calculateGPA());
-        System.out.println("Cumulative Credits: " + this.calculateGPA());
-        System.out.println("Current Semester: " + this.calculateSemesterFromCredit());
+    @Override
+    public String toString() {
+        float gpa = this.calculateGPA();
+        int credits = this.calculateCredit();
+        int semester = this.calculateSemesterFromCredit();
+
+
+        //adjust digit precision
+        int digitPrecision = 2;
+        int temp = (int) (gpa * Math.pow(10, digitPrecision));
+        gpa = (float)((float) temp / Math.pow(10, digitPrecision));
+
+
+        return "Cumulative Gpa: " + gpa + "\nCumulative Credits: " + credits +
+                "\nCurrent Semester: " + semester;
     }
 
 }
