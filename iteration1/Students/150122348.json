@@ -1,0 +1,35 @@
+{
+  "type": "student",
+  "name": "Burak",
+  "lastName": "Bilge",
+  "username": "Bilge123",
+  "password": "bilgeBurak12",
+  "studentId": "150122348",
+  "Transcript": {
+    "listOfCourses": [
+      "CS101",
+      "CS102",
+      "CS104",
+      "CS108"
+    ],
+    "listOfGrades": [
+      80,
+      45,
+      45,
+      80
+    ]
+  },
+  "advisorId": "1002",
+  "classLevel": "3",
+  "cancelWaitingCourses": [
+    "CS102",
+    "CS103"
+  ],
+  "registrationCompleteCourses": [
+    "CS105"
+  ],
+  "registrationWaitingCourses": [
+    "CS104",
+    "CS106"
+  ]
+}
