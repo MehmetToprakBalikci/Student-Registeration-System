@@ -2,6 +2,9 @@ abstract class Person {
     protected String name;
     protected String lastName;
     private String userName;
+
+
+
     private String password;
 
     // Constructor
@@ -16,6 +19,9 @@ abstract class Person {
         this.name=name;
         this.lastName=lastName;
     }
+    public Person(){
+
+    };
 
     // Placeholder for person's actions
     abstract void startActions(Controller controller);
@@ -23,6 +29,13 @@ abstract class Person {
         return this.userName.equals(username) && this.password.equals(password);
 
 
+    }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 

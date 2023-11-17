@@ -1,9 +1,10 @@
 {
   "courseCode": "CS102",
   "courseName": "Data Structures",
-  "courseCredit": "4",
-  "courseYear" : "2",
-  "courseSection" : [2,3 ],
-  "prerequisites": ["CS101","CS102"],
-  "lecturer" : ["Mustafa" ,"Agaoglu"]
+  "courseCredit": 4,
+  "courseYear" : 2,
+  "courseDay" :  2,
+  "courseHour":  3,
+  "prerequisites": ["CS101"],
+  "lecturerId" : "1004"
 }

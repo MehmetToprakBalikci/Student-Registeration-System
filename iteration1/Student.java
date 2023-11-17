@@ -10,9 +10,34 @@ class Student extends Person implements User{
     private List<Course> registrationCompleteCourses; // Courses that finished registration
     private List<Course> cancelWaitingCourses; // Courses that are waiting to be canceled 
     private Transcript currentTranscript;
+
+    public void setCurrentAdvisor(Advisor currentAdvisor) {
+        this.currentAdvisor = currentAdvisor;
+    }
+
+    public String getStudentID() {
+        return studentID;
+    }
+
+    public void setRegistrationWaitingCourses(List<Course> registrationWaitingCourses) {
+        this.registrationWaitingCourses = registrationWaitingCourses;
+    }
+
+    public void setRegistrationCompleteCourses(List<Course> registrationCompleteCourses) {
+        this.registrationCompleteCourses = registrationCompleteCourses;
+    }
+
+    public void setCancelWaitingCourses(List<Course> cancelWaitingCourses) {
+        this.cancelWaitingCourses = cancelWaitingCourses;
+    }
+
     private String studentID; // Additional field for student ID
     private Advisor currentAdvisor;
-    // Method to create student
+
+    public Advisor getCurrentAdvisor() {
+        return currentAdvisor;
+    }
+// Method to create student
    /* public static Student create(String name, String lastName) {
         return new Student(name, lastName);
     }*/
@@ -114,8 +139,6 @@ class Student extends Person implements User{
                 break; 
                 case 6: controller.printList(stringToList(currentAdvisor.toString()));
                 break;
-                case 7:
-                break; 
                 default:
                 break;
             }

@@ -1,0 +1,28 @@
+{
+  "type": "student",
+  "name": "Furkan",
+  "lastName": "Gökgöz",
+  "username": "furki213",
+  "password": "gökfurk111",
+  "studentId": "150120076",
+  "Transcript": {
+    "listOfCourses": [
+      "CS101"
+    ],
+    "listOfGrades": [
+      50
+    ]
+  },
+  "advisorId": "1002",
+  "classLevel": "2",
+  "cancelWaitingCourses": [
+    "CS102",
+    "CS105"
+  ],
+  "registrationCompleteCourses": [
+    "CS103"
+  ],
+  "registrationWaitingCourses": [
+    "CS106"
+  ]
+}
