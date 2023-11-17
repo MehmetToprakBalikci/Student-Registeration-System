@@ -75,6 +75,9 @@ class Course {
         if(preRequisite.isEmpty()){
             return true;
         }
+        if(preRequisite == null){
+            return true;
+        }
 
         List<Course> copy = new ArrayList<>(preRequisite);
 

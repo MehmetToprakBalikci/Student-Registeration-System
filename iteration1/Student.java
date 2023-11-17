@@ -5,6 +5,8 @@ import java.util.List;
     
 // Student class
 class Student extends Person implements User{
+
+
     private List<Course> currentAvailableCourses; // Courses that the student is able to register
     private List<Course> registrationWaitingCourses; //Courses that are waiting to be registered
     private List<Course> registrationCompleteCourses; // Courses that finished registration
@@ -23,6 +25,10 @@ class Student extends Person implements User{
         this.registrationWaitingCourses = registrationWaitingCourses;
     }
 
+    public List<Course> getCurrentAvailableCourses() {
+        return currentAvailableCourses;
+    }
+
     public void setRegistrationCompleteCourses(List<Course> registrationCompleteCourses) {
         this.registrationCompleteCourses = registrationCompleteCourses;
     }
@@ -37,11 +43,24 @@ class Student extends Person implements User{
     public Advisor getCurrentAdvisor() {
         return currentAdvisor;
     }
+
 // Method to create student
    /* public static Student create(String name, String lastName) {
         return new Student(name, lastName);
     }*/
-    
+
+    public void setCurrentAvailableCourses(List<Course> currentAvailableCourses) {
+        this.currentAvailableCourses = currentAvailableCourses;
+    }
+
+    public Transcript getCurrentTranscript() {
+        return currentTranscript;
+    }
+
+    public List<Course> getRegistrationCompleteCourses() {
+        return registrationCompleteCourses;
+    }
+
     // Constructor
     public Student(String name, String lastName,String username,String password, String studentID, Transcript currentTranscript, Advisor currentAdvisor) {
         super(name, lastName,username,password);

@@ -13,6 +13,10 @@ public class Transcript {
         this.studentCredits = transcript.studentCredits;
     }
 
+    public List<Course> getListOfCourses() {
+        return listOfCourses;
+    }
+
     //Constructor with parameters
     public Transcript(List<Course> listOfCourses, List<Grade> listOfGrades) {
         this.listOfCourses = listOfCourses;
@@ -77,14 +81,14 @@ public class Transcript {
     //calculate semester depending on the current credit
     //RIGHT NOW USES A PREDEFINED VALUE FOR EACH SEMESTERS WORTH!!
     public int calculateSemesterFromCredit() {
-        int creditPreSemester = 26, semesterLimit = 16;
-        int semester = 0;
+        int creditPreSemester = 3, semesterLimit = 16;
+        int semester = 1;
         int completedCredits = this.calculateCredit();
 
 
         //used for instead of switch for future compatibility
-        for(int i = 0; i < semesterLimit; i++) {
-            if(completedCredits >= creditPreSemester) {
+        for (int i = 0; i < semesterLimit; i++) {
+            if (completedCredits >= creditPreSemester) {
                 semester++;
                 completedCredits -= creditPreSemester;
             }
@@ -110,18 +114,18 @@ public class Transcript {
 
             s = "Cumulative Gpa: " + gpa + "\nCumulative Credits: " + credits +
                     "\nCurrent Semester: " + semester;
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(e.toString());
         }
         return s;
     }
-    public String[] getStudentTranscriptStringList(){
+
+    public String[] getStudentTranscriptStringList() {
         int courseCount = listOfGrades.size();
         String[] transcriptString = new String[courseCount + 1];
         transcriptString[0] = this.toString();
-        for(int i = 1; i < courseCount + 1; i++){
-            transcriptString[i] = i + "-)" + listOfCourses.get(i-1).toString() + " " + listOfGrades.get(i-1).toString();
+        for (int i = 1; i < courseCount + 1; i++) {
+            transcriptString[i] = i + "-)" + listOfCourses.get(i - 1).toString() + " " + listOfGrades.get(i - 1).toString();
         }
         return transcriptString;
     }
