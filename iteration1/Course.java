@@ -44,7 +44,7 @@ class Course {
 
     // Check if this student in the appropriate semester to take this course?
     public boolean checkYearMatching(int year){
-        if(courseYear == year){
+        if(courseYear <= year){
             return true;
         }
         return false;
@@ -53,17 +53,17 @@ class Course {
     // Check if this course conflicts with any other courses section
     public boolean checkCourseSection(List<Course> registrationCompleteCourse, List<Course> registrationWaitingCourse, List<Course> cancelWaitingCourse){
         for (Course course : registrationCompleteCourse) {
-            if (course.getSection().compareAvailability(this.section)) {
+            if (!course.getSection().compareAvailability(this.section)) {
                 return false;
             }
         }
         for (Course course : registrationWaitingCourse) {
-            if (course.getSection().compareAvailability(this.section)) {
+            if (!course.getSection().compareAvailability(this.section)) {
                 return false;
             }
         }
         for (Course course : cancelWaitingCourse) {
-            if (course.getSection().compareAvailability(this.section)) {
+            if (!course.getSection().compareAvailability(this.section)) {
                 return false;
             }
         }
