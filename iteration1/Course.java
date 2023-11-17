@@ -44,7 +44,7 @@ class Course {
 
     // Check if this student in the appropriate semester to take this course?
     public boolean checkYearMatching(int year){
-        if(courseYear == year){
+        if(courseYear <= year){
             return true;
         }
         return false;
