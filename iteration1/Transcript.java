@@ -24,6 +24,10 @@ public class Transcript {
     private List<Grade> listOfGrades;
     private int studentCredits;
 
+    public Transcript() {
+
+    }
+
 
     public int calculateCredit() throws ArrayIndexOutOfBoundsException {
         int totalCredit = 0;
@@ -32,8 +36,8 @@ public class Transcript {
             throw new ArrayIndexOutOfBoundsException("No Courses For Student Found!");
         }
 
-        for(int i = 0; i < listOfCourses.size(); i++) {
-            totalCredit += listOfCourses.get(i).getCourseCredit();
+        for (Course listOfCourse : listOfCourses) {
+            totalCredit += listOfCourse.getCourseCredit();
         }
         return totalCredit;
     }
