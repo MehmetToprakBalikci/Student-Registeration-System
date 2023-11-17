@@ -15,7 +15,7 @@ public class TestCourse {
         preRequisites2.add(course2);
         Course course3 = new Course("CS103","Computer Programming 2", 4,3, 1, 4, lecturer3,preRequisites2);
         List<Course> preRequisites3 = new ArrayList<>();
-        preRequisites2.add(course3);
+        preRequisites3.add(course3);
         Course course4 = new Course("CS104","Principal of Programming Languages", 3,4, 4, 5, lecturer3,preRequisites3);
         Course course5 = new Course("CS105","Systems Programming", 4,4, 2, 8, lecturer1,preRequisites1);
 
