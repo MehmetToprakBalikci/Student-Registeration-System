@@ -9,6 +9,11 @@ class Course {
 
     private String courseName;
     private int courseCredit;
+
+    public int getCourseYear() {
+        return courseYear;
+    }
+
     private int courseYear;
     private CourseSection section;
     //private Grade grade;
