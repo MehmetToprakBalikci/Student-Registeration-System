@@ -1,0 +1,31 @@
+{
+  "type": "student",
+  "name": "Enes",
+  "lastName": "Gokdeniz",
+  "username": "enes123",
+  "password": "password123",
+  "studentId": "150121538",
+  "Transcript": {
+    "listOfCourses": [
+      "CS101",
+      "CS102"
+    ],
+    "listOfGrades": [
+      80,
+      45
+    ]
+  },
+  "advisorId": "1002",
+  "classLevel": "3",
+  "cancelWaitingCourses": [
+    "CS102",
+    "CS103"
+  ],
+  "registrationCompleteCourses": [
+    "CS105"
+  ],
+  "registrationWaitingCourses": [
+    "CS104",
+    "CS106"
+  ]
+}

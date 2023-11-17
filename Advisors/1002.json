@@ -1,0 +1,12 @@
+{
+  "type": "advisor",
+  "name": "Betül",
+  "lastName": "Boz",
+  "username": "betül.boz",
+  "password": "password790",
+  "lecturerId": "1002",
+  "Students": [
+    "150121032",
+    "150121538"
+]
+}

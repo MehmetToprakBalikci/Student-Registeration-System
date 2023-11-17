@@ -5,6 +5,8 @@ import java.util.List;
 // Course class
 class Course {
     private String courseCode;
+
+
     private String courseName;
     private int courseCredit;
     private int courseYear;
@@ -13,6 +15,21 @@ class Course {
     private Lecturer lecturer;
     private List<Course> preRequisite;
 
+    public Lecturer getLecturer() {
+        return lecturer;
+    }
+
+    public void setLecturer(Lecturer lecturer) {
+        this.lecturer = lecturer;
+    }
+
+    public List<Course> getPreRequisite() {
+        return preRequisite;
+    }
+
+    public void setPreRequisite(List<Course> preRequisite) {
+        this.preRequisite = preRequisite;
+    }
 
     // Constructor
     public Course(String courseCode, String courseName, int courseCredit, int courseYear, int section1, int section2, Lecturer lecturer,List<Course> preRequisite) {
@@ -96,4 +113,8 @@ class Course {
     public CourseSection getSection() {
         return section;
     }
+    public String getCourseName() {
+        return courseName;
+    }
+
 }

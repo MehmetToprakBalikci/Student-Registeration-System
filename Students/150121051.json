@@ -1,0 +1,29 @@
+{
+  "type": "student",
+  "name": "Arda",
+  "lastName": "Öztürk",
+  "username": "ardo.öz",
+  "password": "arda12e21",
+  "studentId": "150121051",
+  "Transcript": {
+    "listOfCourses": [
+      "CS102",
+      "CS103"
+    ],
+    "listOfGrades": [
+      50,
+      60
+    ]
+  },
+  "advisorId": "1004",
+  "classLevel": "2",
+  "cancelWaitingCourses": [
+    "CS104",
+    "CS105"
+  ],
+  "registrationCompleteCourses": [
+    "CS106"
+
+  ],
+  "registrationWaitingCourses": [""]
+}
