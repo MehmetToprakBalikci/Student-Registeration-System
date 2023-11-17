@@ -1,27 +1,17 @@
 import java.util.ArrayList;
 
 class Advisor extends Lecturer implements User {
-	public ArrayList<Student> getStudentList() {
-		return studentList;
-	}
-
+	
 	private ArrayList<Student> studentList = new ArrayList<>();
+	
 
-	public void setStudentList(ArrayList<Student> studentList) {
-		this.studentList = studentList;
-	}
-
-	// Constructor
+    // Constructor
     public Advisor(String name, String lastName, String username, String password, String lecturerID, ArrayList<Student> studentList) {
         super(name, lastName, username, password, lecturerID);
         this.studentList = studentList;
     }
 
-	public Advisor() {
-
-	}
-
-	// Get advisor information as a String
+    // Get advisor information as a String
     @Override
 	public String toString() {
         return "Advisor: " + this.name + " " + this.lastName;

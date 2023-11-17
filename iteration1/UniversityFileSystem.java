@@ -351,7 +351,7 @@ public class UniversityFileSystem {
         try {
             JSONParser jsonParser = new JSONParser();
             for (File file : fileList) {
-                FileReader fileReader = new FileReader(file);
+                FileReader filefer = new FileReader(file);
                 Object object = jsonParser.parse(fileReader);
                 JSONObject jsonObject = (JSONObject) object;
 
