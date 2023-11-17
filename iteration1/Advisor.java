@@ -130,6 +130,10 @@ class Advisor extends Lecturer implements User {
 		    			selectedStudent.removeElementFromRegistrationWaitingCourses(selectedCourse);
 		    			selectedStudent.addElementToRegistrationCompleteCourses(selectedCourse);
 		    		}
+					else{
+						selectedStudent.removeElementFromRegistrationWaitingCourses(selectedCourse);
+		    			selectedStudent.addElementToCurrentAvailableCourses(selectedCourse);
+					}
 		    	}
 		    	
 		    	else if (actionNumber < courseMenuList.length -1) {		// Cancel waiting course
@@ -141,7 +145,10 @@ class Advisor extends Lecturer implements User {
 		    			selectedStudent.removeElementFromCancelWaitingCourses(selectedCourse);
 		    			selectedStudent.addElementToCurrentAvailableCourses(selectedCourse);
 		    		}
-		    	
+					else{
+						selectedStudent.removeElementFromCancelWaitingCourses(selectedCourse);
+						selectedStudent.addElementToRegistrationCompleteCourses(selectedCourse);
+					}
 		    	}
 		    	
 		    	

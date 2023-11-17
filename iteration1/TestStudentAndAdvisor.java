@@ -4,34 +4,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TestStudent {
+public class TestStudentAndAdvisor {
     static FileWriter testOutputFile;
     public static void main(String args[]){
         try {
             File file = new File("testOutputFile.txt");
             file.createNewFile();
             testOutputFile = new FileWriter("testOutputFile.txt");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            testOutputFile.write("Testing registrationWaitingCourses for StudentTest...\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        
+            testOutputFile.write("Testing class Student runUserAction : registrationWaitingCourses part for StudentTest...\n"); 
         for(int i = 1; i <= 5; i++){
             startTestProcedure(1, i);
         }
-        try {
-            testOutputFile.write("Testing cancelWaitingCourses for StudentTest...\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        testOutputFile.write("Testing class Student runUserAction : cancelWaitingCourses part for StudentTest...\n");
         for(int i = 1; i <= 5; i++){
             startTestProcedure(2, i);
         }
-        try {
-            testOutputFile.close();
+        testOutputFile.write("Testing class Advisor runUserAction : Course waitingRegistration Selection Part...\n");
+        for(int i = 1; i <= 5; i++){
+            startTestProcedure(3, i);
+        }
+        testOutputFile.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -75,21 +68,26 @@ public class TestStudent {
             student1.addElementToCurrentAvailableCourses(c4);
             student1.addElementToCurrentAvailableCourses(c5);
         }
-        else {
+        else if(testType == 2){
         student1.addElementToRegistrationCompleteCourses(c1);
         student1.addElementToRegistrationCompleteCourses(c2);
         student1.addElementToRegistrationCompleteCourses(c3);
         student1.addElementToRegistrationCompleteCourses(c4);
         student1.addElementToRegistrationCompleteCourses(c5);
         }
+        else if(testType == 3){
+            student1.addElementToRegistrationWaitingCourses(c1);
+            student1.addElementToRegistrationWaitingCourses(c2);
+            student2.addElementToRegistrationWaitingCourses(c3);
+            student2.addElementToRegistrationWaitingCourses(c4);
+            student2.addElementToRegistrationWaitingCourses(c5);
+        }
         
-        student2.addElementToRegistrationCompleteCourses(c1);
-        student2.addElementToRegistrationCompleteCourses(c2);
-        student2.addElementToCancelWaitingCourses(c3);
-        student2.addElementToCancelWaitingCourses(c4);
-        student2.addElementToRegistrationWaitingCourses(c5);
-
-        student1.startActions(thisController);
+        if(testType == 1 || testType == 2)
+            student1.startActions(thisController);
+        else if(testType == 3){
+            advisor1.startActions(thisController);
+        }
          boolean testPass = false;
          if (testType == 1) {
             switch(testNum){
@@ -105,7 +103,7 @@ public class TestStudent {
                 break; 
             }
         }
-        else {
+        else if(testType == 2){
             switch(testNum){
                 case 1 :  testPass = student1.removeElementFromCancelWaitingCourses(c1);
                 break;
@@ -116,6 +114,20 @@ public class TestStudent {
                 case 4 : testPass = student1.removeElementFromCancelWaitingCourses(c4);
                 break;
                 case 5 : testPass = student1.removeElementFromCancelWaitingCourses(c5);
+                break; 
+            }
+        }
+        else if(testType == 3){
+            switch(testNum){
+                case 1 :  testPass = student1.removeElementFromRegistrationCompleteCourses(c1);
+                break;
+                case 2 : testPass = student1.removeElementFromRegistrationCompleteCourses(c2);
+                break;
+                case 3 : testPass = student2.removeElementFromRegistrationCompleteCourses(c3);
+                break;
+                case 4 : testPass = student2.removeElementFromCurrentAvailableCourses(c4);
+                break;
+                case 5 : testPass = student2.removeElementFromCurrentAvailableCourses(c5);
                 break; 
             }
         }
@@ -162,7 +174,7 @@ public class TestStudent {
                 break; 
             }
         }
-        else{
+        else if(testType == 2){
             switch(testNum){
                 case 1 :  testString = "2 2 7";
                 break;
@@ -173,6 +185,20 @@ public class TestStudent {
                 case 4 : testString = "2 5 7";
                 break;
                 case 5 : testString = "2 6 7";
+                break; 
+            }
+        }
+        else if(testType == 3){
+            switch(testNum){
+                case 1 :  testString = "1 1 1 1 2 3 2";
+                break;
+                case 2 : testString = "1 1 2 1 2 3 2";
+                break;
+                case 3 : testString = "1 2 1 1 3 3 2";
+                break;
+                case 4 : testString = "1 2 2 2 3 3 2";
+                break;
+                case 5 : testString = "1 2 3 2 3 3 2";
                 break; 
             }
         }
