@@ -1,0 +1,30 @@
+{
+  "type": "student",
+  "name": "Bora",
+  "lastName": "Duman",
+  "username": "Duman1234",
+  "password": "BD123",
+  "studentId": "150121043",
+  "Transcript": {
+    "listOfCourses": [
+      "CS102",
+      "CS103"
+    ],
+    "listOfGrades": [
+      80,
+      45
+    ]
+  },
+  "advisorId": "1002",
+  "classLevel": "3",
+  "cancelWaitingCourses": [
+    "CS104"
+  ],
+  "registrationCompleteCourses": [
+    ""
+  ],
+  "registrationWaitingCourses": [
+    "CS105",
+    "CS106"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "courseCode": "CS105",
+  "courseName": "ALGORITHM ANALYSIS",
+  "courseCredit": 4,
+  "courseYear" : 2,
+  "courseDay" :  2,
+  "courseHour":  3,
+  "prerequisites": ["CS101","CS102"],
+  "lecturerId" : "104"
+}

@@ -1,0 +1,11 @@
+{
+  "courseCode": "CS101",
+  "courseName": "Introduction to Computer Science",
+  "courseCredit": 3,
+  "courseYear" : 2,
+  "courseDay" :  2,
+  "courseHour":  3,
+  "courseSection" : [1,5],
+  "prerequisites": [""],
+  "lecturerId" : "1002"
+}

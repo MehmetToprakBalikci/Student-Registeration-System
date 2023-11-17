@@ -1,0 +1,10 @@
+{
+  "courseCode": "CS103",
+  "courseName": "OPERATING SYSTEM",
+  "courseCredit":4,
+  "courseYear" : 2,
+  "courseDay" :  2,
+  "courseHour":  3,
+  "prerequisites": ["CS101","CS102"],
+  "lecturerId" : "1002"
+}

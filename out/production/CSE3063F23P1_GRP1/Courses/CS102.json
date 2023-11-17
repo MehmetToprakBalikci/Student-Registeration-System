@@ -1,0 +1,10 @@
+{
+  "courseCode": "CS102",
+  "courseName": "Data Structures",
+  "courseCredit": 4,
+  "courseYear" : 2,
+  "courseDay" :  2,
+  "courseHour":  3,
+  "prerequisites": ["CS101"],
+  "lecturerId" : "1004"
+}
