@@ -322,7 +322,7 @@ public class UniversityFileSystem {
     }
 
     private void readLecturers() {
-        File directoryPath = new File("Lecturers");
+        File directoryPath = new File("iteration1/Lecturers");
         File[] fileList = directoryPath.listFiles();
         try {
             JSONParser jsonParser = new JSONParser();
@@ -346,7 +346,7 @@ public class UniversityFileSystem {
 
 
     private void readAdvisors() {
-        File directoryPath = new File("Advisors");
+        File directoryPath = new File("iteration1/Advisors");
         File[] fileList = directoryPath.listFiles();
         try {
             JSONParser jsonParser = new JSONParser();
@@ -376,7 +376,7 @@ public class UniversityFileSystem {
 
 
     private void readStudents() {
-        File directoryPath = new File("Students");
+        File directoryPath = new File("iteration1/Students");
         File[] fileList = directoryPath.listFiles();
         try {
             JSONParser jsonParser = new JSONParser();
@@ -451,7 +451,7 @@ public class UniversityFileSystem {
     }
 
     private void readCourses() {
-        File directoryPath = new File("Courses");
+        File directoryPath = new File("iteration1/Courses");
         File[] fileList = directoryPath.listFiles();
         HashMap<String, Course> Courses = new HashMap<>();
         try {
