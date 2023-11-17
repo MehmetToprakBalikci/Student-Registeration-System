@@ -59,7 +59,7 @@ public class TestStudentAndAdvisor {
         
         studentList.add(student1);
         studentList.add(student2);
-
+        advisor1.setStudentList(studentList);
         
         if(testType == 1){
             student1.addElementToCurrentAvailableCourses(c1);
