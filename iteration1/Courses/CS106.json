@@ -1,13 +1,10 @@
 {
   "courseCode": "CS106",
-  "courseName": "Database",
+  "courseName": "Modelling Discrete Simulation",
   "courseCredit": 4,
-  "courseYear": 2,
-  "courseDay": 2,
-  "courseHour": 3,
-  "prerequisites": [
-    "CS101",
-    "CS102"
-  ],
-  "lecturerId": "105"
+  "courseYear" : 2,
+  "courseDay" :  2,
+  "courseHour":  3,
+  "prerequisites": [""],
+  "lecturerId" : "1004"
 }

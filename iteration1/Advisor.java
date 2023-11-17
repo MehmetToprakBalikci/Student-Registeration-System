@@ -6,8 +6,7 @@ class Advisor extends Lecturer implements User {
     // Constructor
     public Advisor(String name, String lastName, String username, String password, String lecturerID, ArrayList<Student> studentList) {
         super(name, lastName, username, password, lecturerID);
-        this.studentList = studentList;
-        studentList = new ArrayList<>();
+        this.studentList = new ArrayList<>();
     }
 
     public Advisor() {

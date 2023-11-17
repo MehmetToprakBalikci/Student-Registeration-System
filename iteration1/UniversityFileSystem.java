@@ -5,6 +5,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -351,8 +352,8 @@ public class UniversityFileSystem {
         try {
             JSONParser jsonParser = new JSONParser();
             for (File file : fileList) {
-                FileReader fileReader = new FileReader(file);
-                Object object = jsonParser.parse(fileReader);
+                FileReader filefer = new FileReader(file);
+                Object object = jsonParser.parse(filefer);
                 JSONObject jsonObject = (JSONObject) object;
 
                 String name = (String) jsonObject.get("name");
@@ -527,7 +528,70 @@ public class UniversityFileSystem {
     }
 
     public void saveFiles() {
-        // ??
+
+        List<Person> persons = this.personList;
+        List<Student> students = new ArrayList<>();
+        List<Lecturer> lecturers = new ArrayList<>();
+        List<Advisor> advisors = new ArrayList<>();
+        for(Person person : persons) {
+            if(person instanceof Student)
+                students.add((Student) person);
+            else if(person instanceof Lecturer)
+                lecturers.add((Lecturer) person);
+            else
+                advisors.add((Advisor) person);
+        }
+
+        List<Course> courses = this.systemCourses;
+
+        JSONObject jsonObject = new JSONObject();
+
+        for (Course course : courses) {
+            jsonObject.put("courseCode", course.getCourseCode());
+            jsonObject.put("courseName", course.getCourseName());
+            jsonObject.put("courseCredit", course.getCourseCredit());
+            jsonObject.put("courseYear", course.getCourseYear());
+            jsonObject.put("courseDay", course.getSection().getDayNumber());
+            jsonObject.put("courseHour", course.getSection());
+
+
+            jsonObject.put("courseSection", course.getSection());
+            jsonObject.put("prerequisites", course.getCourseCode());
+
+            jsonObject.put("lecturerId", course.getLecturer().getLecturerID());
+
+            String fileName = course.getCourseCode() + ".json";
+            try {
+                FileWriter file = new FileWriter(fileName);
+                file.write(jsonObject.toJSONString());
+                file.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        for(Lecturer lecturer : lecturers) {
+            /*jsonObject.put("type", "lecturer");
+            jsonObject.put("name", );
+            jsonObject.put("lastName", course.getCourseCredit());
+            jsonObject.put("username", course.getCourseYear());
+            jsonObject.put("password", course.getSection().getDayNumber());
+            jsonObject.put("lecturerId", course.getSection());
+            jsonObject.put("Students", course.getSection());*/
+
+
+
+
+            String fileName = lecturer.getLecturerID() + ".json";
+            try {
+                FileWriter file = new FileWriter(fileName);
+                file.write(jsonObject.toJSONString());
+                file.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
     // Methods for file operations need to be implemented
 }

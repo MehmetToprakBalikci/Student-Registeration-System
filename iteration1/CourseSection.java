@@ -2,7 +2,16 @@
 
 // CourseSection class
 class CourseSection {
+    public int getDayNumber() {
+        return dayNumber;
+    }
+
     private int dayNumber;
+
+    public int getSectionNumber() {
+        return sectionNumber;
+    }
+
     private int sectionNumber;
 
     // Constructor

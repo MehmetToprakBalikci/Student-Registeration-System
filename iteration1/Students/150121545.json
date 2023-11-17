@@ -1,31 +1,31 @@
 {
   "type": "student",
-  "name": "Enes",
-  "lastName": "Torluoğlu",
-  "username": "enestor",
-  "password": "enestor",
-  "studentId": "150121002",
+  "name": "Tufan",
+  "lastName": "Atli",
+  "username": "tufan123",
+  "password": "tufan2143",
+  "studentId": "150121545",
   "Transcript": {
     "listOfCourses": [
       "CS101",
       "CS102"
     ],
     "listOfGrades": [
-      50,
-      60
+      80,
+      45
     ]
   },
   "advisorId": "1002",
   "classLevel": "3",
   "cancelWaitingCourses": [
-    "CS105"
+    "CS102",
+    "CS103"
   ],
   "registrationCompleteCourses": [
-    "CS103",
-    "CS102"
+    "CS105"
   ],
   "registrationWaitingCourses": [
-    "CS105",
+    "CS104",
     "CS106"
   ]
 }

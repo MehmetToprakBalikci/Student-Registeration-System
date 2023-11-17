@@ -3,7 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+// Writes the test results to output:
 public class TestStudentAndAdvisor {
     static FileWriter testOutputFile;
     public static void main(String args[]){
