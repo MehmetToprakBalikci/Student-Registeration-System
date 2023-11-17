@@ -5,6 +5,7 @@ public class TestCourseSection {
         CourseSection section1 = new CourseSection(1,1);
         CourseSection section2 = new CourseSection(1,1);
 
+        System.out.println("\nTesting compareAvailability() function...");
         if( ! section1.compareAvailability(section2)){
             System.out.println("Test 1 passed");
         }
@@ -21,6 +22,7 @@ public class TestCourseSection {
             System.out.println("Test 2 failed");
         }
 
+        System.out.println("\nTesting getCourseSectionString() function...");
         if(section1.getCourseSectionString().equals("Monday 8.30")){
             System.out.println("Test 3 passed");
         }

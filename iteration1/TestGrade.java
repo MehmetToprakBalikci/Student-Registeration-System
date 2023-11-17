@@ -3,6 +3,8 @@ public class TestGrade {
         System.out.printf("Testing Grade.java\n");
 
         Grade grade1 = new Grade(95);
+
+        System.out.println("\nTesting getGradeLetter() function...");
         if(grade1.getGradeLetter().equals("AA")){
             System.out.println("Test passed for 1.grade");
         }
