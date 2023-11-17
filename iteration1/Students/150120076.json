@@ -14,7 +14,7 @@
     ]
   },
   "advisorId": "1002",
-  "classLevel": "2",
+  "classLevel": "3",
   "cancelWaitingCourses": [
     "CS102",
     "CS105"
