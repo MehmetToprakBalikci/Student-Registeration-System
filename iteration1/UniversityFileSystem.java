@@ -352,7 +352,7 @@ public class UniversityFileSystem {
             JSONParser jsonParser = new JSONParser();
             for (File file : fileList) {
                 FileReader filefer = new FileReader(file);
-                Object object = jsonParser.parse(fileReader);
+                Object object = jsonParser.parse(filefer);
                 JSONObject jsonObject = (JSONObject) object;
 
                 String name = (String) jsonObject.get("name");
