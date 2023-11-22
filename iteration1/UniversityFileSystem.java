@@ -325,6 +325,10 @@ public class UniversityFileSystem {
     private void readLecturers() {
         File directoryPath = new File("iteration1/Lecturers");
         File[] fileList = directoryPath.listFiles();
+        if (fileList == null) {
+            System.out.println("Check the lecturers directory position!!");
+            return;
+        }
         try {
             JSONParser jsonParser = new JSONParser();
             for (File file : fileList) {
@@ -349,6 +353,10 @@ public class UniversityFileSystem {
     private void readAdvisors() {
         File directoryPath = new File("iteration1/Advisors");
         File[] fileList = directoryPath.listFiles();
+        if (fileList == null) {
+            System.out.println("Check the Advisors directory position!!");
+            return;
+        }
         try {
             JSONParser jsonParser = new JSONParser();
             for (File file : fileList) {
@@ -379,6 +387,10 @@ public class UniversityFileSystem {
     private void readStudents() {
         File directoryPath = new File("iteration1/Students");
         File[] fileList = directoryPath.listFiles();
+        if (fileList == null) {
+            System.out.println("Check the students directory position!!");
+            return;
+        }
         try {
             JSONParser jsonParser = new JSONParser();
             for (File file : fileList) {
@@ -436,11 +448,7 @@ public class UniversityFileSystem {
         return new Transcript(courses, grades);
     }
 
-    private ArrayList<Integer> getIntegerList(JSONObject transcriptJson) {
-        Object o = transcriptJson.get("listOfGrades");
-        return new ArrayList<>();
 
-    }
 
     private ArrayList<Integer> convertLongToInteger(ArrayList<Long> transcriptIntegerGrades) {
         ArrayList<Integer> integerGrades = new ArrayList<>();
@@ -454,7 +462,10 @@ public class UniversityFileSystem {
     private void readCourses() {
         File directoryPath = new File("iteration1/Courses");
         File[] fileList = directoryPath.listFiles();
-        HashMap<String, Course> Courses = new HashMap<>();
+        if (fileList == null) {
+            System.out.println("Check the Courses directory position!!");
+            return;
+        }
         try {
             JSONParser jsonParser = new JSONParser();
             for (File file : fileList) {
@@ -496,7 +507,6 @@ public class UniversityFileSystem {
 
     public Person getSignedPerson(String[] userInfo, Controller currentController) {
         Person person = null;
-
         int errorCode = checkUsernamePasswordLength(userInfo);
         String userName = userInfo[0];
         String password = userInfo[1];

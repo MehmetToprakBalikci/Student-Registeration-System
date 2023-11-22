@@ -11,7 +11,7 @@ class Student extends Person implements User{
     private List<Course> registrationWaitingCourses; //Courses that are waiting to be registered
     private List<Course> registrationCompleteCourses; // Courses that finished registration
     private List<Course> cancelWaitingCourses; // Courses that are waiting to be canceled 
-    private Transcript currentTranscript;
+    private final Transcript currentTranscript;
 
     public void setCurrentAdvisor(Advisor currentAdvisor) {
         this.currentAdvisor = currentAdvisor;
@@ -25,10 +25,6 @@ class Student extends Person implements User{
         this.registrationWaitingCourses = registrationWaitingCourses;
     }
 
-    public List<Course> getCurrentAvailableCourses() {
-        return currentAvailableCourses;
-    }
-
     public void setRegistrationCompleteCourses(List<Course> registrationCompleteCourses) {
         this.registrationCompleteCourses = registrationCompleteCourses;
     }
@@ -37,7 +33,7 @@ class Student extends Person implements User{
         this.cancelWaitingCourses = cancelWaitingCourses;
     }
 
-    private String studentID; // Additional field for student ID
+    private final String studentID; // Additional field for student ID
     private Advisor currentAdvisor;
 
     public Advisor getCurrentAdvisor() {
@@ -108,13 +104,13 @@ class Student extends Person implements User{
     @Override
     public void startActions(Controller controller) {
         String[] actionList= getActionList();
-        int actionNumber = 0;
+        int actionNumber;
          final int maxAction = 7;
         do{
         actionNumber = controller.printListReturnSelection(actionList);
         runUserAction(actionNumber, controller);
         }while(actionNumber != maxAction);
-        return;
+
     }
 
 
@@ -126,7 +122,7 @@ class Student extends Person implements User{
         int currentUserSelection;
         Course currentCourse;
             switch (actionNumber) {
-            
+
                 case 1: currentUserSelection = controller.printListReturnSelection(
                     getCourseReturnListString("Courses that are available to you, choose a course to add:" ,currentAvailableCourses));
                     if(currentUserSelection != 1){
@@ -139,7 +135,7 @@ class Student extends Person implements User{
                             controller.printErrorMessage("This course does not fit into your course times!");
                         }
                     }
-                break; 
+                break;
                 case 2: currentUserSelection = controller.printListReturnSelection(
                     getCourseReturnListString("Courses that have finalized registeration, choose course to cancel:", registrationCompleteCourses));
                     if(currentUserSelection != 1){
@@ -149,13 +145,13 @@ class Student extends Person implements User{
                     }
                 break;
                 case 3: controller.printList(
-                    getCourseListString("Courses that are waiting to be finalized by your advisor :", registrationWaitingCourses)); 
-                break; 
+                    getCourseListString("Courses that are waiting to be finalized by your advisor ", registrationWaitingCourses));
+                break;
                 case 4: controller.printList(
-                    getCourseListString("Courses that are waiting to be canceled by your  :", cancelWaitingCourses));
+                    getCourseListString("Courses that are waiting to be canceled by your "+currentAdvisor.toString(), cancelWaitingCourses));
                 break;
                 case 5: controller.printList(currentTranscript.getStudentTranscriptStringList());
-                break; 
+                break;
                 case 6: controller.printList(stringToList(currentAdvisor.toString()));
                 break;
                 default:

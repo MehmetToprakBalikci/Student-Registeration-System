@@ -5,6 +5,6 @@
   "courseYear" : 2,
   "courseDay" :  2,
   "courseHour":  3,
-  "prerequisites": ["CS101","CS102"],
-  "lecturerId" : "1002"
+  "prerequisites": ["CS101"],
+  "lecturerId" : "1004"
 }
