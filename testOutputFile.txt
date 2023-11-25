@@ -1,0 +1,18 @@
+Testing class Student runUserAction : registrationWaitingCourses part for StudentTest...
+Test 1 passed!
+Test 2 passed!
+Test 3 passed!
+Test 4 passed!
+Test 5 passed!
+Testing class Student runUserAction : cancelWaitingCourses part for StudentTest...
+Test 1 passed!
+Test 2 passed!
+Test 3 passed!
+Test 4 passed!
+Test 5 passed!
+Testing class Advisor runUserAction : Course waitingRegistration Selection Part...
+Test 1 passed!
+Test 2 passed!
+Test 3 passed!
+Test 4 passed!
+Test 5 passed!
