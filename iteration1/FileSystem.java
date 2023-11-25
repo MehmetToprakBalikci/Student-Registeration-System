@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -444,13 +443,13 @@ public class FileSystem {
         Transcript transcript = student.getCurrentTranscript();
         // int semester = transcript.calculateSemesterFromCredit();
         int year = 3;
-        for (Course course : systemCourses) {
+       /*  for (Course course : systemCourses) {
             if (course.checkYearMatching(year) && course.checkCourseSection(student.getRegistrationCompleteCourses(), student.getRegistrationWaitingCourses(), student.getCancelWaitingCourses())) {
                 availableCourses.add(course);
 
             }
-        }
-        return availableCourses;
+        }*/
+        return null;
 
 
     }
@@ -513,7 +512,6 @@ public class FileSystem {
                 coursesLecturerIds.add(lecturerId);
                 Course course = new Course(courseCode, courseName, courseCredit.intValue(), courseYear.intValue(), courseDay.intValue(), courseHour.intValue(), new Lecturer(), new ArrayList<>());
                 systemCourses.add(course);
-
             }
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
