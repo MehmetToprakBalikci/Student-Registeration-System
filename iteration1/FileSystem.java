@@ -27,7 +27,7 @@ public class FileSystem {
         for (Student student : fileSystem.getStudents()) {
             System.out.println(student.toString());
             System.out.println(student.getCurrentAdvisor());
-            System.out.println("AvailableCourses: " + student.getCurrentAvailableCourses());
+            //  System.out.println("AvailableCourses: " + student.getCurrentAvailableCourses());
             System.out.println("---------------------------");
 
         }
@@ -55,7 +55,7 @@ public class FileSystem {
     private final List<String> studentsAdvisorIdsList;
 
     // advisor
-    private List<List<String>> advisorsStudentIdList;
+    private final List<List<String>> advisorsStudentIdList;
 
     public FileSystem() {
         personList = new ArrayList<>();
@@ -334,6 +334,10 @@ public class FileSystem {
     private void readLecturers() {
         File directoryPath = new File("iteration1/Lecturers");
         File[] fileList = directoryPath.listFiles();
+        if (fileList == null) {
+            System.out.println("Check the lecturers directory position!!");
+            return;
+        }
         try {
             JSONParser jsonParser = new JSONParser();
             for (File file : fileList) {
@@ -358,6 +362,10 @@ public class FileSystem {
     private void readAdvisors() {
         File directoryPath = new File("iteration1/Advisors");
         File[] fileList = directoryPath.listFiles();
+        if (fileList == null) {
+            System.out.println("Check the Advisors directory position!!");
+            return;
+        }
         try {
             JSONParser jsonParser = new JSONParser();
             for (File file : fileList) {
@@ -388,6 +396,10 @@ public class FileSystem {
     private void readStudents() {
         File directoryPath = new File("iteration1/Students");
         File[] fileList = directoryPath.listFiles();
+        if (fileList == null) {
+            System.out.println("Check the students directory position!!");
+            return;
+        }
         try {
             JSONParser jsonParser = new JSONParser();
             for (File file : fileList) {
@@ -426,6 +438,7 @@ public class FileSystem {
         }
     }
 
+
     private List<Course> getAvailableCourses(Student student) {
         List<Course> availableCourses = new ArrayList<>();
         Transcript transcript = student.getCurrentTranscript();
@@ -461,11 +474,6 @@ public class FileSystem {
         return new Transcript(courses, grades);
     }
 
-    private ArrayList<Integer> getIntegerList(JSONObject transcriptJson) {
-        Object o = transcriptJson.get("listOfGrades");
-        return new ArrayList<>();
-
-    }
 
     private ArrayList<Integer> convertLongToInteger(ArrayList<Long> transcriptIntegerGrades) {
         ArrayList<Integer> integerGrades = new ArrayList<>();
@@ -479,7 +487,11 @@ public class FileSystem {
     private void readCourses() {
         File directoryPath = new File("iteration1/Courses");
         File[] fileList = directoryPath.listFiles();
-        HashMap<String, Course> Courses = new HashMap<>();
+        if (fileList == null) {
+            System.out.println("Check the Courses directory position!!");
+            return;
+        }
+
         try {
             JSONParser jsonParser = new JSONParser();
             for (File file : fileList) {
@@ -518,3 +530,4 @@ public class FileSystem {
         return prerequisiteCodeStringList;
     }
 }
+
