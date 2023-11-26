@@ -2,11 +2,12 @@
   "type": "advisor",
   "name": "Betül",
   "lastName": "Boz",
-  "username": "betül.boz",
+  "username": "betul.boz",
   "password": "password790",
   "lecturerId": "1002",
   "Students": [
     "150121032",
-    "150121538"
+    "150121538",
+    "150120076"
 ]
 }

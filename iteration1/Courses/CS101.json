@@ -1,7 +1,7 @@
 {
   "courseCode": "CS101",
   "courseName": "Introduction to Computer Science",
-  "courseCredit": 3,
+  "courseCredit": 150,
   "courseYear" : 2,
   "courseDay" :  2,
   "courseHour":  3,

@@ -5,6 +5,7 @@ import java.util.List;
 //Keeps course list and grade list
 public class Transcript {
 
+    
     //Copy constructor,
     //Constructor to be used with an already existing Transcript Object
     public Transcript(Transcript transcript) {
@@ -22,16 +23,50 @@ public class Transcript {
         this.listOfCourses = listOfCourses;
         this.listOfGrades = listOfGrades;
         this.studentCredits = calculateCredit();
+        this.GPA = calculateGPA();
+        this.studentYear = calculateYear();
     }
-
+    public boolean checkPassedCourses(Course checkedCourse){
+        boolean isAvailable = true;
+        int i = 0;
+        for(Course currentCourse1 : listOfCourses){
+            if(currentCourse1.equals(checkedCourse)){
+                //if it finds the course then checks whether it is retakable or not then it returns false or true immediately
+                isAvailable = listOfGrades.get(i).isRetakableGrade(); 
+                break;
+            }
+            i++;
+        }
+        return isAvailable;
+    }
+    private int calculateYear() {
+        int year = 0;
+        if(studentCredits > 150){
+            year = 4;
+        }
+        else if(studentCredits > 90){
+            year = 3;
+        }
+        else if(studentCredits > 30){
+            year = 2;
+        }
+        if(year != 4 && GPA >= 3){
+            year++;
+        }
+        return year;
+    }
+    
     private List<Course> listOfCourses;
     private List<Grade> listOfGrades;
     private int studentCredits;
-
+    private int studentYear;
+    private double GPA;
     public Transcript() {
 
     }
-
+    public int getYear(){
+        return this.studentYear;
+    }
 
     public int calculateCredit() throws ArrayIndexOutOfBoundsException {
         int totalCredit = 0;
@@ -39,9 +74,13 @@ public class Transcript {
         if (listOfCourses.isEmpty()) {
             throw new ArrayIndexOutOfBoundsException("No Courses For Student Found!");
         }
-
+        int i = 0;
         for (Course listOfCourse : listOfCourses) {
-            totalCredit += listOfCourse.getCourseCredit();
+            if(listOfGrades.get(i).getNumericalGrade() >= 35){
+                totalCredit += listOfCourse.getCourseCredit();
+            }
+            i++;
+            
         }
         return totalCredit;
     }
@@ -59,12 +98,13 @@ public class Transcript {
 
 
         List<Integer> weightedValues = new ArrayList<>();
-
+        int totalCredit = 0;
         //Calculate Weighted Values
         for (int i = 0; i < listOfCourses.size(); i++) {
             int credit = listOfCourses.get(i).getCourseCredit();
             int grade = listOfGrades.get(i).getNumericalGrade();
             weightedValues.add(credit * grade);
+            totalCredit += credit;
         }
 
         int totalWeightedValues = 0;
@@ -72,15 +112,16 @@ public class Transcript {
             totalWeightedValues += weightedValues.get(i);
         }
 
-        //calculate gpa
-        gpa = (float) (totalWeightedValues) / ((float) (this.calculateCredit()) * 25);
+        //calculate gpa 
+        gpa = (float) (totalWeightedValues) / ((float) (totalCredit) * 25);
 
         return gpa;
     }
 
     //calculate semester depending on the current credit
     //RIGHT NOW USES A PREDEFINED VALUE FOR EACH SEMESTERS WORTH!!
-    public int calculateSemesterFromCredit() {
+    //Moved to calculateYear()
+    /*  public int calculateSemesterFromCredit() {
         int creditPreSemester = 3, semesterLimit = 16;
         int semester = 1;
         int completedCredits = this.calculateCredit();
@@ -95,7 +136,7 @@ public class Transcript {
         }
 
         return semester;
-    }
+    } */
 
     @Override
     public String toString() {
@@ -103,7 +144,7 @@ public class Transcript {
         try {
             float gpa = this.calculateGPA();
             int credits = this.calculateCredit();
-            int semester = this.calculateSemesterFromCredit();
+            int year = this.calculateYear();
 
 
             //adjust digit precision
@@ -113,7 +154,7 @@ public class Transcript {
 
 
             s = "Cumulative Gpa: " + gpa + "\nCumulative Credits: " + credits +
-                    "\nCurrent Semester: " + semester;
+                    "\nCurrent Year: " + year;
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(e.toString());
         }

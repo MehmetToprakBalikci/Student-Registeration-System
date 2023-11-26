@@ -49,10 +49,7 @@ class Course {
 
     // Check if this student in the appropriate semester to take this course?
     public boolean checkYearMatching(int year){
-        if(courseYear <= year){
-            return true;
-        }
-        return false;
+        return courseYear <= year;
     }
 
     // Check if this course conflicts with any other courses section
@@ -74,7 +71,11 @@ class Course {
         }
         return true;
     }
+    
 
+    private boolean equals(Course course2){
+        return course2 != null && this.courseName.equals(course2.getCourseName());
+    }
     // Check if given student can take this course, according to prerequisite and given completed courses
     public boolean checkPreRequisite(List<Course> completedCourses){
         if(preRequisite.isEmpty()){
@@ -87,7 +88,12 @@ class Course {
         List<Course> copy = new ArrayList<>(preRequisite);
 
         for (Course course : completedCourses) {
-            copy.removeIf(preCourse -> course.getCourseCode().equals(preCourse.getCourseCode()));
+            for(int i = 0; i < copy.size(); i++){
+                Course preRequisiteCurrent = copy.get(i);
+                if(course.equals(preRequisiteCurrent)){
+                    copy.remove(preRequisiteCurrent);
+                }
+            }
             if(copy.isEmpty()){
                 return true;
             }

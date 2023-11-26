@@ -9,7 +9,9 @@ class Grade {
     public Grade(int numericalGrade) {
         this.numericalGrade = numericalGrade;
     }
-
+    public boolean isRetakableGrade(){
+        return numericalGrade <= 50;
+    }
     // Convert numerical grade to letter grade
     public String getGradeLetter() {
         if (numericalGrade >= 90 && numericalGrade <= 100) {

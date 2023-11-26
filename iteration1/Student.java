@@ -171,6 +171,7 @@ class Student extends Person implements User{
     }
 
     private String[] getCourseReturnListString(String titleString, List<Course> coursesList) {
+        //TODO NULL CHECK
         int size = coursesList.size();
         String[] courseListString = new String[size + 2];
         courseListString[0] = titleString; 
@@ -222,5 +223,13 @@ class Student extends Person implements User{
 
     public List<Course> getRegistrationWaitingCourses() {
         return registrationWaitingCourses;
+    }
+
+    public boolean checkCourseAvailablity(Course course) {
+        boolean isAvailable = true;
+        isAvailable = course.checkYearMatching(this.currentTranscript.getYear()) 
+        && course.checkPreRequisite(currentTranscript.getListOfCourses()) 
+        && currentTranscript.checkPassedCourses(course);
+        return isAvailable; 
     }
 }

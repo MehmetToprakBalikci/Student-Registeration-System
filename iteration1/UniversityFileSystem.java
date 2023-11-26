@@ -82,7 +82,7 @@ public class UniversityFileSystem {
         updateStudents();
         // fill the remain parts of advisor
         updateAdvisors();
-
+        
 
     }
 
@@ -143,8 +143,28 @@ public class UniversityFileSystem {
         updateStudentsWaitingCourseLists(studentsRegistrationWaitingCourses);
         updateStudentsRegistrationCompleteCourseLists(studentsRegistrationCompleteCourses);
         studentsCancelWaitingCourseLists(studentsCancelWaitingCourseCodes);
+        updateStudentsAvailableCourses();
     }
+    private void updateStudentsAvailableCourses() {
+        List<Student> students = getStudents();
+        for (Student student : students) {
+            List<Course> availableCourseList = getAvailableCourses(student);
+            student.setCurrentAvailableCourses(availableCourseList);
 
+        }
+    }
+    private List<Course> getAvailableCourses(Student student) {
+        List<Course> availableCourses = new ArrayList<>();
+        // int semester = transcript.calculateSemesterFromCredit();
+         for (Course course : systemCourses) {
+            if(student.checkCourseAvailablity(course)){
+                availableCourses.add(course);
+            }
+        }
+        return availableCourses;
+
+
+    }
     private void updateStudentsAdvisor(List<String> studentsAdvisorIdsStringList) {
         List<Student> students = getStudents();
         int index = 0;
