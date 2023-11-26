@@ -34,8 +34,9 @@ class Controller {
     public void printErrorMessage(String errorMessage){
         ui.printConsoleErrorMessage(errorMessage);
     }
-    public int printListReturnSelection(String[] stringsList) {
-        return ui.printConsoleListReturnSelection(stringsList);
+    //Error int -1 for no error
+    public int printListReturnSelection(String[] stringsList, int errorInt) {
+        return ui.printConsoleListReturnSelection(stringsList, errorInt);
     }
     public void printList(String[] stringList){
         ui.printConsoleList(stringList);

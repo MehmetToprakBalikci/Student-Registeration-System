@@ -24,7 +24,7 @@ class Advisor extends Lecturer implements User {
     public void startActions(Controller controller) {
         while (true) {
             String[] actionList = getActionList();
-            int actionNumber = controller.printListReturnSelection(actionList);
+            int actionNumber = controller.printListReturnSelection(actionList, -1);
             if (actionNumber != 2) {
                 runUserAction(actionNumber, controller);
             } else return;
@@ -66,7 +66,7 @@ class Advisor extends Lecturer implements User {
                         studentMenuList[i] = i + ") " + studentList.get(i - 1).toString();
                     }
 
-                    actionNumber = controller.printListReturnSelection(studentMenuList);
+                    actionNumber = controller.printListReturnSelection(studentMenuList, -1);
                     if (actionNumber == studentSize + 1) {    // If action is go back
                         return;
                     }
@@ -100,7 +100,7 @@ class Advisor extends Lecturer implements User {
                         }
 
 
-                        actionNumber = controller.printListReturnSelection(courseMenuList);
+                        actionNumber = controller.printListReturnSelection(courseMenuList, -1);
                         Course selectedCourse;
 
                         if (actionNumber == courseMenuList.length - 1) {        // Go back
@@ -121,7 +121,7 @@ class Advisor extends Lecturer implements User {
                             courseActionMenuList[1] = "1) Accept registration request.";
                             courseActionMenuList[2] = "2) Reject registration request.";
 
-                            if (controller.printListReturnSelection(courseActionMenuList) == 1) {    // Accept registration
+                            if (controller.printListReturnSelection(courseActionMenuList, -1) == 1) {    // Accept registration
                                 selectedStudent.removeElementFromRegistrationWaitingCourses(selectedCourse);
                                 selectedStudent.addElementToRegistrationCompleteCourses(selectedCourse);
                             } else {
@@ -133,7 +133,7 @@ class Advisor extends Lecturer implements User {
                             courseActionMenuList[1] = "1) Accept cancel request.";
                             courseActionMenuList[2] = "2) Reject cancel request.";
 
-                            if (controller.printListReturnSelection(courseActionMenuList) == 1) {
+                            if (controller.printListReturnSelection(courseActionMenuList, -1) == 1) {
                                 selectedStudent.removeElementFromCancelWaitingCourses(selectedCourse);
                                 selectedStudent.addElementToCurrentAvailableCourses(selectedCourse);
                             } else {

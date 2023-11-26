@@ -56,9 +56,9 @@ public class UI {
     }
     
     //First string of the array is the title string
-    public int printConsoleListReturnSelection(String[] stringList){
-        int chosenInt = -1; 
-        if (chosenInt == 0) {
+    public int printConsoleListReturnSelection(String[] stringList, int errorInt){
+        // int chosenInt = -1; 
+        if (errorInt == 0) {
             try {
                 throw new Exception("emptyListStringException");
             } catch (Exception e) {
@@ -67,10 +67,10 @@ public class UI {
         }
         do{
             printConsoleList(stringList);
-            chosenInt = scanner.nextInt();
-        }while(chosenInt >= stringList.length || chosenInt <= 0);
+            errorInt = scanner.nextInt();
+        }while(errorInt >= stringList.length || errorInt <= 0);
 
-        return chosenInt;
+        return errorInt;
     }
 
     public void printConsoleList(String[] stringList) {

@@ -107,7 +107,7 @@ class Student extends Person implements User{
         int actionNumber;
          final int maxAction = 7;
         do{
-        actionNumber = controller.printListReturnSelection(actionList);
+        actionNumber = controller.printListReturnSelection(actionList, -1);
         runUserAction(actionNumber, controller);
         }while(actionNumber != maxAction);
 
@@ -124,7 +124,7 @@ class Student extends Person implements User{
             switch (actionNumber) {
 
                 case 1: currentUserSelection = controller.printListReturnSelection(
-                    getCourseReturnListString("Courses that are available to you, choose a course to add:" ,currentAvailableCourses));
+                    getCourseReturnListString("Courses that are available to you, choose a course to add:" ,currentAvailableCourses), -1);
                     if(currentUserSelection != 1){
                         currentCourse = currentAvailableCourses.get(currentUserSelection - 2);
                         if(currentCourse.checkCourseSection(registrationCompleteCourses, registrationWaitingCourses, cancelWaitingCourses)){
@@ -137,7 +137,7 @@ class Student extends Person implements User{
                     }
                 break;
                 case 2: currentUserSelection = controller.printListReturnSelection(
-                    getCourseReturnListString("Courses that have finalized registeration, choose course to cancel:", registrationCompleteCourses));
+                    getCourseReturnListString("Courses that have finalized registeration, choose course to cancel:", registrationCompleteCourses), -1);
                     if(currentUserSelection != 1){
                         currentCourse = registrationCompleteCourses.get(currentUserSelection - 2);
                         removeElementFromRegistrationCompleteCourses(currentCourse);
