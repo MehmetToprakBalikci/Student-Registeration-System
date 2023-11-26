@@ -22,11 +22,7 @@ class CourseSection {
 
     // Compare to see if this course section is available or not
     public boolean compareAvailability(CourseSection sectionToCompare){
-        if (this.dayNumber == sectionToCompare.dayNumber && this.sectionNumber == sectionToCompare.sectionNumber) {
-            return false;
-        } else {
-            return true;
-        }
+        return !(this.dayNumber == sectionToCompare.dayNumber && this.sectionNumber == sectionToCompare.sectionNumber);
     }
 
     public String getCourseSectionString(){
