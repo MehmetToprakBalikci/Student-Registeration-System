@@ -47,8 +47,11 @@ class CourseSection {
         // 1     2     3      4      5   6   7   8   9   10
         if (sectionNumber >= 1 && sectionNumber <= 4) {
             hour = String.format("%d.30", sectionNumber + 7);
-        } else {
+        } else if(sectionNumber < 15){
             hour = String.format("%d.00", sectionNumber + 8);
+        }
+        else {
+            hour = "Invalid Hour";
         }
 
 
