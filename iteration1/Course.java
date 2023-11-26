@@ -52,24 +52,24 @@ class Course {
         return courseYear <= year;
     }
 
-    // Check if this course conflicts with any other courses section
-    public boolean checkCourseSection(List<Course> registrationCompleteCourse, List<Course> registrationWaitingCourse, List<Course> cancelWaitingCourse){
+    // Check if this course conflicts with any other courses section returns 0 for available course
+    public String checkCourseSection(List<Course> registrationCompleteCourse, List<Course> registrationWaitingCourse, List<Course> cancelWaitingCourse){
         for (Course course : registrationCompleteCourse) {
             if (!course.getSection().compareAvailability(this.section)) {
-                return false;
+                return "This course is conflicting with the time of the course : " + course.toString() + " inside your courses that are registered!";
             }
         }
         for (Course course : registrationWaitingCourse) {
             if (!course.getSection().compareAvailability(this.section)) {
-                return false;
+                return "This course is conflicting with the time of the course : " + course.toString() + " inside your courses that are waiting to be registered!";
             }
         }
         for (Course course : cancelWaitingCourse) {
             if (!course.getSection().compareAvailability(this.section)) {
-                return false;
+                return "This course is conflicting with the time of the course : " + course.toString() + " inside your courses that are waiting to be canceled!";
             }
         }
-        return true;
+        return null;
     }
     
 

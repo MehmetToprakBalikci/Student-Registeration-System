@@ -127,12 +127,13 @@ class Student extends Person implements User{
                     getCourseReturnListString("Courses that are available to you, choose a course to add:" ,currentAvailableCourses), -1);
                     if(currentUserSelection != 1){
                         currentCourse = currentAvailableCourses.get(currentUserSelection - 2);
-                        if(currentCourse.checkCourseSection(registrationCompleteCourses, registrationWaitingCourses, cancelWaitingCourses)){
+                        String courseSectAvailabilityStr = currentCourse.checkCourseSection(registrationCompleteCourses, registrationWaitingCourses, cancelWaitingCourses);
+                        if(courseSectAvailabilityStr == null){
                             removeElementFromCurrentAvailableCourses(currentCourse);
                             registrationWaitingCourses.add(currentCourse);
                         }
                         else{
-                            controller.printErrorMessage("This course does not fit into your course times!");
+                            controller.printErrorMessage(courseSectAvailabilityStr);
                         }
                     }
                 break;
