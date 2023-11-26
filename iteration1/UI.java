@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 // UI class
@@ -6,7 +7,7 @@ public class UI {
     private  Scanner scanner;
 
     public UI(){
-        scanner=new Scanner(System.in);
+       scanner=new Scanner(System.in, "UTF-8");
     }
      public UI(Scanner input){
         scanner=input;
@@ -48,7 +49,9 @@ public class UI {
 
     public void callEndMessage(int status) {
         System.out.println("Press enter to close this program...");
-        scanner.next();
+        scanner.nextLine();
+        scanner.nextLine();
+        scanner.close();
         System.exit(status);
     }
     
