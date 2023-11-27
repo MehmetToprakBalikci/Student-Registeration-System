@@ -242,7 +242,7 @@ class Student extends Person implements User {
     public boolean checkCourseAvailablity(Course course) {
         boolean isAvailable = true;
         isAvailable = course.checkYearMatching(this.currentTranscript.getYear()) 
-        && course.checkPreRequisite(currentTranscript.getListOfCourses()) 
+        && course.checkPreRequisite(currentTranscript.getListOfCourses(), currentTranscript.getListOfGrades()) 
         && currentTranscript.checkPassedCourses(course)
         && !checkExistence(course);
         return isAvailable; 
