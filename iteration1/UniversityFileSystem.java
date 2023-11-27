@@ -81,7 +81,7 @@ public class UniversityFileSystem {
         updateStudents();
         // fill the remain parts of advisor
         updateAdvisors();
-        
+
 
     }
 
@@ -144,6 +144,7 @@ public class UniversityFileSystem {
         studentsCancelWaitingCourseLists(studentsCancelWaitingCourseCodes);
         updateStudentsAvailableCourses();
     }
+
     private void updateStudentsAvailableCourses() {
         List<Student> students = getStudents();
         for (Student student : students) {
@@ -152,11 +153,12 @@ public class UniversityFileSystem {
 
         }
     }
+
     private List<Course> getAvailableCourses(Student student) {
         List<Course> availableCourses = new ArrayList<>();
         // int semester = transcript.calculateSemesterFromCredit();
-         for (Course course : systemCourses) {
-            if(student.checkCourseAvailablity(course)){
+        for (Course course : systemCourses) {
+            if (student.checkCourseAvailablity(course)) {
                 availableCourses.add(course);
             }
         }
@@ -164,6 +166,7 @@ public class UniversityFileSystem {
 
 
     }
+
     private void updateStudentsAdvisor(List<String> studentsAdvisorIdsStringList) {
         List<Student> students = getStudents();
         int index = 0;
@@ -223,6 +226,9 @@ public class UniversityFileSystem {
 
     private List<Course> convertToCourseList(List<Course> systemCourses, List<String> courseCodeListString) {
         List<Course> courseList = new ArrayList<>();
+        if (courseCodeListString.size()==0) {
+            return courseList;
+        }
         for (String courseCode : courseCodeListString) {
             Course course = convertToCourse(courseCode, systemCourses);
             courseList.add(course);
@@ -281,10 +287,12 @@ public class UniversityFileSystem {
 
     private List<Course> getprerequisiteCodesList(List<Course> systemCourses, List<String> prerequisiteCodesString) {
         List<Course> prerequisiteCodesList = new ArrayList<>();
+        if (prerequisiteCodesString.get(0).equals("")) return prerequisiteCodesList;
         for (String courseCode : prerequisiteCodesString) {
             // get the course code string on the systemCourse and return the object
             Course course = getCourse(systemCourses, courseCode);
             prerequisiteCodesList.add(course);
+
         }
         return prerequisiteCodesList;
 
@@ -468,7 +476,6 @@ public class UniversityFileSystem {
     }
 
 
-
     private ArrayList<Integer> convertLongToInteger(ArrayList<Long> transcriptIntegerGrades) {
         ArrayList<Integer> integerGrades = new ArrayList<>();
         for (Long grade : transcriptIntegerGrades) {
@@ -556,15 +563,69 @@ public class UniversityFileSystem {
         return errorNum;
     }
 
-    public void saveFiles() {
-        jsonWriter writer = new jsonWriter();
+   /* public void saveFiles() {
 
-        //for students only for now
-        for(Person person : personList) {
-            if(person instanceof Student) {
-                writer.saveFiles(person);
+        List<Person> persons = this.personList;
+        List<Student> students = new ArrayList<>();
+        List<Lecturer> lecturers = new ArrayList<>();
+        List<Advisor> advisors = new ArrayList<>();
+        for (Person person : persons) {
+            if (person instanceof Student)
+                students.add((Student) person);
+            else if (person instanceof Lecturer)
+                lecturers.add((Lecturer) person);
+            else
+                advisors.add((Advisor) person);
+        }
+
+        List<Course> courses = this.systemCourses;
+
+        JSONObject jsonObject = new JSONObject();
+
+        for (Course course : courses) {
+            jsonObject.put("courseCode", course.getCourseCode());
+            jsonObject.put("courseName", course.getCourseName());
+            jsonObject.put("courseCredit", course.getCourseCredit());
+            jsonObject.put("courseYear", course.getCourseYear());
+            jsonObject.put("courseDay", course.getSection().getDayNumber());
+            jsonObject.put("courseHour", course.getSection());
+
+
+            jsonObject.put("courseSection", course.getSection());
+            jsonObject.put("prerequisites", course.getCourseCode());
+
+            jsonObject.put("lecturerId", course.getLecturer().getLecturerID());
+
+            String fileName = course.getCourseCode() + ".json";
+            try {
+                FileWriter file = new FileWriter(fileName);
+                file.write(jsonObject.toJSONString());
+                file.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        for (Lecturer lecturer : lecturers) {
+            /*jsonObject.put("type", "lecturer");
+            jsonObject.put("name", );
+            jsonObject.put("lastName", course.getCourseCredit());
+            jsonObject.put("username", course.getCourseYear());
+            jsonObject.put("password", course.getSection().getDayNumber());
+            jsonObject.put("lecturerId", course.getSection());
+            jsonObject.put("Students", course.getSection());
+
+
+            String fileName = lecturer.getLecturerID() + ".json";
+            try {
+                FileWriter file = new FileWriter(fileName);
+                file.write(jsonObject.toJSONString());
+                file.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
-    // Methods for file operations need to be implemented
+    Methods for file operations need to be implemented*/
 }

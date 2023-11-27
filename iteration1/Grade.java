@@ -3,15 +3,21 @@
 
 // Grade class
 class Grade {
-    private int numericalGrade;
+    private final int numericalGrade;
 
     // Contructor
     public Grade(int numericalGrade) {
         this.numericalGrade = numericalGrade;
     }
-    public boolean isRetakableGrade(){
+
+    public boolean isRetakableGrade() {
         return numericalGrade < 50;
     }
+
+    public boolean isPassedGrade() {
+        return numericalGrade >= 35;
+    }
+
     // Convert numerical grade to letter grade
     public String getGradeLetter() {
         if (numericalGrade >= 90 && numericalGrade <= 100) {
@@ -34,10 +40,12 @@ class Grade {
 
         return "Invalid Grade";
     }
+
     @Override
-    public String toString(){
-        return "Grade : " + numericalGrade + ", Letter Grade : " + getGradeLetter(); 
+    public String toString() {
+        return "Grade : " + numericalGrade + ", Letter Grade : " + getGradeLetter();
     }
+
     public int getNumericalGrade() {
         return numericalGrade;
     }

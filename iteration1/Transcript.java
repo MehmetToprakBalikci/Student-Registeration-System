@@ -4,8 +4,16 @@ import java.util.List;
 //Transcript class for each student
 //Keeps course list and grade list
 public class Transcript {
+    private List<Course> listOfCourses;
+    private List<Grade> listOfGrades;
 
-    
+
+
+    private int studentCredits;
+    private int studentYear;
+    private double GPA;
+
+
     //Copy constructor,
     //Constructor to be used with an already existing Transcript Object
     public Transcript(Transcript transcript) {
@@ -14,11 +22,6 @@ public class Transcript {
         this.studentCredits = transcript.studentCredits;
     }
 
-    public List<Course> getListOfCourses() {
-        return listOfCourses;
-    }
-
-    //Constructor with parameters
     public Transcript(List<Course> listOfCourses, List<Grade> listOfGrades) {
         this.listOfCourses = listOfCourses;
         this.listOfGrades = listOfGrades;
@@ -26,50 +29,46 @@ public class Transcript {
         this.GPA = calculateGPA();
         this.studentYear = calculateYear();
     }
-    public boolean checkPassedCourses(Course checkedCourse){
+
+
+    //Constructor with parameters
+
+
+    public boolean checkPassedCourses(Course checkedCourse) {
         boolean isAvailable = true;
         int i = 0;
-        for(Course currentCourse1 : listOfCourses){
-            if(currentCourse1.equals(checkedCourse)){
+        for (Course currentCourse1 : listOfCourses) {
+            if (currentCourse1.equals(checkedCourse)) {
                 //if it finds the course then checks whether it is retakable or not then it returns false or true immediately
-                isAvailable = listOfGrades.get(i).isRetakableGrade(); 
+                isAvailable = listOfGrades.get(i).isRetakableGrade();
                 break;
             }
             i++;
         }
         return isAvailable;
     }
+
     private int calculateYear() {
-        int year = 0;
-        if(studentCredits > 150){
+        int year = 1;
+        if (studentCredits > 150) {
             year = 4;
-        }
-        else if(studentCredits > 90){
+        } else if (studentCredits > 90) {
             year = 3;
-        }
-        else if(studentCredits > 30){
+        } else if (studentCredits > 30) {
             year = 2;
         }
-        if(year != 4 && GPA >= 3){
+        if (year != 4 && GPA >= 3) {
             year++;
         }
         return year;
     }
-    
-    private List<Course> listOfCourses;
 
-    public List<Grade> getListOfGrades() {
-        return listOfGrades;
-    }
 
-    private List<Grade> listOfGrades;
-    private int studentCredits;
-    private int studentYear;
-    private double GPA;
     public Transcript() {
 
     }
-    public int getYear(){
+
+    public int getYear() {
         return this.studentYear;
     }
 
@@ -81,11 +80,11 @@ public class Transcript {
         }
         int i = 0;
         for (Course listOfCourse : listOfCourses) {
-            if(listOfGrades.get(i).getNumericalGrade() >= 35){
+            if (listOfGrades.get(i).getNumericalGrade() >= 35) {
                 totalCredit += listOfCourse.getCourseCredit();
             }
             i++;
-            
+
         }
         return totalCredit;
     }
@@ -93,7 +92,7 @@ public class Transcript {
 
     //Method to calculate current gpa
     public float calculateGPA() throws ArrayIndexOutOfBoundsException {
-        float gpa = 0;
+        float gpa;
         if (listOfCourses.isEmpty()) {
             throw new ArrayIndexOutOfBoundsException("No Courses For Student Found!");
         }
@@ -121,6 +120,13 @@ public class Transcript {
         gpa = (float) (totalWeightedValues) / ((float) (totalCredit) * 25);
 
         return gpa;
+    }
+
+    public List<Course> getListOfCourses() {
+        return listOfCourses;
+    }
+    public List<Grade> getListOfGrades() {
+        return listOfGrades;
     }
 
     //calculate semester depending on the current credit

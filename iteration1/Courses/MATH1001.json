@@ -1,10 +1,10 @@
 {
-  "courseCode": "CS103",
+  "courseCode": "MATH1001",
   "courseName": "Calculus1",
-  "courseCredit": 4,
-  "courseYear" : 2,
+  "courseCredit": 6,
+  "courseYear" : 1,
   "courseDay" :  2,
   "courseHour":  8,
-  "prerequisites": ["CS101"],
+  "prerequisites": [""],
   "lecturerId" : "1004"
 }
