@@ -9,7 +9,6 @@ class Controller {
 
     public Controller() {
         universityFileSystem = new UniversityFileSystem();
-        jsonWriter = new jsonWriter();
         ui = new UI();
         ui.initialize();
     }
@@ -30,7 +29,8 @@ class Controller {
             person = universityFileSystem.getSignedPerson(userInfo, this);
         } while (person == null);
         person.startActions(this);
-        jsonWriter.saveFiles(person);
+        jsonWriter = new jsonWriter(person);
+        jsonWriter.saveFiles();
         ui.callEndMessage(0);
     }
 
