@@ -230,7 +230,24 @@ class Student extends Person implements User{
         boolean isAvailable = true;
         isAvailable = course.checkYearMatching(this.currentTranscript.getYear()) 
         && course.checkPreRequisite(currentTranscript.getListOfCourses()) 
-        && currentTranscript.checkPassedCourses(course);
+        && currentTranscript.checkPassedCourses(course)
+        && !checkExistence(course);
         return isAvailable; 
     }
+    private boolean checkExistence(Course course){
+        boolean exists = false;
+        exists = checkListForCourse(cancelWaitingCourses, course) || 
+        checkListForCourse(registrationCompleteCourses, course) || 
+        checkListForCourse(registrationWaitingCourses, course);
+        return exists;
+    }
+    //Returns true if it finds a course in the list
+    private boolean checkListForCourse(List<Course> courseList, Course course) {
+        for (Course current : courseList) {
+            if(course.equals(current))
+                return true; 
+        }
+        return false;
+    }
+    
 }

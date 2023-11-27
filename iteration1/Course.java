@@ -72,8 +72,8 @@ class Course {
         return null;
     }
     
-
-    private boolean equals(Course course2){
+    
+    public boolean equals(Course course2){
         return course2 != null && this.courseName.equals(course2.getCourseName());
     }
     // Check if given student can take this course, according to prerequisite and given completed courses
