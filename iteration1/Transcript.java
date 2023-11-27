@@ -57,6 +57,11 @@ public class Transcript {
     }
     
     private List<Course> listOfCourses;
+
+    public List<Grade> getListOfGrades() {
+        return listOfGrades;
+    }
+
     private List<Grade> listOfGrades;
     private int studentCredits;
     private int studentYear;
