@@ -1,16 +1,16 @@
 {
   "type": "student",
-  "name": "Furkan",
-  "lastName": "Gökgöz",
-  "username": "furki213",
-  "password": "gokfurk111",
-  "studentId": "150120076",
+  "name": "Tolga",
+  "lastName": "Fehmioğlu",
+  "username": "tolgi224",
+  "password": "fehmi5332",
+  "studentId": "150120022",
   "Transcript": {
     "listOfCourses": [
-      "CSE1200","CSE2225","MATH1001","CSE3055","CSE3033"
+      "CSE1241","CSE1200","MATH1001"
     ],
     "listOfGrades": [
-      50,80,90,50,30
+      50,80,90
     ]
   },
   "advisorId": "1002",
@@ -19,7 +19,7 @@
   
   ],
   "registrationCompleteCourses": [
-  
+
    ],
   "registrationWaitingCourses": [
   

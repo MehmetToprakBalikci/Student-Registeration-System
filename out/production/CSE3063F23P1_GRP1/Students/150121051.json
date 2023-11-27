@@ -7,23 +7,22 @@
   "studentId": "150121051",
   "Transcript": {
     "listOfCourses": [
-      "CS102",
-      "CS103"
+      "CSE2225",
+      "MATH1001"
     ],
     "listOfGrades": [
       50,
       60
     ]
   },
-  "advisorId": "1004",
-  "classLevel": "3",
+  "advisorId": "1003",
   "cancelWaitingCourses": [
-    "CS104",
-    "CS105"
-  ],
-  "registrationCompleteCourses": [
-    "CS106"
 
   ],
-  "registrationWaitingCourses": [""]
+  "registrationCompleteCourses": [
+
+  ],
+  "registrationWaitingCourses": [
+
+  ]
 }

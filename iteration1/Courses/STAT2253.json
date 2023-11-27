@@ -1,0 +1,10 @@
+{
+  "courseCode": "STAT2253",
+  "courseName": "Prob. and Stat. For Comp. Eng.",
+  "courseCredit": 5,
+  "courseYear" : 2,
+  "courseDay" :  2,
+  "courseHour":  4,
+  "prerequisites": [""],
+  "lecturerId" : "2002"
+}

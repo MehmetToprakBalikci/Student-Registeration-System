@@ -1,4 +1,3 @@
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -9,23 +8,39 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class jsonWriter {
+    private Person person;
+
+    public jsonWriter() {
+
+    }
+
+    public jsonWriter(Person person) {
+        this.person = person;
+    }
 
 
-    public void saveFiles(Person person) {
-        Student student;
+    public void saveFiles() {
+        // if student enters the system
+        if (person instanceof Student) {
+            updateStudentFile((Student) person);
+         // if advisor enters the system
+        } else
+            updateStudentFilesAsAdvisor();
 
+    }
+
+    private void updateStudentFilesAsAdvisor() {
+        if (!(person instanceof Advisor)) return;
+        Advisor advisor = (Advisor) person;
+        for (Student student : advisor.getStudentList()) {
+            updateStudentFile(student);
+        }
+    }
+
+    private void updateStudentFile(Student student) {
         //check for type
-        if(!(person instanceof  Student)) {
-            System.out.println("Wrong type of person!");
-            return;
-        }
-        else {
-            student = (Student) person;
-        }
-
         //Find the file to be updated
         File directoryPath = new File("iteration1/Students");
         File[] fileList = directoryPath.listFiles();
@@ -48,114 +63,110 @@ public class jsonWriter {
                 }
             }
             //null check
-            if(file == null) {
+            if (file == null) {
                 System.out.println("Student file does not exist!");
                 return;
             }
 
-                FileReader fileReader = new FileReader(file);
-                Object object = jsonParser.parse(fileReader);
-                JSONObject obj = (JSONObject) object;
+            FileReader fileReader = new FileReader(file);
+            Object object = jsonParser.parse(fileReader);
+            JSONObject obj = (JSONObject) object;
 
-                //prepare student data to be put into json
-                String name = (String) obj.get("name");
-                String lastName = (String) obj.get("lastName");
-                String userName = student.getUserName();
-                String password = student.getPassword();
-                String id = student.getStudentID();
-                List<Course> courses = student.getCurrentTranscript().getListOfCourses();
-                List<Grade> grades = student.getCurrentTranscript().getListOfGrades();
-                String advID = (student.getCurrentAdvisor()).getLecturerID();
-                String classLevel = String.valueOf(student.getCurrentTranscript().getYear());
+            //prepare student data to be put into json
+            String name = (String) obj.get("name");
+            String lastName = (String) obj.get("lastName");
+            String userName = student.getUserName();
+            String password = student.getPassword();
+            String id = student.getStudentID();
+            List<Course> courses = student.getCurrentTranscript().getListOfCourses();
+            List<Grade> grades = student.getCurrentTranscript().getListOfGrades();
+            String advID = (student.getCurrentAdvisor()).getLecturerID();
+            String classLevel = String.valueOf(student.getCurrentTranscript().getYear());
 
-                //make a list of course codes
-                List<String> cancelWaitingCourses = new ArrayList<>();
-                for(Course course : student.getCancelWaitingCourses())
-                    if(course != null)
-                        cancelWaitingCourses.add(course.getCourseCode());
+            //make a list of course codes
+            List<String> cancelWaitingCourses = new ArrayList<>();
+            for (Course course : student.getCancelWaitingCourses())
+                if (course != null)
+                    cancelWaitingCourses.add(course.getCourseCode());
 
-                //make a list of course codes
-                List<String> registrationCompleteCourses = new ArrayList<>();
-                for(Course course : student.getRegistrationCompleteCourses())
-                    if(course != null)
-                        registrationCompleteCourses.add(course.getCourseCode());
+            //make a list of course codes
+            List<String> registrationCompleteCourses = new ArrayList<>();
+            for (Course course : student.getRegistrationCompleteCourses())
+                if (course != null)
+                    registrationCompleteCourses.add(course.getCourseCode());
 
-                //make a list of course codes
-                List<String> registrationWaitingCourses = new ArrayList<>();
-                for(Course course : student.getRegistrationWaitingCourses()) {
-                    if(course != null)
-                        registrationWaitingCourses.add(course.getCourseCode());
-                }
+            //make a list of course codes
+            List<String> registrationWaitingCourses = new ArrayList<>();
+            for (Course course : student.getRegistrationWaitingCourses()) {
+                if (course != null)
+                    registrationWaitingCourses.add(course.getCourseCode());
+            }
 
-                String format = new String();
-                format += "{\n" + "  \"type\": \"student\",\n";
-                format += "  \"name\": \"" + name + "\",\n";
-                format += "  \"lastName\": \"" + lastName + "\",\n";
-                format += "  \"username\": \"" + userName + "\",\n";
-                format += "  \"password\": \"" + password + "\",\n";
-                format += "  \"studentId\": \"" + id + "\",\n";
+            StringBuilder format = new StringBuilder();
+            format.append("{\n" + "  \"type\": \"student\",\n");
+            format.append("  \"name\": \"").append(name).append("\",\n");
+            format.append("  \"lastName\": \"").append(lastName).append("\",\n");
+            format.append("  \"username\": \"").append(userName).append("\",\n");
+            format.append("  \"password\": \"").append(password).append("\",\n");
+            format.append("  \"studentId\": \"").append(id).append("\",\n");
 
-                format += "  \"Transcript\": {\n";
-                format += "    \"listOfCourses\": [\n      ";
-                for(int i = 0; i < student.getCurrentTranscript().getListOfCourses().size(); i++) {
-                    format += "\""
-                            + student.getCurrentTranscript().getListOfCourses().get(i).getCourseCode()
-                            + "\"";
-                    if(i != student.getCurrentTranscript().getListOfCourses().size()-1)
-                        format += ",";
-                    else
-                        format += "\n    ],\n";
-                }
+            format.append("  \"Transcript\": {\n");
+            format.append("    \"listOfCourses\": [\n      ");
+            for (int i = 0; i < student.getCurrentTranscript().getListOfCourses().size(); i++) {
+                format.append("\"").append(student.getCurrentTranscript().getListOfCourses().get(i).getCourseCode()).append("\"");
+                if (i != student.getCurrentTranscript().getListOfCourses().size() - 1)
+                    format.append(",");
+                else
+                    format.append("\n    ],\n");
+            }
 
-                format += "    \"listOfGrades\": [\n      ";
-                for(int i = 0; i < student.getCurrentTranscript().getListOfGrades().size(); i++) {
-                    format += student.getCurrentTranscript().getListOfGrades().get(i).getNumericalGrade();
-                    if(i != student.getCurrentTranscript().getListOfGrades().size()-1)
-                        format += ",";
-                    else
-                        format += "\n    ]\n";
-                }
-                format += "  },\n";
+            format.append("    \"listOfGrades\": [\n      ");
+            for (int i = 0; i < student.getCurrentTranscript().getListOfGrades().size(); i++) {
+                format.append(student.getCurrentTranscript().getListOfGrades().get(i).getNumericalGrade());
+                if (i != student.getCurrentTranscript().getListOfGrades().size() - 1)
+                    format.append(",");
+                else
+                    format.append("\n    ]\n");
+            }
+            format.append("  },\n");
 
-                format += "  \"advisorId\": \"" + advID + "\",\n";
-                format += "  \"classLevel\": \"" + classLevel + "\",\n";
+            format.append("  \"advisorId\": \"").append(advID).append("\",\n");
+            format.append("  \"classLevel\": \"").append(classLevel).append("\",\n");
 
-                format += "  \"cancelWaitingCourses\": [\n";
-                for(int i = 0; i < cancelWaitingCourses.size(); i++) {
-                    format += "    \"" + cancelWaitingCourses.get(i) + "\"";
-                    if(i != cancelWaitingCourses.size()-1)
-                        format += ",\n";
-                }
-                format += "  \n  ],\n";
+            format.append("  \"cancelWaitingCourses\": [\n");
+            for (int i = 0; i < cancelWaitingCourses.size(); i++) {
+                format.append("    \"").append(cancelWaitingCourses.get(i)).append("\"");
+                if (i != cancelWaitingCourses.size() - 1)
+                    format.append(",\n");
+            }
+            format.append("  \n  ],\n");
 
-                format += "  \"registrationCompleteCourses\": [\n";
-                for(int i = 0; i < registrationCompleteCourses.size(); i++) {
-                    format += "    \"" + registrationCompleteCourses.get(i) + "\"";
-                    if(i != registrationCompleteCourses.size()-1)
-                        format += ",\n";
-                }
-                format += "  \n   ],\n";
+            format.append("  \"registrationCompleteCourses\": [\n");
+            for (int i = 0; i < registrationCompleteCourses.size(); i++) {
+                format.append("    \"").append(registrationCompleteCourses.get(i)).append("\"");
+                if (i != registrationCompleteCourses.size() - 1)
+                    format.append(",\n");
+            }
+            format.append("  \n   ],\n");
 
-                format += "  \"registrationWaitingCourses\": [\n";
-                for(int i = 0; i < registrationWaitingCourses.size(); i++) {
-                    format += "    \"" + registrationWaitingCourses.get(i) + "\"";
-                    if(i != registrationWaitingCourses.size()-1)
-                        format += ",\n";
-                }
-                format += "  \n  ]\n}";
+            format.append("  \"registrationWaitingCourses\": [\n");
+            for (int i = 0; i < registrationWaitingCourses.size(); i++) {
+                format.append("    \"").append(registrationWaitingCourses.get(i)).append("\"");
+                if (i != registrationWaitingCourses.size() - 1)
+                    format.append(",\n");
+            }
+            format.append("  \n  ]\n}");
 
             try {
 
                 String dir = "iteration1/Students";
-                FileWriter fileWriter = new FileWriter(new File(dir,student.getStudentID() + ".json"));
-                fileWriter.write(format);
+                FileWriter fileWriter = new FileWriter(new File(dir, student.getStudentID() + ".json"));
+                fileWriter.write(format.toString());
                 fileWriter.close();
 
             } catch (IOException e) {
                 System.out.println("Encountered error while saving json!");
             }
-
-
 
 
         } catch (IOException | ParseException e) {
