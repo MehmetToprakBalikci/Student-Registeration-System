@@ -1,7 +1,7 @@
 # Iteration 2
 This is the folder with the contents of the first iteration of the project.
 # Links regarding the poll for the changes to be made in second iteration (Choose only 3 options!)
-Voting : https://directpoll.com/v?XDVhEtcN5dcBOSUQAMMtQs3dvUGqUwM
+Voting : https://directpoll.com/v?XDVhEtcN5dcBOSUQAMMtQs3dvUGqUwM  
 Results : https://directpoll.com/r?XDbzPBd3ixYqg84ukIBeYpeV7JP2s7VAa9pFQ4X6e
 
 # Google Doc Link for Requirements Analysis Document (RAD)
