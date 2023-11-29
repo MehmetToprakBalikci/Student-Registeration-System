@@ -1,0 +1,28 @@
+{
+  "type": "student",
+  "name": "Arda",
+  "lastName": "Öztürk",
+  "username": "ardo.öz",
+  "password": "arda12e21",
+  "studentId": "150121051",
+  "Transcript": {
+    "listOfCourses": [
+      "CSE2225",
+      "MATH1001"
+    ],
+    "listOfGrades": [
+      50,
+      60
+    ]
+  },
+  "advisorId": "1003",
+  "cancelWaitingCourses": [
+
+  ],
+  "registrationCompleteCourses": [
+
+  ],
+  "registrationWaitingCourses": [
+
+  ]
+}

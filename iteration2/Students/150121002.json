@@ -1,0 +1,28 @@
+{
+  "type": "student",
+  "name": "Enes",
+  "lastName": "Torluoğlu",
+  "username": "enestor",
+  "password": "enestor",
+  "studentId": "150121002",
+  "Transcript": {
+    "listOfCourses": [
+      "CSE1200",
+      "CSE2225"
+    ],
+    "listOfGrades": [
+      50,
+      60
+    ]
+  },
+  "advisorId": "1005",
+  "cancelWaitingCourses": [
+
+  ],
+  "registrationCompleteCourses": [
+
+  ],
+  "registrationWaitingCourses": [
+
+  ]
+}

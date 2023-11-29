@@ -1,0 +1,10 @@
+{
+  "courseCode": "CSE3063",
+  "courseName": "Object-Oriented Software Design",
+  "courseCredit": 5,
+  "courseYear" : 3,
+  "courseDay" :  2,
+  "courseHour":  3,
+  "prerequisites": ["CSE1242"],
+  "lecturerId" : "2001"
+}

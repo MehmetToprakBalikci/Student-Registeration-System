@@ -1,0 +1,27 @@
+{
+  "type": "student",
+  "name": "Furkan",
+  "lastName": "Gökgöz",
+  "username": "furki213",
+  "password": "gokfurk111",
+  "studentId": "150120076",
+  "Transcript": {
+    "listOfCourses": [
+      "CSE1200","CSE2225","MATH1001","CSE3055","CSE3033"
+    ],
+    "listOfGrades": [
+      50,80,90,50,30
+    ]
+  },
+  "advisorId": "1002",
+  "classLevel": "1",
+  "cancelWaitingCourses": [
+  
+  ],
+  "registrationCompleteCourses": [
+    "MATH1002"  
+   ],
+  "registrationWaitingCourses": [
+  
+  ]
+}

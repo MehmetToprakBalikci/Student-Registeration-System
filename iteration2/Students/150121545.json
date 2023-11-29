@@ -1,0 +1,28 @@
+{
+  "type": "student",
+  "name": "Tufan",
+  "lastName": "Atli",
+  "username": "tufan123",
+  "password": "tufan2143",
+  "studentId": "150121545",
+  "Transcript": {
+    "listOfCourses": [
+      "CSE1200",
+      "CSE2225"
+    ],
+    "listOfGrades": [
+      80,
+      45
+    ]
+  },
+  "advisorId": "1005",
+  "cancelWaitingCourses": [
+
+  ],
+  "registrationCompleteCourses": [
+
+  ],
+  "registrationWaitingCourses": [
+
+  ]
+}

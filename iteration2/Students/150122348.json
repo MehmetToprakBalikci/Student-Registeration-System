@@ -1,0 +1,32 @@
+{
+  "type": "student",
+  "name": "Burak",
+  "lastName": "Bilge",
+  "username": "Bilge123",
+  "password": "bilgeBurak12",
+  "studentId": "150122348",
+  "Transcript": {
+    "listOfCourses": [
+      "CSE1200",
+      "CSE2225",
+      "CSE3055",
+      "MATH2059"
+    ],
+    "listOfGrades": [
+      80,
+      45,
+      45,
+      80
+    ]
+  },
+  "advisorId": "1003",
+  "cancelWaitingCourses": [
+
+  ],
+  "registrationCompleteCourses": [
+
+  ],
+  "registrationWaitingCourses": [
+
+  ]
+}

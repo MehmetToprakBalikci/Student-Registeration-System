@@ -1,0 +1,27 @@
+{
+  "type": "student",
+  "name": "Toprak",
+  "lastName": "Balikcioglu",
+  "username": "toprak.doe",
+  "password": "toprak1234",
+  "studentId": "150121032",
+  "Transcript": {
+    "listOfCourses": [
+      "MATH1001","CSE1200","CSE1241","CSE1242","CSE2225","CSE2023","CSE3033"
+    ],
+    "listOfGrades": [
+      65,50,60,75,45,55,25
+    ]
+  },
+  "advisorId": "1002",
+  "classLevel": "2",
+  "cancelWaitingCourses": [
+  
+  ],
+  "registrationCompleteCourses": [
+  
+   ],
+  "registrationWaitingCourses": [
+  
+  ]
+}

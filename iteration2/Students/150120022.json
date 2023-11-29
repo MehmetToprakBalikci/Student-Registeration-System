@@ -1,0 +1,27 @@
+{
+  "type": "student",
+  "name": "Tolga",
+  "lastName": "Fehmioğlu",
+  "username": "tolgi224",
+  "password": "fehmi5332",
+  "studentId": "150120022",
+  "Transcript": {
+    "listOfCourses": [
+      "CSE1241","CSE1200","MATH1001"
+    ],
+    "listOfGrades": [
+      50,80,90
+    ]
+  },
+  "advisorId": "1002",
+  "classLevel": "1",
+  "cancelWaitingCourses": [
+  
+  ],
+  "registrationCompleteCourses": [
+  
+   ],
+  "registrationWaitingCourses": [
+  
+  ]
+}

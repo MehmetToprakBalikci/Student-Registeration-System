@@ -1,0 +1,12 @@
+{
+  "type": "advisor",
+  "name": "Ali Haydar",
+  "lastName": "Özer",
+  "username": "ali.haydar234",
+  "password": "password799",
+  "lecturerId": "1005",
+  "Students": [
+    "150121002",
+    "150121545"
+  ]
+}

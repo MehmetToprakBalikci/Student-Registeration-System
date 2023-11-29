@@ -1,0 +1,34 @@
+{
+  "type": "student",
+  "name": "Mahmut Semih",
+  "lastName": "Bas",
+  "username": "semihBas",
+  "password": "basSemih123",
+  "studentId": "150121653",
+  "Transcript": {
+    "listOfCourses": [
+      "CSE1200",
+      "CSE1241",
+      "CSE1242",
+      "CSE2225",
+      "CSE3033"
+    ],
+    "listOfGrades": [
+      80,
+      50,
+      90,
+      53,
+      34
+    ]
+  },
+  "advisorId": "1001",
+  "cancelWaitingCourses": [
+
+  ],
+  "registrationCompleteCourses": [
+
+  ],
+  "registrationWaitingCourses": [
+
+  ]
+}

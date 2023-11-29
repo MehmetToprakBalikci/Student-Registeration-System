@@ -1,0 +1,10 @@
+{
+  "courseCode": "MATH2059",
+  "courseName": "Numerical Methods",
+  "courseCredit": 4,
+  "courseYear" : 2,
+  "courseDay" :  2,
+  "courseHour":  3,
+  "prerequisites": ["MATH1001"],
+  "lecturerId" : "1004"
+}
