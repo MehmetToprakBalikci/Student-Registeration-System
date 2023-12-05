@@ -6,13 +6,13 @@ class Controller {
     private jsonWriter jsonWriter;
     private final UI ui;
     private Person person;
-
+    //Default Constructor
     public Controller() {
         universityFileSystem = new UniversityFileSystem();
         ui = new UI();
         ui.initialize();
     }
-
+    //Constructor
     public Controller(Scanner input) {
         universityFileSystem = new UniversityFileSystem();
         ui = new UI(input);
@@ -20,7 +20,7 @@ class Controller {
     }
 
 
-    // Constructor
+
     public void start() {
         // load all json course and person files
         universityFileSystem.loadFiles();
@@ -34,7 +34,7 @@ class Controller {
         ui.callEndMessage(0);
     }
 
-    // Request credentials from the user
+    
     public void printErrorMessage(String errorMessage) {
         ui.printConsoleErrorMessage(errorMessage);
     }
@@ -47,5 +47,5 @@ class Controller {
     public void printList(String[] stringList) {
         ui.printConsoleList(stringList);
     }
-    // Other controller methods need to be implemented
+    
 }
