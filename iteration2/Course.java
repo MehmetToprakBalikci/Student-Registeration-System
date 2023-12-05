@@ -4,18 +4,18 @@ import java.util.List;
 
 // Course class
 class Course {
-    private final String courseCode;
+    private final String COURSE_CODE;
 
 
-    private final String courseName;
-    private final int courseCredit;
+    private final String COURSE_NAME;
+    private final int COURSE_CREDIT;
 
     public int getCourseYear() {
         return courseYear;
     }
 
-    private final int courseYear;
-    private final CourseSection section;
+    private final int COURSE_YEAR;
+    private final CourseSection SECTION;
     //private Grade grade;
     private Lecturer lecturer;
     private List<Course> preRequisite;
@@ -38,11 +38,11 @@ class Course {
 
     // Constructor
     public Course(String courseCode, String courseName, int courseCredit, int courseYear, int section1, int section2, Lecturer lecturer, List<Course> preRequisite) {
-        this.courseCode = courseCode;
-        this.courseName = courseName;
-        this.courseCredit = courseCredit;
-        this.courseYear = courseYear;
-        this.section = new CourseSection(section1, section2);
+        this.COURSE_CODE = courseCode;
+        this.COURSE_NAME = courseName;
+        this.COURSE_CREDIT = courseCredit;
+        this.COURSE_YEAR = courseYear;
+        this.SECTION = new CourseSection(section1, section2);
         this.lecturer = lecturer;
         this.preRequisite = preRequisite;
     }
@@ -58,7 +58,7 @@ class Course {
             if (this.equals(course)) {
                 return "This course:(" + course.toString() + ")" + "already exist in completedRegistrationCourses.Try to select another course";
             }
-            if (!course.getSection().compareAvailability(this.section)) {
+            if (!course.getSection().compareAvailability(this.SECTION)) {
                 return "This course is conflicting with the time of the course : " + course.toString() + " inside your courses that are registered!";
             }
         }
@@ -66,7 +66,7 @@ class Course {
             if (this.equals(course)) {
                 return "This course:(" + course.toString() + ")" + " already exist in registrationWaitingCourses.Try to select another course";
             }
-            if (!course.getSection().compareAvailability(this.section)) {
+            if (!course.getSection().compareAvailability(this.SECTION)) {
                 return "This course is conflicting with the time of the course : " + course.toString() + " inside your courses that are waiting to be registered!";
             }
         }
@@ -74,7 +74,7 @@ class Course {
             if (this.equals(course)) {
                 return "This course:(" + course.toString() + ")" + " already exist in cancelWaitingCourses.Try to select another course";
             }
-            if (!course.getSection().compareAvailability(this.section)) {
+            if (!course.getSection().compareAvailability(this.SECTION)) {
                 return "This course is conflicting with the time of the course : " + course.toString() + " inside your courses that are waiting to be canceled!";
             }
         }
@@ -83,7 +83,7 @@ class Course {
     
     
     public boolean equals(Course course2){
-        return course2 != null && this.courseName.equals(course2.getCourseName());
+        return course2 != null && this.COURSE_NAME.equals(course2.getCourseName());
     }
 
     // Check if given student can take this course, according to prerequisite and given completed courses
@@ -111,34 +111,34 @@ class Course {
         return false;
     }
 
-    // Returns course information, code and 
+    // Returns course information, code and name
     @Override
     public String toString() {
-        return courseCode + " " + courseName;
+        return COURSE_CODE + " " + COURSE_NAME;
     }
 
     public String toStringFormatted(int format) {
         if (format == 1) {
-            return courseCode + " " + courseName;
+            return COURSE_CODE + " " + COURSE_NAME;
         } else {
-            return courseCode + " " + courseName + " " + this.lecturer.toString();
+            return COURSE_CODE + " " + COURSE_NAME + " " + this.lecturer.toString();
         }
     }
 
     public int getCourseCredit() {
-        return courseCredit;
+        return COURSE_CREDIT;
     }
 
     public String getCourseCode() {
-        return courseCode;
+        return COURSE_CODE;
     }
 
     public CourseSection getSection() {
-        return section;
+        return SECTION;
     }
 
     public String getCourseName() {
-        return courseName;
+        return COURSE_NAME;
     }
 
 }
