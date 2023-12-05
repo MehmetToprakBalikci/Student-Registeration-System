@@ -2,9 +2,9 @@ import java.util.*;
 
 // Controller class
 class Controller {
-    private final UniversityFileSystem universityFileSystem;
+    private final UNIVERSITYFILESYSTEM universityFileSystem;
     private jsonWriter jsonWriter;
-    private final UI ui;
+    private final UI UI;
     private Person person;
     //Default Constructor
     public Controller() {
