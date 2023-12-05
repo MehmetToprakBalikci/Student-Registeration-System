@@ -2,50 +2,50 @@ import java.util.*;
 
 // Controller class
 class Controller {
-    private final UNIVERSITYFILESYSTEM universityFileSystem;
+    private final UniversityFileSystem UNIVERSITYFILESYSTEM;
     private jsonWriter jsonWriter;
     private final UI UI;
     private Person person;
     //Default Constructor
     public Controller() {
-        universityFileSystem = new UniversityFileSystem();
-        ui = new UI();
-        ui.initialize();
+    	UNIVERSITYFILESYSTEM = new UniversityFileSystem();
+    	UI = new UI();
+        UI.initialize();
     }
     //Constructor
     public Controller(Scanner input) {
-        universityFileSystem = new UniversityFileSystem();
-        ui = new UI(input);
-        ui.initialize();
+    	UNIVERSITYFILESYSTEM = new UniversityFileSystem();
+    	UI = new UI(input);
+        UI.initialize();
     }
 
 
 
     public void start() {
         // load all json course and person files
-        universityFileSystem.loadFiles();
+    	UNIVERSITYFILESYSTEM.loadFiles();
         do {
-            String[] userInfo = ui.requestCredentials();
-            person = universityFileSystem.getSignedPerson(userInfo, this);
+            String[] userInfo = UI.requestCredentials();
+            person = UNIVERSITYFILESYSTEM.getSignedPerson(userInfo, this);
         } while (person == null);
         person.startActions(this);
         jsonWriter = new jsonWriter(person);
         jsonWriter.saveFiles();
-        ui.callEndMessage(0);
+        UI.callEndMessage(0);
     }
 
     
     public void printErrorMessage(String errorMessage) {
-        ui.printConsoleErrorMessage(errorMessage);
+    	UI.printConsoleErrorMessage(errorMessage);
     }
 
     //Error int -1 for no error
     public int printListReturnSelection(String[] stringsList, int errorInt) {
-        return ui.printConsoleListReturnSelection(stringsList, errorInt);
+        return UI.printConsoleListReturnSelection(stringsList, errorInt);
     }
 
     public void printList(String[] stringList) {
-        ui.printConsoleList(stringList);
+    	UI.printConsoleList(stringList);
     }
     
 }
