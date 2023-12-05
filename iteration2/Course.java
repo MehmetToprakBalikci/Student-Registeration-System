@@ -11,7 +11,7 @@ class Course {
     private final int COURSE_CREDIT;
 
     public int getCourseYear() {
-        return courseYear;
+        return COURSE_YEAR;
     }
 
     private final int COURSE_YEAR;
@@ -49,7 +49,7 @@ class Course {
 
     // Check if this student in the appropriate semester to take this course?
     public boolean checkYearMatching(int year) {
-        return courseYear <= year;
+        return COURSE_YEAR <= year;
     }
 
     // Check if this course conflicts with any other courses section returns 0 for available course
