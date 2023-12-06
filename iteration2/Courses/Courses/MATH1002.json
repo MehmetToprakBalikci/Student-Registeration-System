@@ -1,0 +1,10 @@
+{
+  "courseCode": "MATH1002",
+  "courseName": "Calculus2",
+  "courseCredit": 6,
+  "courseYear" : 1,
+  "courseDay" :  2,
+  "courseSection":  8,
+  "prerequisites": [""],
+  "lecturerId" : "1004"
+}

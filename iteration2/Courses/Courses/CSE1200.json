@@ -1,0 +1,10 @@
+{
+  "courseCode": "CSE1200",
+  "courseName": "Introduction to Computer Engineering",
+  "courseCredit": 4,
+  "courseYear" : 1,
+  "courseDay" :  2,
+  "courseSection":  3,
+  "prerequisites": [""],
+  "lecturerId" : "2003"
+}

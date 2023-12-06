@@ -1,0 +1,10 @@
+{
+  "courseCode": "CSE2023",
+  "courseName": "Discrete Comp. Structures",
+  "courseCredit": 6,
+  "courseYear" : 2,
+  "courseDay" :  2,
+  "courseSection":  3,
+  "prerequisites": [""],
+  "lecturerId" : "1001"
+}

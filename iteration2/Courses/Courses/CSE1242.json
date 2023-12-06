@@ -1,0 +1,10 @@
+{
+  "courseCode": "CSE1242",
+  "courseName": "Computer Programming 2",
+  "courseCredit": 6,
+  "courseYear" : 1,
+  "courseDay" :  2,
+  "courseSection":  3,
+  "prerequisites": ["CSE1241"],
+  "lecturerId" : "1002"
+}
