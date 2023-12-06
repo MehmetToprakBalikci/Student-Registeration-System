@@ -184,7 +184,7 @@ class Student extends Person implements User {
         courseListString[0] = titleString;
         courseListString[1] = "1-)Return back";
         for (int i = 2; i < coursesList.size() + 2; i++) {
-            courseListString[i] = i + "-)" + coursesList.get(i - 2).toStringFormatted(1);
+            courseListString[i] = i + "-)" + coursesList.get(i - 2).toString();
         }
         return courseListString;
     }
@@ -194,7 +194,7 @@ class Student extends Person implements User {
         String[] courseListString = new String[size + 1];
         courseListString[0] = titleString;
         for (int i = 1; i < coursesList.size() + 1; i++) {
-            courseListString[i] = i + "-)" + coursesList.get(i - 1).toStringFormatted(1);
+            courseListString[i] = i + "-)" + coursesList.get(i - 1).toString();
         }
         return courseListString;
     }
