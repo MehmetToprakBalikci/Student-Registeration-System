@@ -5,7 +5,9 @@ abstract class Staff extends Person {
 		super(name, lastName);
 	}
 
-	
+	public Staff() {
+		
+	}
 
 	
 

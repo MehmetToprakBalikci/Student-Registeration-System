@@ -1,5 +1,5 @@
 
-public class Lecturer extends Person {
+public class Lecturer extends Staff {
 
     private String lecturerID;
 
