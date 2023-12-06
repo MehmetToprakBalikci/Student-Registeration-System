@@ -12,6 +12,8 @@ class Student extends Person implements User {
     private List<Course> registrationCompleteCourses; // Courses that finished registration
     private List<Course> cancelWaitingCourses; // Courses that are waiting to be canceled 
     private final Transcript currentTranscript;
+    private String userName;
+	private String password;
 
     public void setCurrentAdvisor(Advisor currentAdvisor) {
         this.currentAdvisor = currentAdvisor;
@@ -59,7 +61,9 @@ class Student extends Person implements User {
 
     // Constructor
     public Student(String name, String lastName, String username, String password, String studentID, Transcript currentTranscript, Advisor currentAdvisor) {
-        super(name, lastName, username, password);
+        super(name, lastName);
+        this.userName = username;
+        this.password = password;
         this.studentID = studentID;
         this.currentTranscript = currentTranscript;
         this.currentAdvisor = currentAdvisor;
@@ -261,6 +265,32 @@ class Student extends Person implements User {
                 return true; 
         }
         return false;
+    }
+    
+    
+    
+    public boolean compareCredentials(String username, String password) {
+        if (this.userName == null || this.password == null) return false;
+        return this.userName.equals(username) && this.password.equals(password);
+
+
+    }
+    
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
     }
     
 }

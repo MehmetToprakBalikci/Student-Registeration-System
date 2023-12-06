@@ -5,7 +5,7 @@ class Controller {
     private final UniversityFileSystem UNIVERSITY_FILE_SYSTEM;
     private jsonWriter jsonWriter;
     private final UI UI;
-    private Person person;
+    private User user;
     //Default Constructor
     public Controller() {
     	UNIVERSITY_FILE_SYSTEM = new UniversityFileSystem();
@@ -26,10 +26,10 @@ class Controller {
     	UNIVERSITY_FILE_SYSTEM.loadFiles();
         do {
             String[] userInfo = UI.requestCredentials();
-            person = UNIVERSITY_FILE_SYSTEM.getSignedPerson(userInfo, this);
-        } while (person == null);
-        person.startActions(this);
-        jsonWriter = new jsonWriter(person);
+            user = UNIVERSITY_FILE_SYSTEM.getSignedPerson(userInfo, this);
+        } while (user == null);
+        user.startActions(this);
+        jsonWriter = new jsonWriter((Person) user);
         jsonWriter.saveFiles();
         UI.callEndMessage(0);
     }

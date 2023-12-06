@@ -2,10 +2,14 @@ import java.util.ArrayList;
 
 class Advisor extends Lecturer implements User {
     private ArrayList<Student> studentList;
+	private String userName;
+	private String password;
 
     // Constructor
     public Advisor(String name, String lastName, String username, String password, String lecturerID, ArrayList<Student> studentList) {
-        super(name, lastName, username, password, lecturerID);
+        super(name, lastName, lecturerID);
+        this.userName = username;
+        this.password = password;
         this.studentList = new ArrayList<>();
     }
 
@@ -158,6 +162,33 @@ class Advisor extends Lecturer implements User {
 
     public void setStudentList(ArrayList<Student> studentList) {
         this.studentList = studentList;
+    }
+    
+    
+    
+    
+    public boolean compareCredentials(String username, String password) {
+        if (this.userName == null || this.password == null) return false;
+        return this.userName.equals(username) && this.password.equals(password);
+
+
+    }
+    
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
 }
