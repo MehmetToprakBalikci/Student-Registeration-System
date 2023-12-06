@@ -111,12 +111,8 @@ class Course {
     }
 
     // Returns course information, code and name
-    public String toStringFormatted(int format) {
-        if (format == 1) {
-            return COURSE_CODE + " " + COURSE_NAME;
-        } else {
-            return COURSE_CODE + " " + COURSE_NAME + " " + this.lecturer.toString();
-        }
+    public String toString() {
+        return COURSE_CODE + " " + COURSE_NAME;
     }
 
     public int getCourseCredit() {

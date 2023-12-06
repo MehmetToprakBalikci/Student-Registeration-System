@@ -53,12 +53,5 @@ public class TestCourse {
         } else {
             System.out.println("Test 4 failed");
         }
-
-        System.out.println("\nTesting toStringFormatted() function...");
-        if (course1.toStringFormatted(1).equals("CS101 Introduction to Computer Science")) {
-            System.out.println("Test 5 passed");
-        } else {
-            System.out.println("Test 5 failed");
-        }
     }
 }
