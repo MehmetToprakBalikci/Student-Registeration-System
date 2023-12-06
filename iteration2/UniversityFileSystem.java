@@ -506,7 +506,7 @@ public class UniversityFileSystem {
                 Long courseYear = (Long) jsonObject.get("courseYear");
                 String lecturerId = (String) jsonObject.get("lecturerId");
                 Long courseDay = (Long) jsonObject.get("courseDay");
-                Long courseHour = (Long) jsonObject.get("courseHour");
+                Long courseHour = (Long) jsonObject.get("courseSection");
                 JSONArray prerequisitesArray = (JSONArray) jsonObject.get("prerequisites");
                 List<String> currentCoursesPrerequisitesCodes = getStringList(prerequisitesArray);
                 coursesPrerequisitesCodes.add(currentCoursesPrerequisitesCodes);
