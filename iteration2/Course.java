@@ -16,7 +16,6 @@ class Course {
 
     private final int COURSE_YEAR;
     private final CourseSection SECTION;
-    //private Grade grade;
     private Lecturer lecturer;
     private List<Course> preRequisite;
 
@@ -112,11 +111,6 @@ class Course {
     }
 
     // Returns course information, code and name
-    @Override
-    public String toString() {
-        return COURSE_CODE + " " + COURSE_NAME;
-    }
-
     public String toStringFormatted(int format) {
         if (format == 1) {
             return COURSE_CODE + " " + COURSE_NAME;
