@@ -531,17 +531,22 @@ public class UniversityFileSystem {
     }
 
 
-    public Person getSignedPerson(String[] userInfo, Controller currentController) {
-        Person person = null;
+    public User getSignedPerson(String[] userInfo, Controller currentController) {
+        User user = null;
         int errorCode = checkUsernamePasswordLength(userInfo);
         String userName = userInfo[0];
         String password = userInfo[1];
         if (errorCode == 0) {
             for (Person current : personList) {
-                person = current;
-                if (person.compareCredentials(userName, password)) {
-                    return person;
-                }
+            	try {
+	                user = (User)current;
+	               
+	                if (user.compareCredentials(userName, password)) {
+	                    return user;
+	                }
+            	}
+	                catch (Exception e) {
+	                }
             }
         } else {
             if (errorCode == 1)
@@ -549,7 +554,7 @@ public class UniversityFileSystem {
             else if (errorCode == 2)
                 currentController.printErrorMessage("Password too long");
         }
-        if (person == null) {
+        if (user == null) {
             currentController.printErrorMessage("Username or Password mismatch");
         }
 

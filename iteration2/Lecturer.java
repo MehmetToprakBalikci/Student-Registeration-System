@@ -12,15 +12,6 @@ public class Lecturer extends Staff {
         this.lecturerID = lecturerID;
     }
 
-    public Lecturer(String name, String lastName, String username, String password, String lecturerID) {
-        super(name, lastName);
-        this.lecturerID = lecturerID;
-        this.setUserName(username);
-        this.setPassword(password);
-        //
-
-    }
-
     public Lecturer() {
 
 
@@ -32,10 +23,6 @@ public class Lecturer extends Staff {
     }
 
 
-    @Override
-    void startActions(Controller controller) {
-        controller.printErrorMessage("You do not have permission to access the system.");
-    }
 
 
 }
