@@ -47,5 +47,9 @@ class Controller {
     public void printList(String[] stringList) {
         ui.printConsoleList(stringList);
     }
+
+    public void printSuccessMessage(String message) {
+        ui.printConsoleSuccessMessage(message);
+    }
     // Other controller methods need to be implemented
 }
