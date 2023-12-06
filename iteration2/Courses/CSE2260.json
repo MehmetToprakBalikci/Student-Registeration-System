@@ -1,0 +1,10 @@
+{
+  "courseCode": "CSE2260",
+  "courseName": "Principles of Prog. Languages",
+  "courseCredit": 6,
+  "courseYear" : 2,
+  "courseDay" :  4,
+  "courseSection":  5,
+  "prerequisites": ["CS1242"],
+  "lecturerId" : "1003"
+}

@@ -7,28 +7,43 @@
   "studentId": "150120076",
   "Transcript": {
     "listOfCourses": [
-      "CSE1200",
-      "CSE2225",
       "MATH1001",
-      "CSE3055",
-      "CSE3033"
+      "TRD121",
+      "PHYS1101",
+      "PHYS1102",
+      "CSE1200",
+      "CSE1241",
+      "CSE1242",
+      "MATH1002",
+      "MATH2059",
+      "CSE2138",
+      "MATH2055",
+      "CSE2260",
+      "CSE2225",
+      "STAT2253"
     ],
     "listOfGrades": [
       50,
       80,
       90,
       50,
-      30
+      55,
+      68,
+      77,
+      99,
+      77,
+      88,
+      56,
+      65,
+      76,
+      88
     ]
   },
   "advisorId": "1002",
   "cancelWaitingCourses": [
-
   ],
   "registrationCompleteCourses": [
-
   ],
   "registrationWaitingCourses": [
-
   ]
 }

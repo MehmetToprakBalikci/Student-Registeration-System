@@ -98,7 +98,7 @@ class Student extends Person implements User {
     @Override
     public String toString() {
 
-        return "Name: " + this.name + ", Last Name: " + this.lastName + ", ";
+        return "Name: " + this.getFirstName() + ", Last Name: " + this.getLastName() + ", ";
     }
 
 
@@ -131,8 +131,9 @@ class Student extends Person implements User {
                     if (courseSectAvailabilityStr == null) {
                         removeElementFromCurrentAvailableCourses(currentCourse);
                         registrationWaitingCourses.add(currentCourse);
-                        System.out.println(currentCourse + " is successfully added. ");
-                        System.out.println();
+                        controller.printSuccessMessage(currentCourse + " has been sent to your advisor " + currentAdvisor.getFirstName() + " " + currentAdvisor.getLastName() + " for approval \n"
+                        );
+
                     } else {
                         controller.printErrorMessage(courseSectAvailabilityStr);
                     }
@@ -145,8 +146,7 @@ class Student extends Person implements User {
                     currentCourse = registrationCompleteCourses.get(currentUserSelection - 2);
                     removeElementFromRegistrationCompleteCourses(currentCourse);
                     cancelWaitingCourses.add(currentCourse);
-                    System.out.println(currentCourse + " is successfully added to cancelWaiting. ");
-                    System.out.println();
+                    controller.printSuccessMessage(currentCourse + " is successfully added to cancelWaiting. \n");
                 }
                 break;
             case 3:
@@ -163,6 +163,18 @@ class Student extends Person implements User {
             case 6:
                 controller.printList(stringToList(currentAdvisor.toString()));
                 break;
+            case 7:
+                // sendMessage(Student))
+                //Message message = controller.getMessage();
+                //student.receiveMessage(message);
+                //messageList.add(message);
+
+                //public ArrayList<Message> getInbox () {
+                //for (Student student : this.getCurrentAdvisor()) {
+
+                //}
+                // }
+
             default:
                 break;
         }
@@ -241,26 +253,28 @@ class Student extends Person implements User {
 
     public boolean checkCourseAvailablity(Course course) {
         boolean isAvailable = true;
-        isAvailable = course.checkYearMatching(this.currentTranscript.getYear()) 
-        && course.checkPreRequisite(currentTranscript.getListOfCourses(), currentTranscript.getListOfGrades()) 
-        && currentTranscript.checkPassedCourses(course)
-        && !checkExistence(course);
-        return isAvailable; 
+        isAvailable = course.checkYearMatching(this.currentTranscript.getYear())
+                && course.checkPreRequisite(currentTranscript.getListOfCourses(), currentTranscript.getListOfGrades())
+                && currentTranscript.checkPassedCourses(course)
+                && !checkExistence(course);
+        return isAvailable;
     }
-    private boolean checkExistence(Course course){
+
+    private boolean checkExistence(Course course) {
         boolean exists = false;
-        exists = checkListForCourse(cancelWaitingCourses, course) || 
-        checkListForCourse(registrationCompleteCourses, course) || 
-        checkListForCourse(registrationWaitingCourses, course);
+        exists = checkListForCourse(cancelWaitingCourses, course) ||
+                checkListForCourse(registrationCompleteCourses, course) ||
+                checkListForCourse(registrationWaitingCourses, course);
         return exists;
     }
+
     //Returns true if it finds a course in the list
     private boolean checkListForCourse(List<Course> courseList, Course course) {
         for (Course current : courseList) {
-            if(course.equals(current))
-                return true; 
+            if (course.equals(current))
+                return true;
         }
         return false;
     }
-    
+
 }

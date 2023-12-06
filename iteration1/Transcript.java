@@ -50,9 +50,9 @@ public class Transcript {
 
     private int calculateYear() {
         int year = 1;
-        if (studentCredits > 150) {
+        if (studentCredits > 90) {
             year = 4;
-        } else if (studentCredits > 90) {
+        } else if (studentCredits > 60) {
             year = 3;
         } else if (studentCredits > 30) {
             year = 2;

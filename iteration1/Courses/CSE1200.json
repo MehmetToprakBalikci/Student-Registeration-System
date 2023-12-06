@@ -4,7 +4,7 @@
   "courseCredit": 4,
   "courseYear" : 1,
   "courseDay" :  2,
-  "courseHour":  3,
+  "courseSection":  3,
   "prerequisites": [""],
   "lecturerId" : "2003"
 }

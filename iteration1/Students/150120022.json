@@ -7,21 +7,27 @@
   "studentId": "150120022",
   "Transcript": {
     "listOfCourses": [
-      "CSE1241","CSE1200","MATH1001"
+      "CSE1241",
+      "CSE1200",
+      "MATH1001",
+      "TRD121",
+      "MBG1201",
+      "PHYS1101"
     ],
     "listOfGrades": [
-      50,80,90
+      50,
+      80,
+      90,
+      95,
+      75,
+      86
     ]
   },
   "advisorId": "1002",
-  "classLevel": "1",
   "cancelWaitingCourses": [
-  
   ],
   "registrationCompleteCourses": [
-
-   ],
+  ],
   "registrationWaitingCourses": [
-  
   ]
 }

@@ -3,6 +3,7 @@ import java.util.ArrayList;
 class Advisor extends Lecturer implements User {
     private ArrayList<Student> studentList;
 
+
     // Constructor
     public Advisor(String name, String lastName, String username, String password, String lecturerID, ArrayList<Student> studentList) {
         super(name, lastName, username, password, lecturerID);
@@ -16,7 +17,7 @@ class Advisor extends Lecturer implements User {
     // Get advisor information as a String
     @Override
     public String toString() {
-        return "Advisor: " + this.name + " " + this.lastName;
+        return "Advisor: " + this.getFirstName() + " " + this.getLastName();
     }
 
     // Placeholder for starting advisor actions
@@ -161,7 +162,4 @@ class Advisor extends Lecturer implements User {
     }
 
 }
-    
-    
-
 

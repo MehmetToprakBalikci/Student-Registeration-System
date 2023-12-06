@@ -12,8 +12,7 @@
       "CSE1241",
       "CSE1242",
       "CSE2225",
-      "CSE2023",
-      "CSE3033"
+      "CSE2023"
     ],
     "listOfGrades": [
       65,
@@ -21,18 +20,23 @@
       60,
       75,
       45,
-      55,
-      25
+      55
     ]
   },
   "advisorId": "1002",
+  "classLevel": "2",
   "cancelWaitingCourses": [
-
+    "CSE1200",
+    "CSE2225",
+    "MATH1001",
+    "MATH1002",
+    "CSE1241",
+    "CSE1242",
+    "CSE2138",
+    "MATH2059"
   ],
   "registrationCompleteCourses": [
-
   ],
   "registrationWaitingCourses": [
-
   ]
 }

@@ -1,0 +1,10 @@
+{
+  "courseCode": "CSE2138",
+  "courseName": "System Programming",
+  "courseCredit": 7,
+  "courseYear" : 2,
+  "courseDay" :  2,
+  "courseSection":  3,
+  "prerequisites": [""],
+  "lecturerId" : "1002"
+}

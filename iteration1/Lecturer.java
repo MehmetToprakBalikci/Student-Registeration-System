@@ -28,7 +28,7 @@ public class Lecturer extends Person {
 
     @Override
     public String toString() {
-        return "Lecturer: " + this.name + " " + this.lastName;
+        return "Lecturer: " + this.getFirstName() + " " + this.getLastName();
     }
 
 
