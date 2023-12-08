@@ -135,8 +135,7 @@ class Student extends Person implements User {
                     if (courseSectAvailabilityStr == null) {
                         removeElementFromCurrentAvailableCourses(currentCourse);
                         registrationWaitingCourses.add(currentCourse);
-                        System.out.println(currentCourse + " is successfully added. ");
-                        System.out.println();
+                        controller.printSuccessMessage(currentCourse + " has been sent to your advisor " + this.currentAdvisor.getFirstName() + " " + this.currentAdvisor.getLastName()+" for approval");
                     } else {
                         controller.printErrorMessage(courseSectAvailabilityStr);
                     }
@@ -251,22 +250,23 @@ class Student extends Person implements User {
                 && !checkExistence(course);
         return isAvailable;
     }
-    private boolean checkExistence(Course course){
+
+    private boolean checkExistence(Course course) {
         boolean exists = false;
         exists = checkListForCourse(cancelWaitingCourses, course) ||
                 checkListForCourse(registrationCompleteCourses, course) ||
                 checkListForCourse(registrationWaitingCourses, course);
         return exists;
     }
+
     //Returns true if it finds a course in the list
     private boolean checkListForCourse(List<Course> courseList, Course course) {
         for (Course current : courseList) {
-            if(course.equals(current))
+            if (course.equals(current))
                 return true;
         }
         return false;
     }
-
 
 
     public boolean compareCredentials(String username, String password) {

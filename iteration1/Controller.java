@@ -20,7 +20,6 @@ class Controller {
     }
 
 
-
     public void start() {
         // load all json course and person files
         UNIVERSITY_FILE_SYSTEM.loadFiles();
@@ -48,4 +47,7 @@ class Controller {
         UI.printConsoleList(stringList);
     }
 
+    public void printSuccessMessage(String successMessage) {
+        UI.printConsoleSuccessMessage(successMessage);
+    }
 }
