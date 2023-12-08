@@ -48,11 +48,11 @@ public class Transcript {
 
     private int calculateYear() {
         int year = 1;
-        if (studentCredits >= 180) {
+        if (studentCredits > 150) {
             year = 4;
-        } else if (studentCredits >= 120) {
+        } else if (studentCredits > 90) {
             year = 3;
-        } else if (studentCredits >= 60) {
+        } else if (studentCredits > 30) {
             year = 2;
         }
         if (year != 4 && GPA >= 3) {
