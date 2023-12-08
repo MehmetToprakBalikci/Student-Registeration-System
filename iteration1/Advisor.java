@@ -177,6 +177,13 @@ class Advisor extends Lecturer implements User {
         }
     }
 
+    public boolean compareCredentials(String username, String password) {
+        if (this.userName == null || this.password == null) return false;
+        return this.userName.equals(username) && this.password.equals(password);
+
+
+    }
+
     public ArrayList<Student> getStudentList() {
         return studentList;
     }
