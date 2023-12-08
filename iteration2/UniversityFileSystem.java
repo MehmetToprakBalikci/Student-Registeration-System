@@ -15,29 +15,29 @@ public class UniversityFileSystem {
     private final List<Person> personList; // all persons
 
     // course part
-    private final List<Course> systemCourses;  // all coursesList
-    private final List<List<String>> coursesPrerequisitesCodes;// will used for filling the courses prequesites lists after all processes
-    private final List<String> coursesLecturerIds;  // will used for assigning courses lecturer after all processes
+    private final List<Course> SYSTEM_COURSES;  // all coursesList
+    private final List<List<String>> COURSES_PREQUISITES_CODES;// will used for filling the courses prequesites lists after all processes
+    private final List<String> COURSES_LECTURER_IDS;  // will used for assigning courses lecturer after all processes
 
     //Students Lists Parts, assign finishing all the processes
-    private final List<List<String>> studentsCancelWaitingCourseCodes;
-    private final List<List<String>> studentsRegistrationCompleteCourses;
-    private final List<List<String>> studentsRegistrationWaitingCourses;
-    private final List<String> studentsAdvisorIdsList;
+    private final List<List<String>> STUDENTS_CANCEL_WAITING_COURSE_CODES;
+    private final List<List<String>> STUDENTS_REGISTRATION_COMPLETE_COURSES;
+    private final List<List<String>> STUDENTS_REGISTRATION_WAITING_COURSES;
+    private final List<String> STUDENTS_ADVISOR_IDS_LIST;
 
     // advisor
-    private final List<List<String>> advisorsStudentIdList;
+    private final List<List<String>> ADVISORS_STUDENT_ID_LIST;
 
     public UniversityFileSystem() {
         personList = new ArrayList<>();
-        systemCourses = new ArrayList<>();
-        coursesPrerequisitesCodes = new ArrayList<>();
-        coursesLecturerIds = new ArrayList<>();
-        studentsCancelWaitingCourseCodes = new ArrayList<>();
-        studentsRegistrationCompleteCourses = new ArrayList<>();
-        studentsRegistrationWaitingCourses = new ArrayList<>();
-        studentsAdvisorIdsList = new ArrayList<>();
-        advisorsStudentIdList = new ArrayList<>();
+        SYSTEM_COURSES = new ArrayList<>();
+        COURSES_PREQUISITES_CODES = new ArrayList<>();
+        COURSES_LECTURER_IDS = new ArrayList<>();
+        STUDENTS_CANCEL_WAITING_COURSE_CODES = new ArrayList<>();
+        STUDENTS_REGISTRATION_COMPLETE_COURSES = new ArrayList<>();
+        STUDENTS_REGISTRATION_WAITING_COURSES = new ArrayList<>();
+        STUDENTS_ADVISOR_IDS_LIST = new ArrayList<>();
+        ADVISORS_STUDENT_ID_LIST = new ArrayList<>();
 
 
     }
@@ -47,7 +47,7 @@ public class UniversityFileSystem {
         // loadFiles is ready to be used
         fileSystem.loadFiles();
         System.out.println("ALL COURSES: ");
-        for (Course course : fileSystem.systemCourses) {
+        for (Course course : fileSystem.SYSTEM_COURSES) {
             System.out.println(course.toString());
             System.out.println(course.getLecturer());
             System.out.println(course.getPreRequisite());
@@ -91,7 +91,7 @@ public class UniversityFileSystem {
         int index = 0;
         for (Advisor advisor : advisors) {
             // {"101,102,103"}
-            List<String> currentAdvisorsStudentStringList = advisorsStudentIdList.get(index);
+            List<String> currentAdvisorsStudentStringList = ADVISORS_STUDENT_ID_LIST.get(index);
             //  {s1,s2,s3}
             ArrayList<Student> currentAdvisorsStudentList = getStudentList(currentAdvisorsStudentStringList);
             advisor.setStudentList(currentAdvisorsStudentList);
@@ -138,10 +138,10 @@ public class UniversityFileSystem {
 
     private void updateStudents() {
         //updateTranscripts();
-        updateStudentsAdvisor(studentsAdvisorIdsList);
-        updateStudentsWaitingCourseLists(studentsRegistrationWaitingCourses);
-        updateStudentsRegistrationCompleteCourseLists(studentsRegistrationCompleteCourses);
-        studentsCancelWaitingCourseLists(studentsCancelWaitingCourseCodes);
+        updateStudentsAdvisor(STUDENTS_ADVISOR_IDS_LIST);
+        updateStudentsWaitingCourseLists(STUDENTS_REGISTRATION_WAITING_COURSES);
+        updateStudentsRegistrationCompleteCourseLists(STUDENTS_REGISTRATION_COMPLETE_COURSES);
+        studentsCancelWaitingCourseLists(STUDENTS_CANCEL_WAITING_COURSE_CODES);
         updateStudentsAvailableCourses();
     }
 
@@ -157,7 +157,7 @@ public class UniversityFileSystem {
     private List<Course> getAvailableCourses(Student student) {
         List<Course> availableCourses = new ArrayList<>();
         // int semester = transcript.calculateSemesterFromCredit();
-        for (Course course : systemCourses) {
+        for (Course course : SYSTEM_COURSES) {
             if (student.checkCourseAvailablity(course)) {
                 availableCourses.add(course);
             }
@@ -191,12 +191,12 @@ public class UniversityFileSystem {
         return null;
     }
 
-    private void studentsCancelWaitingCourseLists(List<List<String>> studentsCancelWaitingCourseCodes) {
+    private void studentsCancelWaitingCourseLists(List<List<String>> STUDENTS_CANCEL_WAITING_COURSE_CODES) {
         List<Student> students = getStudents();
         int index = 0;
         for (Student student : students) {
-            List<String> courseListString = studentsCancelWaitingCourseCodes.get(index);
-            List<Course> waitingCourses = convertToCourseList(systemCourses, courseListString);
+            List<String> courseListString = STUDENTS_CANCEL_WAITING_COURSE_CODES.get(index);
+            List<Course> waitingCourses = convertToCourseList(SYSTEM_COURSES, courseListString);
             student.setCancelWaitingCourses(waitingCourses);
             index++;
         }
@@ -212,25 +212,25 @@ public class UniversityFileSystem {
         return students;
     }
 
-    private void updateStudentsRegistrationCompleteCourseLists(List<List<String>> studentsRegistrationCompleteCourses) {
+    private void updateStudentsRegistrationCompleteCourseLists(List<List<String>> STUDENTS_REGISTRATION_COMPLETE_COURSES) {
         List<Student> students = getStudents();
         int index = 0;
         for (Student student : students) {
-            List<String> courseCompletedStringList = studentsRegistrationCompleteCourses.get(index);
-            List<Course> waitingCourses = convertToCourseList(systemCourses, courseCompletedStringList);
+            List<String> courseCompletedStringList = STUDENTS_REGISTRATION_COMPLETE_COURSES.get(index);
+            List<Course> waitingCourses = convertToCourseList(SYSTEM_COURSES, courseCompletedStringList);
             student.setRegistrationCompleteCourses(waitingCourses);
             index++;
 
         }
     }
 
-    private List<Course> convertToCourseList(List<Course> systemCourses, List<String> courseCodeListString) {
+    private List<Course> convertToCourseList(List<Course> SYSTEM_COURSES, List<String> courseCodeListString) {
         List<Course> courseList = new ArrayList<>();
         if (courseCodeListString.size()==0) {
             return courseList;
         }
         for (String courseCode : courseCodeListString) {
-            Course course = convertToCourse(courseCode, systemCourses);
+            Course course = convertToCourse(courseCode, SYSTEM_COURSES);
             courseList.add(course);
 
         }
@@ -238,8 +238,8 @@ public class UniversityFileSystem {
 
     }
 
-    private Course convertToCourse(String courseCode, List<Course> systemCourses) {
-        for (Course course : systemCourses) {
+    private Course convertToCourse(String courseCode, List<Course> SYSTEM_COURSES) {
+        for (Course course : SYSTEM_COURSES) {
             if (courseCode.equals(course.getCourseCode())) {
                 return course;
             }
@@ -248,12 +248,12 @@ public class UniversityFileSystem {
         return null;
     }
 
-    private void updateStudentsWaitingCourseLists(List<List<String>> studentsRegistrationWaitingCourses) {
+    private void updateStudentsWaitingCourseLists(List<List<String>> STUDENTS_REGISTRATION_WAITING_COURSES) {
         List<Student> students = getStudents();
         int index = 0;
         for (Student student : students) {
-            List<String> courseWaitingStringList = studentsRegistrationWaitingCourses.get(index);
-            List<Course> waitingCourses = convertToCourseList(systemCourses, courseWaitingStringList);
+            List<String> courseWaitingStringList = STUDENTS_REGISTRATION_WAITING_COURSES.get(index);
+            List<Course> waitingCourses = convertToCourseList(SYSTEM_COURSES, courseWaitingStringList);
             student.setRegistrationWaitingCourses(waitingCourses);
             index++;
         }
@@ -266,7 +266,7 @@ public class UniversityFileSystem {
         // bütün lecturerlar ama courseun oluşturduğumuz sıradaki lecturer id sırası
         List<Lecturer> orderedLecturers = getOrderedLecturerList(lecturers);
         int index = 0;
-        for (Course course : systemCourses) {
+        for (Course course : SYSTEM_COURSES) {
             Lecturer lecturer = orderedLecturers.get(index);
             course.setLecturer(lecturer);
             index++;
@@ -274,9 +274,9 @@ public class UniversityFileSystem {
         }
         index = 0;
         // assign prerequisites
-        for (Course course : systemCourses) {
-            List<String> prerequisiteCodesString = coursesPrerequisitesCodes.get(index);
-            List<Course> prerequisiteCodesList = getprerequisiteCodesList(systemCourses, prerequisiteCodesString);
+        for (Course course : SYSTEM_COURSES) {
+            List<String> prerequisiteCodesString = COURSES_PREQUISITES_CODES.get(index);
+            List<Course> prerequisiteCodesList = getprerequisiteCodesList(SYSTEM_COURSES, prerequisiteCodesString);
             course.setPreRequisite(prerequisiteCodesList);
             index++;
 
@@ -285,12 +285,12 @@ public class UniversityFileSystem {
 
     }
 
-    private List<Course> getprerequisiteCodesList(List<Course> systemCourses, List<String> prerequisiteCodesString) {
+    private List<Course> getprerequisiteCodesList(List<Course> SYSTEM_COURSES, List<String> prerequisiteCodesString) {
         List<Course> prerequisiteCodesList = new ArrayList<>();
         if (prerequisiteCodesString.get(0).equals("")) return prerequisiteCodesList;
         for (String courseCode : prerequisiteCodesString) {
             // get the course code string on the systemCourse and return the object
-            Course course = getCourse(systemCourses, courseCode);
+            Course course = getCourse(SYSTEM_COURSES, courseCode);
             prerequisiteCodesList.add(course);
 
         }
@@ -298,8 +298,8 @@ public class UniversityFileSystem {
 
     }
 
-    private Course getCourse(List<Course> systemCourses, String courseCode) {
-        for (Course course : systemCourses) {
+    private Course getCourse(List<Course> SYSTEM_COURSES, String courseCode) {
+        for (Course course : SYSTEM_COURSES) {
             if (course.getCourseCode().equals(courseCode)) {
                 return course;
             }
@@ -310,7 +310,7 @@ public class UniversityFileSystem {
 
     private List<Lecturer> getOrderedLecturerList(List<Lecturer> lecturers) {
         List<Lecturer> orderedLecturers = new ArrayList<>();
-        for (String id : coursesLecturerIds) {
+        for (String id : COURSES_LECTURER_IDS) {
             Lecturer lecturer = getLecturer(lecturers, id);
             orderedLecturers.add(lecturer);
         }
@@ -397,10 +397,10 @@ public class UniversityFileSystem {
                 String password = (String) jsonObject.get("password");
                 String lecturerId = (String) jsonObject.get("lecturerId");
                 JSONArray advisorsStudentIds = (JSONArray) jsonObject.get("Students");
-                List<String> advisorsStudentIdListString = getStringList(advisorsStudentIds);
+                List<String> ADVISORS_STUDENT_ID_LISTString = getStringList(advisorsStudentIds);
                 Advisor advisor = new Advisor(name, lastName, username, password, lecturerId, new ArrayList<>());
                 personList.add(advisor);
-                advisorsStudentIdList.add(advisorsStudentIdListString);
+                ADVISORS_STUDENT_ID_LIST.add(ADVISORS_STUDENT_ID_LISTString);
 
 
             }
@@ -438,13 +438,13 @@ public class UniversityFileSystem {
 
                 //  List<String>TranscriptString
                 List<String> studentsCancelWaitingCoursesCodes = getStringList(cancelWaitingCourses);
-                List<String> studentsRegistrationCompleteCoursesCodes = getStringList(registrationCompleteCourses);
-                List<String> studentsRegistrationWaitingCoursesCodes = getStringList(registrationWaitingCourses);
+                List<String> STUDENTS_REGISTRATION_COMPLETE_COURSESCodes = getStringList(registrationCompleteCourses);
+                List<String> STUDENTS_REGISTRATION_WAITING_COURSESCodes = getStringList(registrationWaitingCourses);
                 Transcript transcript = getTrancript(transcriptJson);
-                studentsCancelWaitingCourseCodes.add(studentsCancelWaitingCoursesCodes);
-                studentsRegistrationCompleteCourses.add(studentsRegistrationCompleteCoursesCodes);
-                studentsRegistrationWaitingCourses.add(studentsRegistrationWaitingCoursesCodes);
-                studentsAdvisorIdsList.add(advisorID);
+                STUDENTS_CANCEL_WAITING_COURSE_CODES.add(studentsCancelWaitingCoursesCodes);
+                STUDENTS_REGISTRATION_COMPLETE_COURSES.add(STUDENTS_REGISTRATION_COMPLETE_COURSESCodes);
+                STUDENTS_REGISTRATION_WAITING_COURSES.add(STUDENTS_REGISTRATION_WAITING_COURSESCodes);
+                STUDENTS_ADVISOR_IDS_LIST.add(advisorID);
                 //   Transcript transcript = new
                 Student student = new Student(name, lastName, username, password, studentID, transcript, new Advisor());
                 personList.add(student);
@@ -464,7 +464,7 @@ public class UniversityFileSystem {
         //System.out.println(transcriptIntegerGrades);
         ArrayList<Course> courses = new ArrayList<>();
         for (String courseCode : transcriptCoursesString) {
-            Course course = getCourse(systemCourses, courseCode);
+            Course course = getCourse(SYSTEM_COURSES, courseCode);
             courses.add(course);
         }
         ArrayList<Grade> grades = new ArrayList<>();
@@ -509,10 +509,10 @@ public class UniversityFileSystem {
                 Long courseHour = (Long) jsonObject.get("courseSection");
                 JSONArray prerequisitesArray = (JSONArray) jsonObject.get("prerequisites");
                 List<String> currentCoursesPrerequisitesCodes = getStringList(prerequisitesArray);
-                coursesPrerequisitesCodes.add(currentCoursesPrerequisitesCodes);
-                coursesLecturerIds.add(lecturerId);
+                COURSES_PREQUISITES_CODES.add(currentCoursesPrerequisitesCodes);
+                COURSES_LECTURER_IDS.add(lecturerId);
                 Course course = new Course(courseCode, courseName, courseCredit.intValue(), courseYear.intValue(), courseDay.intValue(), courseHour.intValue(), new Lecturer(), new ArrayList<>());
-                systemCourses.add(course);
+                SYSTEM_COURSES.add(course);
 
             }
         } catch (IOException | ParseException e) {
@@ -582,7 +582,7 @@ public class UniversityFileSystem {
                 advisors.add((Advisor) person);
         }
 
-        List<Course> courses = this.systemCourses;
+        List<Course> courses = this.SYSTEM_COURSES;
 
         JSONObject jsonObject = new JSONObject();
 
