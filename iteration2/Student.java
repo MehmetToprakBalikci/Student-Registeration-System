@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-// Method to add course to available list
 
 // Student class
 class Student extends Person implements User {
@@ -11,77 +10,27 @@ class Student extends Person implements User {
     private List<Course> registrationWaitingCourses; //Courses that are waiting to be registered
     private List<Course> registrationCompleteCourses; // Courses that finished registration
     private List<Course> cancelWaitingCourses; // Courses that are waiting to be canceled 
-    private final Transcript currentTranscript;
+    private final Transcript CURRENT_TRANSCRIPT;
     private String userName;
 	private String password;
-
-    public void setCurrentAdvisor(Advisor currentAdvisor) {
-        this.currentAdvisor = currentAdvisor;
-    }
-
-    public String getStudentID() {
-        return studentID;
-    }
-
-    public void setRegistrationWaitingCourses(List<Course> registrationWaitingCourses) {
-        this.registrationWaitingCourses = registrationWaitingCourses;
-    }
-
-    public void setRegistrationCompleteCourses(List<Course> registrationCompleteCourses) {
-        this.registrationCompleteCourses = registrationCompleteCourses;
-    }
-
-    public void setCancelWaitingCourses(List<Course> cancelWaitingCourses) {
-        this.cancelWaitingCourses = cancelWaitingCourses;
-    }
-
-    private final String studentID; // Additional field for student ID
+	private final String STUDENT_ID; // Additional field for student ID
     private Advisor currentAdvisor;
 
-    public Advisor getCurrentAdvisor() {
-        return currentAdvisor;
-    }
-
-// Method to create student
-   /* public static Student create(String name, String lastName) {
-        return new Student(name, lastName);
-    }*/
-
-    public void setCurrentAvailableCourses(List<Course> currentAvailableCourses) {
-        this.currentAvailableCourses = currentAvailableCourses;
-    }
-
-    public Transcript getCurrentTranscript() {
-        return currentTranscript;
-    }
-
-    public List<Course> getRegistrationCompleteCourses() {
-        return registrationCompleteCourses;
-    }
 
     // Constructor
     public Student(String name, String lastName, String username, String password, String studentID, Transcript currentTranscript, Advisor currentAdvisor) {
         super(name, lastName);
         this.userName = username;
         this.password = password;
-        this.studentID = studentID;
-        this.currentTranscript = currentTranscript;
+        this.STUDENT_ID = studentID;
+        this.CURRENT_TRANSCRIPT = currentTranscript;
         this.currentAdvisor = currentAdvisor;
         this.currentAvailableCourses = new ArrayList<>();
         this.registrationCompleteCourses = new ArrayList<>();
         this.cancelWaitingCourses = new ArrayList<>();
         this.registrationWaitingCourses = new ArrayList<>();
     }
-/*
-    @Override
-    public String[] getActionList() {
-        return new String[0];
-    }
-*/
-    //@Override
-    //   public void runUserAction(int actionNumber) {
 
-    //    }
     @Override
     public String[] getActionList() {
 
@@ -162,7 +111,7 @@ class Student extends Person implements User {
                         getCourseListString("Courses that are waiting to be canceled by your " + currentAdvisor.toString(), cancelWaitingCourses));
                 break;
             case 5:
-                controller.printList(currentTranscript.getStudentTranscriptStringList());
+                controller.printList(CURRENT_TRANSCRIPT.getStudentTranscriptStringList());
                 break;
             case 6:
                 controller.printList(stringToList(currentAdvisor.toString()));
@@ -170,10 +119,7 @@ class Student extends Person implements User {
             default:
                 break;
         }
-
-
     }
-
 
     private String[] stringToList(String giveString) {
         String[] stringList = new String[1];
@@ -245,12 +191,13 @@ class Student extends Person implements User {
 
     public boolean checkCourseAvailablity(Course course) {
         boolean isAvailable = true;
-        isAvailable = course.checkYearMatching(this.currentTranscript.getYear()) 
-        && course.checkPreRequisite(currentTranscript.getListOfCourses(), currentTranscript.getListOfGrades()) 
-        && currentTranscript.checkPassedCourses(course)
+        isAvailable = course.checkYearMatching(this.CURRENT_TRANSCRIPT.getYear()) 
+        && course.checkPreRequisite(CURRENT_TRANSCRIPT.getListOfCourses(), CURRENT_TRANSCRIPT.getListOfGrades()) 
+        && CURRENT_TRANSCRIPT.checkPassedCourses(course)
         && !checkExistence(course);
         return isAvailable; 
     }
+    
     private boolean checkExistence(Course course){
         boolean exists = false;
         exists = checkListForCourse(cancelWaitingCourses, course) || 
@@ -258,6 +205,7 @@ class Student extends Person implements User {
         checkListForCourse(registrationWaitingCourses, course);
         return exists;
     }
+    
     //Returns true if it finds a course in the list
     private boolean checkListForCourse(List<Course> courseList, Course course) {
         for (Course current : courseList) {
@@ -267,13 +215,46 @@ class Student extends Person implements User {
         return false;
     }
     
-    
-    
     public boolean compareCredentials(String username, String password) {
         if (this.userName == null || this.password == null) return false;
         return this.userName.equals(username) && this.password.equals(password);
+        
+    }
+    
+    public void setCurrentAdvisor(Advisor currentAdvisor) {
+        this.currentAdvisor = currentAdvisor;
+    }
 
+    public String getStudentID() {
+        return STUDENT_ID;
+    }
 
+    public void setRegistrationWaitingCourses(List<Course> registrationWaitingCourses) {
+        this.registrationWaitingCourses = registrationWaitingCourses;
+    }
+
+    public void setRegistrationCompleteCourses(List<Course> registrationCompleteCourses) {
+        this.registrationCompleteCourses = registrationCompleteCourses;
+    }
+
+    public void setCancelWaitingCourses(List<Course> cancelWaitingCourses) {
+        this.cancelWaitingCourses = cancelWaitingCourses;
+    }
+
+    public Advisor getCurrentAdvisor() {
+        return currentAdvisor;
+    }
+
+    public void setCurrentAvailableCourses(List<Course> currentAvailableCourses) {
+        this.currentAvailableCourses = currentAvailableCourses;
+    }
+
+    public Transcript getCurrentTranscript() {
+        return CURRENT_TRANSCRIPT;
+    }
+
+    public List<Course> getRegistrationCompleteCourses() {
+        return registrationCompleteCourses;
     }
     
     public void setUserName(String userName) {
