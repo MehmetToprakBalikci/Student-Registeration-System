@@ -2,54 +2,50 @@ import java.util.*;
 
 // Controller class
 class Controller {
-    private final UniversityFileSystem universityFileSystem;
+    private final UniversityFileSystem UNIVERSITY_FILE_SYSTEM;
     private jsonWriter jsonWriter;
-    private final UI ui;
-    private Person person;
-
+    private final UI UI;
+    private User user;
+    //Default Constructor
     public Controller() {
-        universityFileSystem = new UniversityFileSystem();
-        ui = new UI();
-        ui.initialize();
+        UNIVERSITY_FILE_SYSTEM = new UniversityFileSystem();
+        UI = new UI();
+        UI.initialize();
     }
-
+    //Constructor
     public Controller(Scanner input) {
-        universityFileSystem = new UniversityFileSystem();
-        ui = new UI(input);
-        ui.initialize();
+        UNIVERSITY_FILE_SYSTEM = new UniversityFileSystem();
+        UI = new UI(input);
+        UI.initialize();
     }
 
 
-    // Constructor
+
     public void start() {
         // load all json course and person files
-        universityFileSystem.loadFiles();
+        UNIVERSITY_FILE_SYSTEM.loadFiles();
         do {
-            String[] userInfo = ui.requestCredentials();
-            person = universityFileSystem.getSignedPerson(userInfo, this);
-        } while (person == null);
-        person.startActions(this);
-        jsonWriter = new jsonWriter(person);
+            String[] userInfo = UI.requestCredentials();
+            user = UNIVERSITY_FILE_SYSTEM.getSignedPerson(userInfo, this);
+        } while (user == null);
+        user.startActions(this);
+        jsonWriter = new jsonWriter((Person) user);
         jsonWriter.saveFiles();
-        ui.callEndMessage(0);
+        UI.callEndMessage(0);
     }
 
-    // Request credentials from the user
+
     public void printErrorMessage(String errorMessage) {
-        ui.printConsoleErrorMessage(errorMessage);
+        UI.printConsoleErrorMessage(errorMessage);
     }
 
     //Error int -1 for no error
     public int printListReturnSelection(String[] stringsList, int errorInt) {
-        return ui.printConsoleListReturnSelection(stringsList, errorInt);
+        return UI.printConsoleListReturnSelection(stringsList, errorInt);
     }
 
     public void printList(String[] stringList) {
-        ui.printConsoleList(stringList);
+        UI.printConsoleList(stringList);
     }
 
-    public void printSuccessMessage(String message) {
-        ui.printConsoleSuccessMessage(message);
-    }
-    // Other controller methods need to be implemented
 }

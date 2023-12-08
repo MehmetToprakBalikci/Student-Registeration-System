@@ -540,8 +540,7 @@ public class UniversityFileSystem {
             for (Person current : personList) {
             	try {
 	                user = (User)current;
-	               
-	                if (user.compareCredentials(userName, password)) {
+                    if (user.compareCredentials(userName, password)) {
 	                    return user;
 	                }
             	}

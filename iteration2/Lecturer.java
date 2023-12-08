@@ -1,4 +1,3 @@
-
 public class Lecturer extends Staff {
 
     private String lecturerID;
@@ -12,6 +11,8 @@ public class Lecturer extends Staff {
         this.lecturerID = lecturerID;
     }
 
+
+
     public Lecturer() {
 
 
@@ -19,8 +20,9 @@ public class Lecturer extends Staff {
 
     @Override
     public String toString() {
-        return "Lecturer: " + this.name + " " + this.lastName;
+        return "Lecturer: " + this.getFirstName() + " " + this.getLastName();
     }
+
 
 
 

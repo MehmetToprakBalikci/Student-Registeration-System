@@ -1,11 +1,14 @@
 abstract class Person {
-    protected String name;
-    protected String lastName;
-    
+    private String firstName;
+    private String lastName;
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     // Constructor
-    public Person(String name, String lastName) {
-        this.name = name;
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
         this.lastName = lastName;
     }
 
@@ -13,10 +16,16 @@ abstract class Person {
 
     }
 
-   
+    public String getFirstName() {
+        return firstName;
+    }
 
-    
 
-    
+    public String getLastName() {
+        return lastName;
+    }
+
+
+
 }
 

@@ -2,11 +2,15 @@ import java.util.ArrayList;
 
 class Advisor extends Lecturer implements User {
     private ArrayList<Student> studentList;
+    private String userName;
+    private String password;
 
 
     // Constructor
     public Advisor(String name, String lastName, String username, String password, String lecturerID, ArrayList<Student> studentList) {
-        super(name, lastName, username, password, lecturerID);
+        super(name, lastName, lecturerID);
+        this.setUserName(username);
+        this.setPassword(password);
         this.studentList = new ArrayList<>();
     }
 
@@ -30,6 +34,26 @@ class Advisor extends Lecturer implements User {
                 runUserAction(actionNumber, controller);
             } else return;
         }
+    }
+
+    @Override
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    @Override
+    public String getUserName() {
+        return userName;
+    }
+
+    @Override
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     // First menu for advisor

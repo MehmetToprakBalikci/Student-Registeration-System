@@ -12,6 +12,8 @@ class Student extends Person implements User {
     private List<Course> registrationCompleteCourses; // Courses that finished registration
     private List<Course> cancelWaitingCourses; // Courses that are waiting to be canceled 
     private final Transcript currentTranscript;
+    private String userName;
+    private String password;
 
     public void setCurrentAdvisor(Advisor currentAdvisor) {
         this.currentAdvisor = currentAdvisor;
@@ -59,7 +61,9 @@ class Student extends Person implements User {
 
     // Constructor
     public Student(String name, String lastName, String username, String password, String studentID, Transcript currentTranscript, Advisor currentAdvisor) {
-        super(name, lastName, username, password);
+        super(name, lastName);
+        this.userName = username;
+        this.password = password;
         this.studentID = studentID;
         this.currentTranscript = currentTranscript;
         this.currentAdvisor = currentAdvisor;
@@ -131,9 +135,8 @@ class Student extends Person implements User {
                     if (courseSectAvailabilityStr == null) {
                         removeElementFromCurrentAvailableCourses(currentCourse);
                         registrationWaitingCourses.add(currentCourse);
-                        controller.printSuccessMessage(currentCourse + " has been sent to your advisor " + currentAdvisor.getFirstName() + " " + currentAdvisor.getLastName() + " for approval \n"
-                        );
-
+                        System.out.println(currentCourse + " is successfully added. ");
+                        System.out.println();
                     } else {
                         controller.printErrorMessage(courseSectAvailabilityStr);
                     }
@@ -146,7 +149,8 @@ class Student extends Person implements User {
                     currentCourse = registrationCompleteCourses.get(currentUserSelection - 2);
                     removeElementFromRegistrationCompleteCourses(currentCourse);
                     cancelWaitingCourses.add(currentCourse);
-                    controller.printSuccessMessage(currentCourse + " is successfully added to cancelWaiting. \n");
+                    System.out.println(currentCourse + " is successfully added to cancelWaiting. ");
+                    System.out.println();
                 }
                 break;
             case 3:
@@ -163,18 +167,6 @@ class Student extends Person implements User {
             case 6:
                 controller.printList(stringToList(currentAdvisor.toString()));
                 break;
-            case 7:
-                // sendMessage(Student))
-                //Message message = controller.getMessage();
-                //student.receiveMessage(message);
-                //messageList.add(message);
-
-                //public ArrayList<Message> getInbox () {
-                //for (Student student : this.getCurrentAdvisor()) {
-
-                //}
-                // }
-
             default:
                 break;
         }
@@ -196,7 +188,7 @@ class Student extends Person implements User {
         courseListString[0] = titleString;
         courseListString[1] = "1-)Return back";
         for (int i = 2; i < coursesList.size() + 2; i++) {
-            courseListString[i] = i + "-)" + coursesList.get(i - 2).toStringFormatted(1);
+            courseListString[i] = i + "-)" + coursesList.get(i - 2).toString();
         }
         return courseListString;
     }
@@ -206,7 +198,7 @@ class Student extends Person implements User {
         String[] courseListString = new String[size + 1];
         courseListString[0] = titleString;
         for (int i = 1; i < coursesList.size() + 1; i++) {
-            courseListString[i] = i + "-)" + coursesList.get(i - 1).toStringFormatted(1);
+            courseListString[i] = i + "-)" + coursesList.get(i - 1).toString();
         }
         return courseListString;
     }
@@ -259,22 +251,46 @@ class Student extends Person implements User {
                 && !checkExistence(course);
         return isAvailable;
     }
-
-    private boolean checkExistence(Course course) {
+    private boolean checkExistence(Course course){
         boolean exists = false;
         exists = checkListForCourse(cancelWaitingCourses, course) ||
                 checkListForCourse(registrationCompleteCourses, course) ||
                 checkListForCourse(registrationWaitingCourses, course);
         return exists;
     }
-
     //Returns true if it finds a course in the list
     private boolean checkListForCourse(List<Course> courseList, Course course) {
         for (Course current : courseList) {
-            if (course.equals(current))
+            if(course.equals(current))
                 return true;
         }
         return false;
+    }
+
+
+
+    public boolean compareCredentials(String username, String password) {
+        if (this.userName == null || this.password == null) return false;
+        return this.userName.equals(username) && this.password.equals(password);
+
+
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
 }

@@ -20,7 +20,7 @@ class Advisor extends Lecturer implements User {
     // Get advisor information as a String
     @Override
     public String toString() {
-        return "Advisor: " + this.name + " " + this.lastName;
+        return "Advisor: " + this.getFirstName() + " " + this.getLastName();
     }
 
     // Placeholder for starting advisor actions
