@@ -34,7 +34,7 @@ public class TestCourse {
         List<Course> courses3 = new ArrayList<>();
 
         System.out.println("\nTesting checkCourseSection() function...");
-        if (course2.checkCourseSection(courses1, courses3, courses2) == null) {
+        if (course2.checkCourseSection(courses1, courses3, courses2).equals("This course is conflicting with the time of the course : " + course1.toString() + " inside your courses that are registered!")) {
             System.out.println("Test 2 passed");
         } else {
             System.out.println("Test 2 failed");
@@ -46,9 +46,15 @@ public class TestCourse {
             System.out.println("Test 3 failed");
         }
 
+
+        Grade grade1 = new Grade(75);
+        Grade grade2 = new Grade(85);
+        List<Grade> grades1 = new ArrayList<>();
+        grades1.add(grade1);
+        grades1.add(grade2);
+
         System.out.println("\nTesting checkPreRequisite() function...");
-        // TODO: 26.11.2023 gradeList also should be exist to check prerequisites. 
-        if (course4.checkPreRequisite(courses1, new ArrayList<>())) {
+        if (course4.checkPreRequisite(courses1, grades1)) {
             System.out.println("Test 4 passed");
         } else {
             System.out.println("Test 4 failed");

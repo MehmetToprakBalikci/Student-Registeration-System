@@ -6,14 +6,15 @@ import java.util.List;
 public class Transcript {
     private List<Course> listOfCourses;
     private List<Grade> listOfGrades;
-
-
-
     private int studentCredits;
     private int studentYear;
     private double GPA;
 
+    
+    public Transcript() {
 
+    }
+    
     //Copy constructor,
     //Constructor to be used with an already existing Transcript Object
     public Transcript(Transcript transcript) {
@@ -21,7 +22,7 @@ public class Transcript {
         this.listOfGrades = transcript.listOfGrades;
         this.studentCredits = transcript.studentCredits;
     }
-
+    //Constructor with parameters
     public Transcript(List<Course> listOfCourses, List<Grade> listOfGrades) {
         this.listOfCourses = listOfCourses;
         this.listOfGrades = listOfGrades;
@@ -30,10 +31,7 @@ public class Transcript {
         this.studentYear = calculateYear();
     }
 
-
-    //Constructor with parameters
-
-
+    
     public boolean checkPassedCourses(Course checkedCourse) {
         boolean isAvailable = true;
         int i = 0;
@@ -63,10 +61,6 @@ public class Transcript {
         return year;
     }
 
-
-    public Transcript() {
-
-    }
 
     public int getYear() {
         return this.studentYear;

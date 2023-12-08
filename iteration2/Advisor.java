@@ -5,7 +5,11 @@ class Advisor extends Lecturer implements User {
 	private String userName;
 	private String password;
 
-    // Constructor
+    // Constructors
+	public Advisor() {
+
+    }
+	
     public Advisor(String name, String lastName, String username, String password, String lecturerID, ArrayList<Student> studentList) {
         super(name, lastName, lecturerID);
         this.userName = username;
@@ -13,7 +17,10 @@ class Advisor extends Lecturer implements User {
         this.studentList = new ArrayList<>();
     }
 
-    public Advisor() {
+
+    public boolean compareCredentials(String username, String password) {
+        if (this.userName == null || this.password == null) return false;
+        return this.userName.equals(username) && this.password.equals(password);
 
     }
 
@@ -162,16 +169,6 @@ class Advisor extends Lecturer implements User {
 
     public void setStudentList(ArrayList<Student> studentList) {
         this.studentList = studentList;
-    }
-    
-    
-    
-    
-    public boolean compareCredentials(String username, String password) {
-        if (this.userName == null || this.password == null) return false;
-        return this.userName.equals(username) && this.password.equals(password);
-
-
     }
     
     public void setUserName(String userName) {
