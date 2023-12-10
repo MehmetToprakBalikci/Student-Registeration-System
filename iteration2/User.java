@@ -1,3 +1,6 @@
+//for iteration2, we have added two new methods just like the ones we added for the Student and Advisor class: 
+//sendMessage and receiveMessage.
+
 
 public interface User {
 	
@@ -12,4 +15,9 @@ public interface User {
     public void setPassword(String password);
     public String getUserName();
     public String getPassword();
+
+    //iteration 2 part:
+    public void sendMessage(Message message, User user);
+    public void receiveMessage(Message message);
+
 }
