@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+//for iteration 2, the default constructor will be updated to include "sentMEssages" and "receivedMessages" lists. 
+//also, at the bottom, there will be two new methods: sendMessage and receiveMessage.
+
 class Advisor extends Lecturer implements User {
     private ArrayList<Student> studentList;
 	private String userName;
