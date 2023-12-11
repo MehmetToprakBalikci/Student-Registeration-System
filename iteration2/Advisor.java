@@ -201,7 +201,7 @@ class Advisor extends Lecturer implements User {
         this.sentMessages.add(msg);
     }
 
-    public void receiveMessage(Message msg {
+    public void receiveMessage(Message msg) {
         this.receivedMessages.add(msg);
     }
 

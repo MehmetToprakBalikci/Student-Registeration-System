@@ -50,4 +50,5 @@ public class Message {
                 "Sender: " + sender + "\n" +
                 "Receiver: " + receiver + "\n" 
                 + "Read: " + isRead;
+    }
 }
