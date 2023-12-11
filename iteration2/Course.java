@@ -9,6 +9,8 @@ class Course {
 
     private final String COURSE_NAME;
     private final int COURSE_CREDIT;
+    private int capacity;
+    private int numberOfStudents;
 
     public int getCourseYear() {
         return COURSE_YEAR;
@@ -17,6 +19,7 @@ class Course {
     private final int COURSE_YEAR;
     private final CourseSection SECTION;
     private Lecturer lecturer;
+    private Assistant assistant;
     private List<Course> preRequisite;
 
     public Lecturer getLecturer() {
@@ -25,6 +28,14 @@ class Course {
 
     public void setLecturer(Lecturer lecturer) {
         this.lecturer = lecturer;
+    }
+
+    public Assistant getAssistant() {
+        return assistant;
+    }
+
+    public void setAssistant(Assistant assistant) {
+        this.assistant = assistant;
     }
 
     public List<Course> getPreRequisite() {
@@ -45,6 +56,29 @@ class Course {
         this.lecturer = lecturer;
         this.preRequisite = preRequisite;
     }
+
+    public Course(String courseCode, String courseName, int courseCredit, int courseYear, int section1, int section2, Lecturer lecturer, Assistant assistant, List<Course> preRequisite) {
+        this.COURSE_CODE = courseCode;
+        this.COURSE_NAME = courseName;
+        this.COURSE_CREDIT = courseCredit;
+        this.COURSE_YEAR = courseYear;
+        this.assistant = assistant;
+        this.SECTION = new CourseSection(section1, section2);
+        this.lecturer = lecturer;
+        this.preRequisite = preRequisite;
+    }
+
+    public Course(String courseCode, String courseName, int courseCredit, int courseYear, int section1, int section2, Lecturer lecturer, Assistant assistant, List<Course> preRequisite, int capacity) {
+        this.COURSE_CODE = courseCode;
+        this.COURSE_NAME = courseName;
+        this.COURSE_CREDIT = courseCredit;
+        this.COURSE_YEAR = courseYear;
+        this.SECTION = new CourseSection(section1, section2);
+        this.lecturer = lecturer;
+        this.preRequisite = preRequisite;
+        this.capacity = capacity;
+    }
+
 
     // Check if this student in the appropriate semester to take this course?
     public boolean checkYearMatching(int year) {
@@ -77,11 +111,14 @@ class Course {
                 return "This course is conflicting with the time of the course : " + course.toString() + " inside your courses that are waiting to be canceled!";
             }
         }
+        if (isFull()) {
+            return "this course's capacity full!.";
+        }
         return null;
     }
-    
-    
-    public boolean equals(Course course2){
+
+
+    public boolean equals(Course course2) {
         return course2 != null && this.COURSE_NAME.equals(course2.getCourseName());
     }
 
@@ -115,6 +152,10 @@ class Course {
         return COURSE_CODE + " " + COURSE_NAME;
     }
 
+    public String courseStatus() {
+        return "NumberOfStudent: " + numberOfStudents + " " + "Capacity: " + capacity;
+    }
+
     public int getCourseCredit() {
         return COURSE_CREDIT;
     }
@@ -131,4 +172,11 @@ class Course {
         return COURSE_NAME;
     }
 
+    public void increaseStudentNumber() {
+        numberOfStudents++;
+    }
+
+    public boolean isFull() {
+        return numberOfStudents >= capacity;
+    }
 }

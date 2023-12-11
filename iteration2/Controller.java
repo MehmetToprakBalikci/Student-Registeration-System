@@ -8,14 +8,14 @@ class Controller {
     private User user;
     //Default Constructor
     public Controller() {
-    	UNIVERSITY_FILE_SYSTEM = new UniversityFileSystem();
-    	UI = new UI();
+        UNIVERSITY_FILE_SYSTEM = new UniversityFileSystem();
+        UI = new UI();
         UI.initialize();
     }
     //Constructor
     public Controller(Scanner input) {
-    	UNIVERSITY_FILE_SYSTEM = new UniversityFileSystem();
-    	UI = new UI(input);
+        UNIVERSITY_FILE_SYSTEM = new UniversityFileSystem();
+        UI = new UI(input);
         UI.initialize();
     }
 
@@ -23,7 +23,7 @@ class Controller {
 
     public void start() {
         // load all json course and person files
-    	UNIVERSITY_FILE_SYSTEM.loadFiles();
+        UNIVERSITY_FILE_SYSTEM.loadFiles();
         do {
             String[] userInfo = UI.requestCredentials();
             user = UNIVERSITY_FILE_SYSTEM.getSignedPerson(userInfo, this);
@@ -34,9 +34,9 @@ class Controller {
         UI.callEndMessage(0);
     }
 
-    
+
     public void printErrorMessage(String errorMessage) {
-    	UI.printConsoleErrorMessage(errorMessage);
+        UI.printConsoleErrorMessage(errorMessage);
     }
 
     //Error int -1 for no error
@@ -45,7 +45,13 @@ class Controller {
     }
 
     public void printList(String[] stringList) {
-    	UI.printConsoleList(stringList);
+        UI.printConsoleList(stringList);
     }
-    
+
+    public void printSuccessMessage(String successMessage) {
+        UI.printConsoleSuccessMessage(successMessage);
+    }
 }
+
+
+

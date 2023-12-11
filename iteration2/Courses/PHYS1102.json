@@ -2,13 +2,12 @@
   "courseCode": "PHYS1102",
   "courseName": "Physics 2",
   "courseCredit": 4,
-  "courseCapacity": 150,
+  "courseCapacity": 75,
   "courseYear": 1,
   "courseDay": 3,
   "courseSection": 4,
   "prerequisites": [
     ""
   ],
-  "lecturerId": "2004",
-  "assistantId" : "3001"
+  "lecturerId": "2004"
 }

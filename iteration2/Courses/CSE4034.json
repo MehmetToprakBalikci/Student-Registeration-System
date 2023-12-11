@@ -2,9 +2,11 @@
   "courseCode": "CSE4034",
   "courseName": "Advanced Unix Programming",
   "courseCredit": 5,
+  "courseCapacity": 40,
   "courseYear" : 4,
   "courseDay" :  2,
   "courseSection":  3,
   "prerequisites": ["CSE3033"],
-  "lecturerId" : "1005"
+  "lecturerId" : "1005",
+  "assistantId" : "3004"
 }
