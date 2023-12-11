@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+//for iteration 2, the default constructor will be updated to include "sentMEssages" and "receivedMessages" lists. 
+//also, at the bottom, there will be two new methods: sendMessage and receiveMessage.
+
 // Student class
 class Student extends Person implements User {
 
@@ -15,6 +18,8 @@ class Student extends Person implements User {
 	private String password;
 	private final String STUDENT_ID; // Additional field for student ID
     private Advisor currentAdvisor;
+    private List<Message> sentMessages;
+    private List<Message> receivedMessages;
 
 
     // Constructor
@@ -29,6 +34,8 @@ class Student extends Person implements User {
         this.registrationCompleteCourses = new ArrayList<>();
         this.cancelWaitingCourses = new ArrayList<>();
         this.registrationWaitingCourses = new ArrayList<>();
+        this.sentMessages = new ArrayList<>();
+        this.receivedMessages = new ArrayList<>();
     }
 
     @Override
@@ -273,5 +280,19 @@ class Student extends Person implements User {
     public String getPassword() {
         return password;
     }
-    
+
+
+
+
+
+    //iteration 2:
+    public void sendMessage(Message msg, User advisor){
+        sentMessages.add(msg);
+        advisor.receiveMessage(msg);
+
+    }
+     public void receiveMessage(Message msg){
+        receivedMessages.add(msg);    
+    }
+
 }

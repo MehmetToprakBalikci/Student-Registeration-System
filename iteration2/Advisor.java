@@ -1,9 +1,14 @@
 import java.util.ArrayList;
 
+//for iteration 2, the default constructor will be updated to include "sentMEssages" and "receivedMessages" lists. 
+//also, at the bottom, there will be two new methods: sendMessage and receiveMessage.
+
 class Advisor extends Lecturer implements User {
     private ArrayList<Student> studentList;
 	private String userName;
 	private String password;
+    private ArrayList<Message> sentMessages;
+    private ArrayList<Message> receivedMessages;
 
     // Constructors
 	public Advisor() {
@@ -15,6 +20,8 @@ class Advisor extends Lecturer implements User {
         this.userName = username;
         this.password = password;
         this.studentList = new ArrayList<>();
+        this.sentMessages = new ArrayList<>();
+        this.receivedMessages = new ArrayList<>();
     }
 
 
@@ -186,6 +193,16 @@ class Advisor extends Lecturer implements User {
 
     public String getPassword() {
         return password;
+    }
+
+    //iteration 2 part:
+    public void sendMessage(Message msg, User student) {
+        student.receiveMessage(msg);
+        this.sentMessages.add(msg);
+    }
+
+    public void receiveMessage(Message msg) {
+        this.receivedMessages.add(msg);
     }
 
 }
