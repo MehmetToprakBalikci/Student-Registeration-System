@@ -1,0 +1,13 @@
+{
+  "courseCode": "TRD121",
+  "courseName": "Turkish Language I",
+  "courseCredit": 2,
+  "courseCapacity": 110,
+  "courseYear": 1,
+  "courseDay": 3,
+  "courseSection": 4,
+  "prerequisites": [
+    ""
+  ],
+  "lecturerId": "2008"
+}

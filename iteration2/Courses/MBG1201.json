@@ -1,0 +1,13 @@
+{
+  "courseCode": "MBG1201",
+  "courseName": "Introduction to Modern Biology",
+  "courseCredit": 5,
+  "courseCapacity": 90,
+  "courseYear": 1,
+  "courseDay": 3,
+  "courseSection": 4,
+  "prerequisites": [
+    ""
+  ],
+  "lecturerId": "2004"
+}

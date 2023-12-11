@@ -1,0 +1,14 @@
+{
+  "courseCode": "EE2031",
+  "courseName": "Electric Circuits",
+  "courseCredit": 5,
+  "courseCapacity": 110,
+  "courseYear": 2,
+  "courseDay": 4,
+  "courseSection": 7,
+  "prerequisites": [
+    "PHYS1102"
+  ],
+  "lecturerId": "2006",
+  "assistantId" : "3003"
+}
