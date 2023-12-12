@@ -2,11 +2,6 @@
   "type": "lecturer",
   "name": "Mujdat",
   "lastName": "Soyturk",
-  "username": "mujdat123",
-  "password": "mujdat1290",
-  "lecturerId": "2002",
-  "Students": [
-    "150121002",
-    "150121538"
-  ]
+  "lecturerId": "2002"
+
 }

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-//for iteration 2, the default constructor will be updated to include "sentMEssages" and "receivedMessages" lists. 
+//for iteration 2, the default constructor will be updated to include "sentMEssages" and "receivedMessages" lists.
 //also, at the bottom, there will be two new methods: sendMessage and receiveMessage.
 
 // Student class
@@ -12,11 +12,11 @@ class Student extends Person implements User {
     private List<Course> currentAvailableCourses; // Courses that the student is able to register
     private List<Course> registrationWaitingCourses; //Courses that are waiting to be registered
     private List<Course> registrationCompleteCourses; // Courses that finished registration
-    private List<Course> cancelWaitingCourses; // Courses that are waiting to be canceled 
+    private List<Course> cancelWaitingCourses; // Courses that are waiting to be canceled
     private final Transcript CURRENT_TRANSCRIPT;
     private String userName;
-	private String password;
-	private final String STUDENT_ID; // Additional field for student ID
+    private String password;
+    private final String STUDENT_ID; // Additional field for student ID
     private Advisor currentAdvisor;
     private List<Message> sentMessages;
     private List<Message> receivedMessages;
@@ -81,21 +81,49 @@ class Student extends Person implements User {
         int currentUserSelection;
         Course currentCourse;
         switch (actionNumber) {
-
+         /*   String[] courseInfoString = new String[6];
+            courseInfoString[0] = "Select your course action";
+            courseInfoString[1] = "1-)Return back to available course menu page";
+            courseInfoString[2] = "2-)register to  the course";
+            courseInfoString[3] = "3-)See your course's Lecturer";
+            courseInfoString[4] = "4-)See your course's advisor";
+            courseInfoString[5] = "5-) Return back to first menü page"; */
             case 1:
                 currentUserSelection = controller.printListReturnSelection(
-                        getCourseReturnListString("Courses that are available to you, choose a course to add:", currentAvailableCourses), -1);
+                        getCourseReturnListString("Courses that are available to you select one:", currentAvailableCourses), -1);
                 if (currentUserSelection != 1) {
                     currentCourse = currentAvailableCourses.get(currentUserSelection - 2);
-                    String courseSectAvailabilityStr = currentCourse.checkCourseSection(registrationCompleteCourses, registrationWaitingCourses, cancelWaitingCourses);
-                    if (courseSectAvailabilityStr == null) {
-                        removeElementFromCurrentAvailableCourses(currentCourse);
-                        registrationWaitingCourses.add(currentCourse);
-                        System.out.println(currentCourse + " is successfully added. ");
-                        System.out.println();
-                    } else {
-                        controller.printErrorMessage(courseSectAvailabilityStr);
+                    currentUserSelection = controller.printListReturnSelection(getCourseInfoString(currentCourse), -1);
+                    switch (currentUserSelection) {
+                        case 1: // return back to available course menu page
+                            runUserAction(1, controller);
+                            break;
+                        case 2: // register to the course
+                            String courseSectAvailabilityStr = currentCourse.checkCourseSection(registrationCompleteCourses, registrationWaitingCourses, cancelWaitingCourses);
+                            if (courseSectAvailabilityStr == null) {
+                                removeElementFromCurrentAvailableCourses(currentCourse);
+                                registrationWaitingCourses.add(currentCourse);
+                                controller.printSuccessMessage(currentCourse + " has been sent to your advisor " + this.currentAdvisor.getFirstName() + " " + this.currentAdvisor.getLastName());
+                            } else {
+                                controller.printErrorMessage(courseSectAvailabilityStr);
+                            }
+                            runUserAction(1, controller);
+                            break;
+
+                        case 3: // see your course lecturer
+                            controller.printList(getCoursesLecturerInfo(currentCourse));
+                            runUserAction(1, controller);
+                            break;
+                        case 4: // see your course assistant
+                            controller.printList(getCoursesAssistantInfo(currentCourse));
+                            runUserAction(1, controller);
+                            break;
+                        case 5: // return back to first page
+                            return;
+
                     }
+
+
                 }
                 break;
             case 2:
@@ -105,8 +133,7 @@ class Student extends Person implements User {
                     currentCourse = registrationCompleteCourses.get(currentUserSelection - 2);
                     removeElementFromRegistrationCompleteCourses(currentCourse);
                     cancelWaitingCourses.add(currentCourse);
-                    System.out.println(currentCourse + " is successfully added to cancelWaiting. ");
-                    System.out.println();
+                    controller.printSuccessMessage(currentCourse + "is successfully added to cancelWaiting.\n");
                 }
                 break;
             case 3:
@@ -126,6 +153,36 @@ class Student extends Person implements User {
             default:
                 break;
         }
+
+    }
+
+    private String[] getCourseInfoString(Course course) {
+        String[] courseInfoString = new String[6];
+        courseInfoString[0] = "Select your course action";
+        courseInfoString[1] = "1-)Return back to available course menu page";
+        courseInfoString[2] = "2-)Register to the " + course.toString();
+        courseInfoString[3] = "3-)See the course's Lecturer";
+        courseInfoString[4] = "4-)See the course's assistant";
+        courseInfoString[5] = "5-)Return back to first menu page";
+        return courseInfoString;
+    }
+
+    private String[] getCoursesAssistantInfo(Course currentCourse) {
+        String[] assistantInfo = new String[1];
+        if (currentCourse.getAssistant() == null) {
+            assistantInfo[0] = "There is no assistant assigned for this course";
+        } else {
+            assistantInfo[0] = currentCourse.getAssistant().toString();
+        }
+
+        return assistantInfo;
+    }
+
+    private String[] getCoursesLecturerInfo(Course currentCourse) {
+        String[] lecturerInfo = new String[1];
+        lecturerInfo[0] = currentCourse.getLecturer().toString();
+        return lecturerInfo;
+
     }
 
     private String[] stringToList(String giveString) {
@@ -198,36 +255,36 @@ class Student extends Person implements User {
 
     public boolean checkCourseAvailablity(Course course) {
         boolean isAvailable = true;
-        isAvailable = course.checkYearMatching(this.CURRENT_TRANSCRIPT.getYear()) 
-        && course.checkPreRequisite(CURRENT_TRANSCRIPT.getListOfCourses(), CURRENT_TRANSCRIPT.getListOfGrades()) 
-        && CURRENT_TRANSCRIPT.checkPassedCourses(course)
-        && !checkExistence(course);
-        return isAvailable; 
+        isAvailable = course.checkYearMatching(this.CURRENT_TRANSCRIPT.getYear())
+                && course.checkPreRequisite(CURRENT_TRANSCRIPT.getListOfCourses(), CURRENT_TRANSCRIPT.getListOfGrades())
+                && CURRENT_TRANSCRIPT.checkPassedCourses(course)
+                && !checkExistence(course) && !course.isFull();
+        return isAvailable;
     }
-    
-    private boolean checkExistence(Course course){
+
+    private boolean checkExistence(Course course) {
         boolean exists = false;
-        exists = checkListForCourse(cancelWaitingCourses, course) || 
-        checkListForCourse(registrationCompleteCourses, course) || 
-        checkListForCourse(registrationWaitingCourses, course);
+        exists = checkListForCourse(cancelWaitingCourses, course) ||
+                checkListForCourse(registrationCompleteCourses, course) ||
+                checkListForCourse(registrationWaitingCourses, course);
         return exists;
     }
-    
+
     //Returns true if it finds a course in the list
     private boolean checkListForCourse(List<Course> courseList, Course course) {
         for (Course current : courseList) {
-            if(course.equals(current))
-                return true; 
+            if (course.equals(current))
+                return true;
         }
         return false;
     }
-    
+
     public boolean compareCredentials(String username, String password) {
         if (this.userName == null || this.password == null) return false;
         return this.userName.equals(username) && this.password.equals(password);
-        
+
     }
-    
+
     public void setCurrentAdvisor(Advisor currentAdvisor) {
         this.currentAdvisor = currentAdvisor;
     }
@@ -263,7 +320,7 @@ class Student extends Person implements User {
     public List<Course> getRegistrationCompleteCourses() {
         return registrationCompleteCourses;
     }
-    
+
     public void setUserName(String userName) {
         this.userName = userName;
     }
@@ -291,8 +348,12 @@ class Student extends Person implements User {
         advisor.receiveMessage(msg);
 
     }
-     public void receiveMessage(Message msg){
-        receivedMessages.add(msg);    
+    public void receiveMessage(Message msg){
+        receivedMessages.add(msg);
     }
 
+
+    public boolean isTakingCourse(Course course) {
+        return registrationCompleteCourses.contains(course) || cancelWaitingCourses.contains(course);
+    }
 }

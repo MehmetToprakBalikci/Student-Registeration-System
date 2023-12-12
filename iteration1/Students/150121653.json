@@ -7,29 +7,21 @@
   "studentId": "150121653",
   "Transcript": {
     "listOfCourses": [
-      "CSE1200",
-      "MATH1001",
-      "MATH1002",
-      "CSE1241",
-      "CSE1242",
-      "CSE2225",
-      "CSE2138"
+      "CSE1200","MATH1001","MATH1002","CSE1241","CSE1242","CSE2225","CSE2138"
     ],
     "listOfGrades": [
-      80,
-      50,
-      90,
-      53,
-      34,
-      67,
-      75
+      80,50,90,53,34,67,75
     ]
   },
   "advisorId": "1001",
+  "classLevel": "2",
   "cancelWaitingCourses": [
+  
   ],
   "registrationCompleteCourses": [
-  ],
+  
+   ],
   "registrationWaitingCourses": [
+  
   ]
 }

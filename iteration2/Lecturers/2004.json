@@ -4,11 +4,6 @@
   "lastName": "Türkan",
   "username": "nureddin242",
   "password": "password796",
-  "lecturerId": "2004",
-  "Students": [
-    "150121538",
-    "150121032",
-    "150121051",
-    "150122348"
-  ]
+  "lecturerId": "2004"
+
 }

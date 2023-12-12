@@ -4,11 +4,5 @@
   "lastName": "Ergin",
   "username": "fatma2645",
   "password": "password794",
-  "lecturerId": "2003",
-  "Students": [
-    "150121653",
-    "150120076",
-    "150121051",
-    "150122348"
-  ]
+  "lecturerId": "2003"
 }

@@ -2,6 +2,7 @@
   "courseCode": "PHYS1101",
   "courseName": "Physics I",
   "courseCredit": 4,
+  "courseCapacity": 90,
   "courseYear": 1,
   "courseDay": 3,
   "courseSection": 4,

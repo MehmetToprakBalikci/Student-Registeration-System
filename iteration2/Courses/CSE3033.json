@@ -2,9 +2,11 @@
   "courseCode": "CSE3033",
   "courseName": "Operating Systems",
   "courseCredit": 7,
+  "courseCapacity": 90,
   "courseYear" : 2,
   "courseDay" :  2,
   "courseSection":  7,
   "prerequisites": ["CSE2225"],
-  "lecturerId" : "1005"
+  "lecturerId" : "1005",
+  "assistantId" : "3006"
 }

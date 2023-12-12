@@ -2,9 +2,11 @@
   "courseCode": "CSE3055",
   "courseName": "Database Systems",
   "courseCredit": 7,
+  "courseCapacity": 95,
   "courseYear" : 3,
   "courseDay" :  2,
   "courseSection":  3,
   "prerequisites": ["CSE2225"],
-  "lecturerId" : "1001"
+  "lecturerId" : "1001",
+  "assistantId" : "3002"
 }
