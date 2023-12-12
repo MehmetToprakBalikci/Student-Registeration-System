@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-//for iteration 2, the default constructor will be updated to include "sentMEssages" and "receivedMessages" lists. 
+//for iteration 2, the default constructor will be updated to include "sentMessages" and "receivedMessages" lists. 
 //also, at the bottom, there will be two new methods: sendMessage and receiveMessage.
 
 class Advisor extends Lecturer implements User {
@@ -43,7 +43,7 @@ class Advisor extends Lecturer implements User {
         while (true) {
             String[] actionList = getActionList();
             int actionNumber = controller.printListReturnSelection(actionList, -1);
-            if (actionNumber != 2) {
+            if (actionNumber != 3) {
                 runUserAction(actionNumber, controller);
             } else return;
         }
@@ -53,11 +53,12 @@ class Advisor extends Lecturer implements User {
     @Override
     public String[] getActionList() {
 
-        String[] actionList = new String[3];
+        String[] actionList = new String[4];
 
         actionList[0] = "Select an action.";
         actionList[1] = "1) See students.";
-        actionList[2] = "2) Log out.";
+        actionList[2] = "2) See messages.";
+        actionList[3] = "3) Log out.";
 
         return actionList;
     }
@@ -65,9 +66,9 @@ class Advisor extends Lecturer implements User {
     // Further menu's and actions
     @Override
     public void runUserAction(int actionNumber, Controller controller) {
-        // Student selection part
+        
         switch (actionNumber) {
-
+        	// See students
             case 1:
 
 
@@ -162,11 +163,107 @@ class Advisor extends Lecturer implements User {
 
 
                     }
-                }
-
-                // For further implementations
+                } 
+		// See messages
             case 2:
-                break;
+            	while (true) {
+        		String[] messageList = new String[2];
+            	
+            	String[] messageMenuList = new String[5];
+            	messageMenuList[0] = "Select an action.";
+            	messageMenuList[1] = "1) See sent messages.";
+            	messageMenuList[2] = "2) See received messages.";
+            	messageMenuList[3] = "3) Send message to a student.";
+            	messageMenuList[4] = "4) Go back.";
+            	
+            	actionNumber = controller.printListReturnSelection(messageMenuList, -1);
+            	
+            	if (actionNumber == 4) {
+            		return;
+            	}
+            	
+            	
+            	else if (actionNumber == 2) {
+            		while (true) {
+	            		String[] receivedMessagesList = new String[receivedMessages.size()+2];
+	            		receivedMessagesList[0] = "Received messages:";
+	            		receivedMessagesList[receivedMessagesList.length - 1] = receivedMessagesList.length - 1 + ") Go back.";
+	            		
+	            		if (receivedMessages.size() != 0) {
+		            		for (int i = 1; i<=receivedMessages.size(); i++) {
+		            			receivedMessagesList[i] = i + " " + receivedMessages.get(i-1).toString();
+		            		}
+		            		actionNumber = controller.printListReturnSelection(receivedMessagesList, -1);
+		            		if (actionNumber == receivedMessagesList.length - 1) break;
+		            		else {
+		            			messageList[0] = receivedMessages.get(actionNumber-1).toString() + "\n\n" + receivedMessages.get(actionNumber-1).getMessage();
+		            			messageList[1] = "1) Go back.";
+		            			receivedMessages.get(actionNumber-1).readMessage();
+		            			actionNumber = controller.printListReturnSelection(messageList, -1);
+		            			if (actionNumber == 1) continue;
+		            		}
+	            		}
+	            		else {
+	            			receivedMessagesList[0] = "There is no received messages.";
+	            			actionNumber = controller.printListReturnSelection(receivedMessagesList, -1);
+	            			break;
+	            		}
+            		}
+            		continue;
+            	}
+            	
+            	else if (actionNumber == 1) {
+            		while (true) {
+            			
+	            		String[] sentMessagesList = new String[sentMessages.size()+2];
+	            		sentMessagesList[0] = "Sent messages:";
+	            		sentMessagesList[sentMessagesList.length - 1] = sentMessagesList.length - 1 + ") Go back.";
+	            		
+	            		if (sentMessages.size() != 0) {
+		            		for (int i = 1; i<=sentMessages.size(); i++) {
+		            			sentMessagesList[i] = i + ") " + sentMessages.get(i-1).toString();
+		            		}
+		            		actionNumber = controller.printListReturnSelection(sentMessagesList, -1);
+		            		if (actionNumber == sentMessagesList.length - 1) break;
+		            		else {
+		            			messageList[0] = sentMessages.get(actionNumber-1).toString() + "\n\n" + sentMessages.get(actionNumber-1).getMessage();
+		            			messageList[1] = "1) Go back.";
+		            			actionNumber = controller.printListReturnSelection(messageList, -1);
+		            			if (actionNumber == 1) continue;
+		            		}
+	            		}
+	            		else {
+	            			sentMessagesList[0] = "There is no sent messages.";
+	            			actionNumber = controller.printListReturnSelection(sentMessagesList, -1);
+	            			break;
+	            		}
+            		}
+            		continue;
+            	}
+            	
+            	else {
+            		int studentSize = studentList.size();
+            		String[] studentsToSendMessage = new String[studentSize+2];
+            		
+            		studentsToSendMessage[0] = "Select a student to send a message.";
+            		studentsToSendMessage[studentSize + 1] = studentSize + 1 + ") Go back.";
+
+                    for (int i = 1; i <= studentSize; i++) {
+
+                    	studentsToSendMessage[i] = i + ") " + studentList.get(i - 1).toString();
+                    }
+                    
+                    actionNumber = controller.printListReturnSelection(studentsToSendMessage, -1);
+                    
+                    String[] messageInfo = controller.requestMessageString();
+                    Message message = new Message(messageInfo[0], messageInfo[1], this, studentList.get(actionNumber - 1));
+                    sendMessage(message, studentList.get(actionNumber - 1));
+                    
+            	}
+            	
+            }
+            case 3 :
+              
         }
     }
 

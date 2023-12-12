@@ -51,6 +51,10 @@ class Controller {
     public void printSuccessMessage(String successMessage) {
         UI.printConsoleSuccessMessage(successMessage);
     }
+    
+    public String[] requestMessageString() {
+    	return UI.requestMessageStringFromUser();
+    }
 }
 
 

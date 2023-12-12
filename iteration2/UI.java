@@ -91,5 +91,17 @@ public class UI {
     public void printConsoleSuccessMessage(String successMessage) {
         System.out.println(successMessage);
     }
+    
+    public String[] requestMessageStringFromUser() {
+    	Scanner scanner2 = new Scanner(System.in, "UTF-8");
+    	String[] message = new String[2];
+    	printString("Write your message title:");
+    	String title = scanner2.nextLine();
+    	printString("Write your message:");
+    	String msg = scanner2.nextLine();
+    	message[0] = title;
+    	message[1] = msg;
+		return message;
+    }
 }
 
