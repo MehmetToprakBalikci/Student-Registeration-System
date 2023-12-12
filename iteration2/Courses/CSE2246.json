@@ -2,9 +2,10 @@
   "courseCode": "CSE2246",
   "courseName": "Analysis of Algorithms",
   "courseCredit": 6,
+  "courseCapacity": 75,
   "courseYear" : 2,
   "courseDay" :  5,
   "courseSection":  5,
-  "prerequisites": ["CS1242"],
+  "prerequisites": ["CSE1242"],
   "lecturerId" : "1003"
 }

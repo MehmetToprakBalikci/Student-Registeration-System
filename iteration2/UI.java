@@ -4,13 +4,14 @@ import java.util.Scanner;
 // UI class
 public class UI {
     private Controller controller;
-    private  Scanner scanner;
+    private Scanner scanner;
 
-    public UI(){
-       scanner=new Scanner(System.in, "UTF-8");
+    public UI() {
+        scanner = new Scanner(System.in, "UTF-8");
     }
-     public UI(Scanner input){
-        scanner=input;
+
+    public UI(Scanner input) {
+        scanner = input;
     }
 
     public Controller getSystem() {
@@ -26,11 +27,11 @@ public class UI {
 
     public String[] requestCredentials() {
         System.out.println("Enter your userName:");
-        String userName=scanner.nextLine();
+        String userName = scanner.nextLine();
         System.out.println("Enter your password:");
         String password = scanner.nextLine();
 
-        return new String[]{userName,password};
+        return new String[]{userName, password};
     }
 
     public void initialize() {
@@ -54,10 +55,10 @@ public class UI {
         scanner.close();
         System.exit(status);
     }
-    
+
     //First string of the array is the title string
-    public int printConsoleListReturnSelection(String[] stringList, int errorInt){
-        // int chosenInt = -1; 
+    public int printConsoleListReturnSelection(String[] stringList, int errorInt) {
+        // int chosenInt = -1;
         if (errorInt == 0) {
             try {
                 throw new Exception("emptyListStringException");
@@ -65,26 +66,30 @@ public class UI {
                 callEndMessage(1);
             }
         }
-        do{
+        do {
             printConsoleList(stringList);
             errorInt = scanner.nextInt();
-        }while(errorInt >= stringList.length || errorInt <= 0);
+        } while (errorInt >= stringList.length || errorInt <= 0);
 
         return errorInt;
     }
 
     public void printConsoleList(String[] stringList) {
-        for(int i = 0; i < stringList.length; i++){
+        for (int i = 0; i < stringList.length; i++) {
             if (stringList[i] != null) {
-                 System.out.println(stringList[i]);
+                System.out.println(stringList[i]);
             }
         }
         System.out.println("--------------------------");
         return;
     }
 
-    private void printString(String outputStr){
-         System.out.println(outputStr);
+    private void printString(String outputStr) {
+        System.out.println(outputStr);
+    }
+
+    public void printConsoleSuccessMessage(String successMessage) {
+        System.out.println(successMessage);
     }
 }
 

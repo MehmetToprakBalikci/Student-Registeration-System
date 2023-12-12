@@ -2,6 +2,7 @@
   "courseCode": "EE2031",
   "courseName": "Electric Circuits",
   "courseCredit": 5,
+  "courseCapacity": 75,
   "courseYear": 2,
   "courseDay": 4,
   "courseSection": 7,

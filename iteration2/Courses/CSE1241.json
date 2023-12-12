@@ -2,9 +2,13 @@
   "courseCode": "CSE1241",
   "courseName": "Computer Programming 1",
   "courseCredit": 6,
-  "courseYear" : 1,
-  "courseDay" :  2,
-  "courseSection":  3,
-  "prerequisites": [""],
-  "lecturerId" : "1001"
+  "courseCapacity": 80,
+  "courseYear": 1,
+  "courseDay": 2,
+  "courseSection": 3,
+  "prerequisites": [
+    ""
+  ],
+  "lecturerId": "1001",
+  "assistantId": "3001"
 }

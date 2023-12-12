@@ -9,24 +9,29 @@
     "listOfCourses": [
       "CSE1200",
       "CSE2225",
-      "CSE3055",
+      "MATH1001",
+      "MATH1002",
+      "CSE1241",
+      "CSE1242",
+      "CSE2138",
       "MATH2059"
     ],
     "listOfGrades": [
       80,
       45,
       45,
-      80
+      80,
+      90,
+      65,
+      75,
+      85
     ]
   },
   "advisorId": "1003",
   "cancelWaitingCourses": [
-
   ],
   "registrationCompleteCourses": [
-
   ],
   "registrationWaitingCourses": [
-
   ]
 }

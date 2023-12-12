@@ -2,6 +2,7 @@
   "courseCode": "MBG1201",
   "courseName": "Introduction to Modern Biology",
   "courseCredit": 5,
+  "courseCapacity": 100,
   "courseYear": 1,
   "courseDay": 3,
   "courseSection": 4,

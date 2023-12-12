@@ -2,9 +2,11 @@
   "courseCode": "CSE1200",
   "courseName": "Introduction to Computer Engineering",
   "courseCredit": 4,
+  "courseCapacity": 70,
   "courseYear" : 1,
   "courseDay" :  2,
   "courseSection":  3,
   "prerequisites": [""],
-  "lecturerId" : "2003"
+  "lecturerId" : "2003",
+  "assistantId" : "3001"
 }

@@ -2,6 +2,7 @@
   "courseCode": "STAT2253",
   "courseName": "Prob. and Stat. For Comp. Eng.",
   "courseCredit": 5,
+  "courseCapacity": 90,
   "courseYear" : 2,
   "courseDay" :  2,
   "courseSection":  4,

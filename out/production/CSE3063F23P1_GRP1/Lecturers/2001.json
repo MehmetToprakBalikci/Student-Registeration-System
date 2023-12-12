@@ -2,11 +2,5 @@
   "type": "lecturer",
   "name": "Murat Can ",
   "lastName": "Ganiz",
-  "username": "ganiz123",
-  "password": "mcganiz790",
-  "lecturerId": "2001",
-  "Students": [
-    "150121032",
-    "150121538"
-  ]
+  "lecturerId": "2001"
 }
