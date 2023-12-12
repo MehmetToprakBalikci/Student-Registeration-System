@@ -1,26 +1,34 @@
 public class Message {
 
+	private String title;
     private String message;
-    private String sender;
-    private String receiver;
+    private User sender;
+    private User receiver;
     private boolean isRead;
 
-    public Message(String message, String sender, String receiver, String date, String time) {
-        this.message = message;
+    public Message(String title, String message, User sender, User receiver) {
+        this.title = title;
+    	this.message = message;
         this.sender = sender;
         this.receiver = receiver;
         this.isRead = false;
     }
+    
+    
+    public void readMessage() {
+    	this.isRead = true;
+    }
+    
 
     public String getMessage() {
         return message;
     }
 
-    public String getSender() {
+    public User getSender() {
         return sender;
     }
 
-    public String getReceiver() {
+    public User getReceiver() {
         return receiver;
     }
 
@@ -32,11 +40,11 @@ public class Message {
         this.message = message;
     }
 
-    public void setSender(String sender) {
+    public void setSender(User sender) {
         this.sender = sender;
     }
 
-    public void setReceiver(String receiver) {
+    public void setReceiver(User receiver) {
         this.receiver = receiver;
     }
 
@@ -46,9 +54,9 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message: " + message + "\n" +
-                "Sender: " + sender + "\n" +
-                "Receiver: " + receiver + "\n"
-                + "Read: " + isRead;
+        return "Title: " + title + ", " +
+                "Sender: " + sender.toString() + ", " +
+                "Receiver: " + receiver.toString() + ", " +
+                "Read: " + isRead;
     }
 }
