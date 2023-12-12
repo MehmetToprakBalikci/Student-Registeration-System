@@ -1,5 +1,5 @@
 {
-  "courseCode": "CSE4034",
+  "courseCode": "TE: CSE4034",
   "courseName": "Advanced Unix Programming",
   "courseCredit": 5,
   "courseCapacity": 40,
@@ -7,6 +7,5 @@
   "courseDay" :  2,
   "courseSection":  3,
   "prerequisites": ["CSE3033"],
-  "lecturerId" : "1005",
-  "assistantId" : "3004"
+  "lecturerId" : "1005"
 }

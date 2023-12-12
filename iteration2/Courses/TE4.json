@@ -1,0 +1,13 @@
+{
+  "courseCode": "TE 4",
+  "courseName": "Technical Elective 4",
+  "courseCredit": 5,
+  "courseCapacity": 70,
+  "courseYear": 4,
+  "courseDay": 2,
+  "courseSection": 6,
+  "prerequisites": [
+    ""
+  ],
+  "lecturerId": "2006"
+}

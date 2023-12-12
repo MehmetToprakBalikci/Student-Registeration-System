@@ -5,16 +5,16 @@ import java.util.ArrayList;
 
 class Advisor extends Lecturer implements User {
     private ArrayList<Student> studentList;
-	private String userName;
-	private String password;
+    private String userName;
+    private String password;
     private ArrayList<Message> sentMessages;
     private ArrayList<Message> receivedMessages;
 
     // Constructors
-	public Advisor() {
+    public Advisor() {
 
     }
-	
+
     public Advisor(String name, String lastName, String username, String password, String lecturerID, ArrayList<Student> studentList) {
         super(name, lastName, lecturerID);
         this.userName = username;
@@ -142,6 +142,8 @@ class Advisor extends Lecturer implements User {
                             if (controller.printListReturnSelection(courseActionMenuList, -1) == 1) {    // Accept registration
                                 selectedStudent.removeElementFromRegistrationWaitingCourses(selectedCourse);
                                 selectedStudent.addElementToRegistrationCompleteCourses(selectedCourse);
+                                selectedCourse.increaseStudentNumber();
+
                             } else {
                                 selectedStudent.removeElementFromRegistrationWaitingCourses(selectedCourse);
                                 selectedStudent.addElementToCurrentAvailableCourses(selectedCourse);
@@ -154,9 +156,11 @@ class Advisor extends Lecturer implements User {
                             if (controller.printListReturnSelection(courseActionMenuList, -1) == 1) {
                                 selectedStudent.removeElementFromCancelWaitingCourses(selectedCourse);
                                 selectedStudent.addElementToCurrentAvailableCourses(selectedCourse);
+                                selectedCourse.increaseStudentNumber();
                             } else {
                                 selectedStudent.removeElementFromCancelWaitingCourses(selectedCourse);
                                 selectedStudent.addElementToRegistrationCompleteCourses(selectedCourse);
+                                selectedCourse.decreaseStudentNumber();
                             }
                         }
 
@@ -177,7 +181,7 @@ class Advisor extends Lecturer implements User {
     public void setStudentList(ArrayList<Student> studentList) {
         this.studentList = studentList;
     }
-    
+
     public void setUserName(String userName) {
         this.userName = userName;
     }

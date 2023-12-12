@@ -179,4 +179,8 @@ class Course {
     public boolean isFull() {
         return numberOfStudents >= capacity;
     }
+
+    public void decreaseStudentNumber() {
+        numberOfStudents--;
+    }
 }

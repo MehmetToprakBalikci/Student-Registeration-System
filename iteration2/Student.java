@@ -258,6 +258,7 @@ class Student extends Person implements User {
         isAvailable = course.checkYearMatching(this.CURRENT_TRANSCRIPT.getYear())
                 && course.checkPreRequisite(CURRENT_TRANSCRIPT.getListOfCourses(), CURRENT_TRANSCRIPT.getListOfGrades())
                 && CURRENT_TRANSCRIPT.checkPassedCourses(course)
+                && course.checkCourseSection(registrationCompleteCourses, registrationWaitingCourses, cancelWaitingCourses) == null
                 && !checkExistence(course) && !course.isFull();
         return isAvailable;
     }
@@ -339,16 +340,14 @@ class Student extends Person implements User {
     }
 
 
-
-
-
     //iteration 2:
-    public void sendMessage(Message msg, User advisor){
+    public void sendMessage(Message msg, User advisor) {
         sentMessages.add(msg);
         advisor.receiveMessage(msg);
 
     }
-    public void receiveMessage(Message msg){
+
+    public void receiveMessage(Message msg) {
         receivedMessages.add(msg);
     }
 

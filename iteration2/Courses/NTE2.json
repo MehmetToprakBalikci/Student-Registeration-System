@@ -1,0 +1,13 @@
+{
+  "courseCode": "NTE 2",
+  "courseName": "Nontechnical Elective 2",
+  "courseCredit": 3,
+  "courseCapacity": 100,
+  "courseYear": 4,
+  "courseDay": 3,
+  "courseSection": 5,
+  "prerequisites": [
+    ""
+  ],
+  "lecturerId": "2002"
+}

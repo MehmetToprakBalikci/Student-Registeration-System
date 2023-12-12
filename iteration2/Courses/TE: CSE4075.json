@@ -1,0 +1,11 @@
+{
+  "courseCode": "TE: CSE4075",
+  "courseName": "Wireless & Mobile Networks",
+  "courseCredit": 5,
+  "courseCapacity": 80,
+  "courseYear" : 4,
+  "courseDay" :  3,
+  "courseSection":  2,
+  "prerequisites": ["CSE4074"],
+  "lecturerId" : "1004"
+}

@@ -1,0 +1,11 @@
+{
+  "courseCode": "TE: CSE4217",
+  "courseName": "Micro processors",
+  "courseCredit": 5,
+  "courseCapacity": 60,
+  "courseYear" : 4,
+  "courseDay" :  4,
+  "courseSection":  4,
+  "prerequisites": ["CSE3038"],
+  "lecturerId" : "1005"
+}
