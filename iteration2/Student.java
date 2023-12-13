@@ -41,7 +41,7 @@ class Student extends Person implements User {
     @Override
     public String[] getActionList() {
 
-        String[] actionList = new String[8];
+        String[] actionList = new String[9];
 
         actionList[0] = "\nSelect an action.";
         actionList[1] = "1) Check courses available to register.";
@@ -50,7 +50,8 @@ class Student extends Person implements User {
         actionList[4] = "4) See courses waiting to be canceled.";
         actionList[5] = "5) User transcript.";
         actionList[6] = "6) Advisor information.";
-        actionList[7] = "7) Log out.";
+        actionList[7] = "7) See messages.";
+        actionList[8] = "8) Log out.";
 
         return actionList;
     }
@@ -66,7 +67,7 @@ class Student extends Person implements User {
     public void startActions(Controller controller) {
         String[] actionList = getActionList();
         int actionNumber;
-        final int maxAction = 7;
+        final int maxAction = 8;
         do {
             actionNumber = controller.printListReturnSelection(actionList, -1);
             runUserAction(actionNumber, controller);
@@ -87,7 +88,7 @@ class Student extends Person implements User {
             courseInfoString[2] = "2-)register to  the course";
             courseInfoString[3] = "3-)See your course's Lecturer";
             courseInfoString[4] = "4-)See your course's advisor";
-            courseInfoString[5] = "5-) Return back to first menü page"; */
+            courseInfoString[5] = "5-) Return back to first menu page"; */
             case 1:
                 currentUserSelection = controller.printListReturnSelection(
                         getCourseReturnListString("Courses that are available to you select one:", currentAvailableCourses), -1);
@@ -128,6 +129,7 @@ class Student extends Person implements User {
                             break;
                         case 5: // return back to first page
                             return;
+                            
 
                     }
 
@@ -158,6 +160,92 @@ class Student extends Person implements User {
             case 6:
                 controller.printList(stringToList(currentAdvisor.toString()));
                 break;
+            case 7: 
+                while (true) {
+                                String[] messageList = new String[2];
+                                
+                                String[] messageMenuList = new String[5];
+                                messageMenuList[0] = "Select an action.";
+                                messageMenuList[1] = "1) See sent messages.";
+                                messageMenuList[2] = "2) See received messages.";
+                                messageMenuList[3] = "3) Send message to a advisor.";
+                                messageMenuList[4] = "4) Go back.";
+                                
+                                actionNumber = controller.printListReturnSelection(messageMenuList, -1);
+                                
+                                if (actionNumber == 4) {
+                                    return;
+                                }
+                                
+                                
+                                else if (actionNumber == 2) {
+                                    while (true) {
+                                        String[] receivedMessagesList = new String[receivedMessages.size()+2];
+                                        receivedMessagesList[0] = "Received messages:";
+                                        receivedMessagesList[receivedMessagesList.length - 1] = receivedMessagesList.length - 1 + ") Go back.";
+                                        
+                                        if (receivedMessages.size() != 0) {
+                                            for (int i = 1; i<=receivedMessages.size(); i++) {
+                                                receivedMessagesList[i] = i + " " + receivedMessages.get(i-1).toString();
+                                            }
+                                            actionNumber = controller.printListReturnSelection(receivedMessagesList, -1);
+                                            if (actionNumber == receivedMessagesList.length - 1) break;
+                                            else {
+                                                messageList[0] = receivedMessages.get(actionNumber-1).toString() + "\n\n" + receivedMessages.get(actionNumber-1).getMessage();
+                                                messageList[1] = "1) Go back.";
+                                                receivedMessages.get(actionNumber-1).readMessage();
+                                                actionNumber = controller.printListReturnSelection(messageList, -1);
+                                                if (actionNumber == 1) continue;
+                                            }
+                                        }
+                                        else {
+                                            receivedMessagesList[0] = "There is no received messages.";
+                                            actionNumber = controller.printListReturnSelection(receivedMessagesList, -1);
+                                            break;
+                                        }
+                                    }
+                                    continue;
+                                }
+                                
+                                else if (actionNumber == 1) {
+                                    while (true) {
+                                        
+                                        String[] sentMessagesList = new String[sentMessages.size()+2];
+                                        sentMessagesList[0] = "Sent messages:";
+                                        sentMessagesList[sentMessagesList.length - 1] = sentMessagesList.length - 1 + ") Go back.";
+                                        
+                                        if (sentMessages.size() != 0) {
+                                            for (int i = 1; i<=sentMessages.size(); i++) {
+                                                sentMessagesList[i] = i + ") " + sentMessages.get(i-1).toString();
+                                            }
+                                            actionNumber = controller.printListReturnSelection(sentMessagesList, -1);
+                                            if (actionNumber == sentMessagesList.length - 1) break;
+                                            else {
+                                                messageList[0] = sentMessages.get(actionNumber-1).toString() + "\n\n" + sentMessages.get(actionNumber-1).getMessage();
+                                                messageList[1] = "1) Go back.";
+                                                actionNumber = controller.printListReturnSelection(messageList, -1);
+                                                if (actionNumber == 1) continue;
+                                            }
+                                        }
+                                        else {
+                                            sentMessagesList[0] = "There is no sent messages.";
+                                            actionNumber = controller.printListReturnSelection(sentMessagesList, -1);
+                                            break;
+                                        }
+                                    }
+                                    continue;
+                                }
+                                
+                                else {
+                                    
+
+                                    String[] messageInfo = controller.requestMessageString();
+                                    Message message = new Message(messageInfo[0], messageInfo[1], this, currentAdvisor);
+                                    sendMessage(message, currentAdvisor);
+                                    
+                                }
+                                
+                            }
             default:
                 break;
         }
