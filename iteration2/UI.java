@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 // UI class
 public class UI {
+    private static   UI singletonUI;
     private Controller controller;
     private Scanner scanner;
 
@@ -10,8 +11,23 @@ public class UI {
         scanner = new Scanner(System.in, "UTF-8");
     }
 
-    public UI(Scanner input) {
+    private UI(Scanner input) {
         scanner = input;
+    }
+
+    // UI singleton method is added
+    public static UI getInstance(Scanner input) {
+        if (singletonUI == null) {
+            return new UI(input);
+        }
+        return singletonUI;
+    }
+
+    public static UI getInstance() {
+        if (singletonUI == null) {
+            return new UI();
+        }
+        return singletonUI;
     }
 
     public Controller getSystem() {
@@ -26,7 +42,7 @@ public class UI {
     };*/
 
     public String[] requestCredentials() {
-    	scanner = new Scanner(System.in, "UTF-8");
+        scanner = new Scanner(System.in, "UTF-8");
         System.out.println("Enter your userName:");
         String userName = scanner.nextLine();
         System.out.println("Enter your password:");
@@ -92,17 +108,17 @@ public class UI {
     public void printConsoleSuccessMessage(String successMessage) {
         System.out.println(successMessage);
     }
-    
+
     public String[] requestMessageStringFromUser() {
-    	Scanner scanner2 = new Scanner(System.in, "UTF-8");
-    	String[] message = new String[2];
-    	printString("Write your message title:");
-    	String title = scanner2.nextLine();
-    	printString("Write your message:");
-    	String msg = scanner2.nextLine();
-    	message[0] = title;
-    	message[1] = msg;
-		return message;
+        Scanner scanner2 = new Scanner(System.in, "UTF-8");
+        String[] message = new String[2];
+        printString("Write your message title:");
+        String title = scanner2.nextLine();
+        printString("Write your message:");
+        String msg = scanner2.nextLine();
+        message[0] = title;
+        message[1] = msg;
+        return message;
     }
 }
 

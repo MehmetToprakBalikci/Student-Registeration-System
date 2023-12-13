@@ -2,23 +2,39 @@ import java.util.*;
 
 // Controller class
 class Controller {
-    private final UniversityFileSystem UNIVERSITY_FILE_SYSTEM;
-    private jsonWriter jsonWriter;
-    private final UI UI;
+    private static Controller singletonController;
+    private static UniversityFileSystem UNIVERSITY_FILE_SYSTEM;
+    private static JsonWriter jsonWriter;
+    private static UI ui;
     private User user;
+
     //Default Constructor
-    public Controller() {
-        UNIVERSITY_FILE_SYSTEM = new UniversityFileSystem();
-        UI = new UI();
-        UI.initialize();
-    }
-    //Constructor
-    public Controller(Scanner input) {
-        UNIVERSITY_FILE_SYSTEM = new UniversityFileSystem();
-        UI = new UI(input);
-        UI.initialize();
+    private Controller() {
+        UNIVERSITY_FILE_SYSTEM = UniversityFileSystem.getInstance();
+        ui = UI.getInstance();
+        ui.initialize();
     }
 
+    public static Controller getInstance() {
+        if (singletonController == null) {
+            return new Controller();
+        }
+        return singletonController;
+    }
+
+    //Constructor
+    private Controller(Scanner input) {
+        UNIVERSITY_FILE_SYSTEM = UniversityFileSystem.getInstance();
+        ui = UI.getInstance(input);
+        ui.initialize();
+    }
+
+    public static Controller getInstance(Scanner input) {
+        if (singletonController == null) {
+            return new Controller(input);
+        }
+        return singletonController;
+    }
 
 
     public void start() {
@@ -35,41 +51,41 @@ class Controller {
         startMenu[1] = "1) Log in.";
         startMenu[2] = "2) Exit.";
         int actionNumber = 1;
-        while(true) {
-        	actionNumber = UI.printConsoleListReturnSelection(startMenu, -1);
-        	if (actionNumber == 2) break;
-        	
-        	String[] userInfo = UI.requestCredentials();
+        while (true) {
+            actionNumber = ui.printConsoleListReturnSelection(startMenu, -1);
+            if (actionNumber == 2) break;
+
+            String[] userInfo = ui.requestCredentials();
             user = UNIVERSITY_FILE_SYSTEM.getSignedPerson(userInfo, this);
             if (user != null)
-            user.startActions(this);
+                user.startActions(this);
         }
-        
-        jsonWriter = new jsonWriter((Person) user);
+
+        jsonWriter = JsonWriter.getInstance((Person) user);
         jsonWriter.saveFiles();
-        UI.callEndMessage(0);
+        ui.callEndMessage(0);
     }
 
 
     public void printErrorMessage(String errorMessage) {
-        UI.printConsoleErrorMessage(errorMessage);
+        ui.printConsoleErrorMessage(errorMessage);
     }
 
     //Error int -1 for no error
     public int printListReturnSelection(String[] stringsList, int errorInt) {
-        return UI.printConsoleListReturnSelection(stringsList, errorInt);
+        return ui.printConsoleListReturnSelection(stringsList, errorInt);
     }
 
     public void printList(String[] stringList) {
-        UI.printConsoleList(stringList);
+        ui.printConsoleList(stringList);
     }
 
     public void printSuccessMessage(String successMessage) {
-        UI.printConsoleSuccessMessage(successMessage);
+        ui.printConsoleSuccessMessage(successMessage);
     }
-    
+
     public String[] requestMessageString() {
-    	return UI.requestMessageStringFromUser();
+        return ui.requestMessageStringFromUser();
     }
 }
 

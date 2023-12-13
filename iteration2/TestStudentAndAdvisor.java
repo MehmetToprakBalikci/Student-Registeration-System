@@ -1,46 +1,96 @@
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import org.junit.jupiter.api.Test;
 // Writes the test results to output:
 public class TestStudentAndAdvisor {
-    static FileWriter testOutputFile;
-    public static void main(String args[]){
-        try {
-            File file = new File("testOutputFile.txt");
-            file.createNewFile();
-            testOutputFile = new FileWriter("testOutputFile.txt");
-        
-            testOutputFile.write("Testing class Student runUserAction : registrationWaitingCourses part for StudentTest...\n"); 
-        for(int i = 1; i <= 5; i++){
-            startTestProcedure(1, i);
+    String getTestString(int testType, int testNum){
+        String testString = null;
+        if(testType == 1){
+            switch(testNum){
+                case 1 :  testString = "1 2 2 1 8 2";
+                break;
+                case 2 : testString = "1 3 2 1 8 2";
+                break;
+                case 3 : testString = "1 4 2 1 8 2";
+                break;
+                case 4 : testString = "1 5 2 1 8 2 ";
+                break;
+                case 5 : testString = "1 6 2 1 8 2";
+                break; 
+            }
         }
-        testOutputFile.write("Testing class Student runUserAction : cancelWaitingCourses part for StudentTest...\n");
-        for(int i = 1; i <= 5; i++){
-            startTestProcedure(2, i);
+        else if(testType == 2){
+            switch(testNum){
+                case 1 :  testString = "2 2 8 2";
+                break;
+                case 2 : testString = "2 3 8 2";
+                break;
+                case 3 : testString = "2 4 8 2";
+                break;
+                case 4 : testString = "2 5 8 2";
+                break;
+                case 5 : testString = "2 6 8 2";
+                break; 
+            }
         }
-        testOutputFile.write("Testing class Advisor runUserAction : Course waitingRegistration Selection Part...\n");
-        for(int i = 1; i <= 5; i++){
-            startTestProcedure(3, i);
-        }
-        testOutputFile.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        else if(testType == 3){
+            switch(testNum){
+                case 1 :  testString = "1 1 1 1 2 3 3";
+                break;
+                case 2 : testString = "1 1 2 1 2 3 3";
+                break;
+                case 3 : testString = "1 2 1 1 3 3 3";
+                break;
+                case 4 : testString = "1 2 2 2 3 3 3";
+                break;
+                case 5 : testString = "1 2 3 2 3 3 3";
+                break; 
+            }
+        } 
+        return testString;
+    }
+    
+    @Test 
+    void studentRunUserActionRegistrationWaitingCourses(){
+        assertTrue(startTestProcedure(getTestString(1, 1), 1, 1));
+        assertTrue(startTestProcedure(getTestString(1, 2), 1, 2));
+        assertTrue(startTestProcedure(getTestString(1, 3), 1, 3));
+        assertTrue(startTestProcedure(getTestString(1, 4), 1, 4));
+        assertTrue(startTestProcedure(getTestString(1, 5), 1, 5));
+    }
+    @Test
+    void studentRunUserActionCancelWaitingCourses(){
+        assertTrue(startTestProcedure(getTestString(2, 1), 2, 1));
+        assertTrue(startTestProcedure(getTestString(2, 2), 2, 2));
+        assertTrue(startTestProcedure(getTestString(2, 3), 2, 3));
+        assertTrue(startTestProcedure(getTestString(2, 4), 2, 4));
+        assertTrue(startTestProcedure(getTestString(2, 5), 2, 5));
+    }
+    @Test 
+    void AdvisorRunUserActionwaitingRegistrationSelection(){
+        assertTrue(startTestProcedure(getTestString(3, 1) ,3 , 1));
+        assertTrue(startTestProcedure(getTestString(3, 2) ,3 , 2));
+        assertTrue(startTestProcedure(getTestString(3, 3) ,3 , 3));
+        assertTrue(startTestProcedure(getTestString(3, 4) ,3 , 4));
+        assertTrue(startTestProcedure(getTestString(3, 5) ,3 , 5));
     }
 
-    private static void startTestProcedure(int testType,int testNum) {
-        Controller thisController = new Controller(getTestUserInput(testType, testNum));
+    private static boolean startTestProcedure(String userInpuString, int testType, int testNum) {
+        Controller thisController = Controller.getInstance(getTestUserInput(userInpuString));
         
         ArrayList<Student> studentList = new ArrayList<>();
         Advisor advisor1 = new Advisor("Mustafa", "Ağaoğlu","username3","password3", "1", studentList);
 
-        Course c1 = new Course("CSE3001", "Database Systems", 7, 3, 1, 2, advisor1, null);
-        Course c2 = new Course("CSE3002", "Operating Systems", 7, 3, 1, 2, advisor1, null);
-        Course c3 = new Course("CSE3003", "OOP", 5, 3, 1, 2, advisor1, null);
-        Course c4 = new Course("CSE3004", "Digital Logic Design", 6, 3, 1, 2, advisor1, null);
-        Course c5 = new Course("CSE3005", "Simulation and Modelling", 5, 3, 1, 2, advisor1, null);
+        Course c1 = new Course("CSE3001", "Database Systems", 7, 3, 1, 2, advisor1, null, null,10);
+        Course c2 = new Course("CSE3002", "Operating Systems", 7, 3, 1, 2, advisor1, null, null, 10);
+        Course c3 = new Course("CSE3003", "OOP", 5, 3, 1, 2, advisor1, null, null, 10);
+        Course c4 = new Course("CSE3004", "Digital Logic Design", 6, 3, 1, 2, advisor1, null, null, 10);
+        Course c5 = new Course("CSE3005", "Simulation and Modelling", 5, 3, 1, 2, advisor1, null, null, 10);
         ArrayList<Course> courseList = new ArrayList<>();
         courseList.add(c1);
         Grade g1 = new Grade(50);
@@ -131,26 +181,8 @@ public class TestStudentAndAdvisor {
                 break; 
             }
         }
-        
-        checkResult(testPass, testNum);
         deleteFile();
-    }
-
-    private static void checkResult(boolean testPass, int testNum) {
-        if(testPass){
-            try {
-                testOutputFile.write("Test " + testNum + " passed!\n");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        else{
-           try {
-            testOutputFile.write("Test " + testNum + " failed!\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        }
+        return testPass;
     }
 
     private static void deleteFile() {
@@ -158,56 +190,13 @@ public class TestStudentAndAdvisor {
         file.delete();
     }
 
-    private static Scanner getTestUserInput(int testType,int testNum) {
-        String testString = null;
-        if(testType == 1){
-            switch(testNum){
-                case 1 :  testString = "1 2 7";
-                break;
-                case 2 : testString = "1 3 7";
-                break;
-                case 3 : testString = "1 4 7";
-                break;
-                case 4 : testString = "1 5 7";
-                break;
-                case 5 : testString = "1 6 7";
-                break; 
-            }
-        }
-        else if(testType == 2){
-            switch(testNum){
-                case 1 :  testString = "2 2 7";
-                break;
-                case 2 : testString = "2 3 7";
-                break;
-                case 3 : testString = "2 4 7";
-                break;
-                case 4 : testString = "2 5 7";
-                break;
-                case 5 : testString = "2 6 7";
-                break; 
-            }
-        }
-        else if(testType == 3){
-            switch(testNum){
-                case 1 :  testString = "1 1 1 1 2 3 2";
-                break;
-                case 2 : testString = "1 1 2 1 2 3 2";
-                break;
-                case 3 : testString = "1 2 1 1 3 3 2";
-                break;
-                case 4 : testString = "1 2 2 2 3 3 2";
-                break;
-                case 5 : testString = "1 2 3 2 3 3 2";
-                break; 
-            }
-        }
+    private static Scanner getTestUserInput(String consoleInputString) {
         Scanner newScanner = null;
         File file = new File("testInput.txt");
         try {
             file.createNewFile();
             FileWriter myWriter = new FileWriter("testInput.txt");
-            myWriter.write(testString);
+            myWriter.write(consoleInputString);
             newScanner = new Scanner(file);
             myWriter.close();
         } catch (IOException e) {

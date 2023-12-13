@@ -11,6 +11,7 @@ import java.util.List;
 
 // this is the last version of filesystem after iteration1
 public class UniversityFileSystem {
+    private static UniversityFileSystem UNIVERSITY_FILE_SYSTEM;
     private final List<Person> personList; // all persons
 
     // course part
@@ -29,7 +30,7 @@ public class UniversityFileSystem {
     private final List<List<String>> ADVISORS_STUDENT_ID_LIST;
 
 
-    public UniversityFileSystem() {
+    private UniversityFileSystem() {
         personList = new ArrayList<>();
         SYSTEM_COURSES = new ArrayList<>();
         COURSES_PREQUISITES_CODES = new ArrayList<>();
@@ -40,6 +41,17 @@ public class UniversityFileSystem {
         STUDENTS_REGISTRATION_WAITING_COURSES = new ArrayList<>();
         STUDENTS_ADVISOR_IDS_LIST = new ArrayList<>();
         ADVISORS_STUDENT_ID_LIST = new ArrayList<>();
+
+
+    }
+
+    // SingletonPattern is added for filesystem
+    public static UniversityFileSystem getInstance() {
+        if (UNIVERSITY_FILE_SYSTEM == null) {
+            UNIVERSITY_FILE_SYSTEM = new UniversityFileSystem();
+            return UNIVERSITY_FILE_SYSTEM;
+        }
+        return UNIVERSITY_FILE_SYSTEM;
 
 
     }
@@ -609,10 +621,9 @@ public class UniversityFileSystem {
                 COURSES_ASSISTANT_IDS.add(assistantId);
                 Course course = new Course(courseCode, courseName, courseCredit.intValue(), courseYear.intValue(), courseDay.intValue(), courseHour.intValue(), new Lecturer(), new Assistant()
                         , new ArrayList<>(), courseCapacity.intValue());
-                if(courseType.equals("t")) {
+                if (courseType.equals("t")) {
                     course.setType(courseType);
-                }
-                else if(courseType.equals("nt")) {
+                } else if (courseType.equals("nt")) {
                     course.setType(courseType);
                 }
                 SYSTEM_COURSES.add(course);
@@ -663,9 +674,9 @@ public class UniversityFileSystem {
                 currentController.printErrorMessage("Password too long");
             return null;
         }
-        
+
         currentController.printErrorMessage("\nUsername or Password mismatch!");
-        
+
         return null;
 
     }

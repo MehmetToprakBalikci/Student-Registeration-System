@@ -9,15 +9,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class jsonWriter {
+public class JsonWriter {
     private Person person;
+    private static JsonWriter singletonJSonWriter;
 
-    public jsonWriter() {
+    private JsonWriter() {
 
     }
 
-    public jsonWriter(Person person) {
+    public JsonWriter getInstance() {
+        if (singletonJSonWriter == null) {
+            return new JsonWriter();
+        }
+        return singletonJSonWriter;
+    }
+
+    private JsonWriter(Person person) {
         this.person = person;
+    }
+
+    public static JsonWriter getInstance(Person user) {
+        if (singletonJSonWriter == null) {
+            return new JsonWriter(user);
+        }
+        return singletonJSonWriter;
     }
 
 
@@ -25,7 +40,7 @@ public class jsonWriter {
         // if student enters the system
         if (person instanceof Student) {
             updateStudentFile((Student) person);
-         // if advisor enters the system
+            // if advisor enters the system
         } else
             updateStudentFilesAsAdvisor();
 
