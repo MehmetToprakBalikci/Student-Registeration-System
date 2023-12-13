@@ -10,7 +10,7 @@ class Course {
     private int capacity;
     private int numberOfStudents;
 
-    //private String type;
+    private String type;
 
     public int getCourseYear() {
         return COURSE_YEAR;
@@ -55,7 +55,7 @@ class Course {
         this.SECTION = new CourseSection(section1, section2);
         this.lecturer = lecturer;
         this.preRequisite = preRequisite;
-        //setType("n");
+        setType("n");
     }
 
     public Course(String courseCode, String courseName, int courseCredit, int courseYear, int section1, int section2, Lecturer lecturer, Assistant assistant, List<Course> preRequisite) {
@@ -67,7 +67,7 @@ class Course {
         this.SECTION = new CourseSection(section1, section2);
         this.lecturer = lecturer;
         this.preRequisite = preRequisite;
-        //setType("n");
+        setType("n");
     }
 
     public Course(String courseCode, String courseName, int courseCredit, int courseYear, int section1, int section2, Lecturer lecturer, Assistant assistant, List<Course> preRequisite, int capacity) {
@@ -79,7 +79,7 @@ class Course {
         this.lecturer = lecturer;
         this.preRequisite = preRequisite;
         this.capacity = capacity;
-        //setType("n");
+        setType("n");
     }
 
 
@@ -118,6 +118,51 @@ class Course {
             return "this course's capacity full!.";
         }
         return null;
+    }
+
+
+    //check the amount of technical electives returns 0 for available 1 for not available
+    public String checkTechnicalElectiveCount(List<Course> registrationCompleteCourses, List<Course> registrationWaitingCourses, List<Course> cancelWaitingCourses) {
+        int tAmount = 0;
+        int tThreshold = 5;
+        for(Course course : registrationWaitingCourses) {
+            if(course.type.equals("t"))
+                tAmount++;
+        }
+        for(Course course : registrationCompleteCourses) {
+            if(course.type.equals("t"))
+                tAmount++;
+        }
+        for(Course course : cancelWaitingCourses) {
+            if(course.type.equals("t"))
+                tAmount++;
+        }
+        if(tAmount >= 5)
+            return "This course exceeds the Technical elective course count. Try cancelling another Technical elective or waiting for the cancellation to be accepted.";
+        else
+            return null;
+    }
+
+    //check the amount of non-technical electives returns 0 for available 1 for not available
+    public String checkNonTechnicalElectiveCount(List<Course> registrationCompleteCourses, List<Course> registrationWaitingCourses, List<Course> cancelWaitingCourses) {
+        int ntAmount = 0;
+        int ntThreshold = 3;
+        for(Course course : registrationWaitingCourses) {
+            if(course.type.equals("nt"))
+                ntAmount++;
+        }
+        for(Course course : registrationCompleteCourses) {
+            if(course.type.equals("nt"))
+                ntAmount++;
+        }
+        for(Course course : cancelWaitingCourses) {
+            if(course.type.equals("nt"))
+                ntAmount++;
+        }
+        if(ntAmount >= ntThreshold)
+            return "This course exceeds the Non-Technical elective course count. Try cancelling another Technical elective or waiting for the cancellation to be accepted.";
+        else
+            return null;
     }
 
 
@@ -187,12 +232,12 @@ class Course {
         numberOfStudents--;
     }
 
-    /*public void setType(String type) {
+    public void setType(String type) {
         switch (type) {
             case "t" -> this.type = "t";
             case "nt" -> this.type = "nt";
             case "n" -> this.type = "n";
             default -> System.out.println("Type does not exist! instead try:\nt, nt or n.");
         }
-    }*/
+    }
 }

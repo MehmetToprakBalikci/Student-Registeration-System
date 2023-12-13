@@ -100,6 +100,14 @@ class Student extends Person implements User {
                             break;
                         case 2: // register to the course
                             String courseSectAvailabilityStr = currentCourse.checkCourseSection(registrationCompleteCourses, registrationWaitingCourses, cancelWaitingCourses);
+                            if(currentCourse.checkTechnicalElectiveCount(registrationCompleteCourses, registrationWaitingCourses, cancelWaitingCourses) != null && courseSectAvailabilityStr == null) {
+                                courseSectAvailabilityStr = "";
+                                courseSectAvailabilityStr = currentCourse.checkTechnicalElectiveCount(registrationCompleteCourses, registrationWaitingCourses, cancelWaitingCourses);
+                            }
+                            else if(currentCourse.checkNonTechnicalElectiveCount(registrationCompleteCourses, registrationWaitingCourses, cancelWaitingCourses) != null && courseSectAvailabilityStr == null) {
+                                courseSectAvailabilityStr = "";
+                                courseSectAvailabilityStr = currentCourse.checkNonTechnicalElectiveCount(registrationCompleteCourses, registrationWaitingCourses, cancelWaitingCourses);
+                            }
                             if (courseSectAvailabilityStr == null) {
                                 removeElementFromCurrentAvailableCourses(currentCourse);
                                 registrationWaitingCourses.add(currentCourse);

@@ -602,12 +602,19 @@ public class UniversityFileSystem {
                 Long courseDay = (Long) jsonObject.get("courseDay");
                 Long courseHour = (Long) jsonObject.get("courseSection");
                 JSONArray prerequisitesArray = (JSONArray) jsonObject.get("prerequisites");
+                String courseType = (String) jsonObject.get("courseType");
                 List<String> currentCoursesPrerequisitesCodes = getStringList(prerequisitesArray);
                 COURSES_PREQUISITES_CODES.add(currentCoursesPrerequisitesCodes);
                 COURSES_LECTURER_IDS.add(lecturerId);
                 COURSES_ASSISTANT_IDS.add(assistantId);
                 Course course = new Course(courseCode, courseName, courseCredit.intValue(), courseYear.intValue(), courseDay.intValue(), courseHour.intValue(), new Lecturer(), new Assistant()
                         , new ArrayList<>(), courseCapacity.intValue());
+                if(courseType.equals("t")) {
+                    course.setType(courseType);
+                }
+                else if(courseType.equals("nt")) {
+                    course.setType(courseType);
+                }
                 SYSTEM_COURSES.add(course);
 
             }
