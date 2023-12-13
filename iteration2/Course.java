@@ -20,7 +20,7 @@ class Course {
     private final CourseSection SECTION;
     private Lecturer lecturer;
     private Assistant assistant;
-    protected List<Course> preRequisite;
+    private List<Course> preRequisite;
 
     public Lecturer getLecturer() {
         return lecturer;
