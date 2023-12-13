@@ -10,7 +10,7 @@ class Course {
     private int capacity;
     private int numberOfStudents;
 
-    private String type;
+    //private String type;
 
     public int getCourseYear() {
         return COURSE_YEAR;
@@ -55,7 +55,7 @@ class Course {
         this.SECTION = new CourseSection(section1, section2);
         this.lecturer = lecturer;
         this.preRequisite = preRequisite;
-        setType("n");
+        //setType("n");
     }
 
     public Course(String courseCode, String courseName, int courseCredit, int courseYear, int section1, int section2, Lecturer lecturer, Assistant assistant, List<Course> preRequisite) {
@@ -67,7 +67,7 @@ class Course {
         this.SECTION = new CourseSection(section1, section2);
         this.lecturer = lecturer;
         this.preRequisite = preRequisite;
-        setType("n");
+        //setType("n");
     }
 
     public Course(String courseCode, String courseName, int courseCredit, int courseYear, int section1, int section2, Lecturer lecturer, Assistant assistant, List<Course> preRequisite, int capacity) {
@@ -79,7 +79,7 @@ class Course {
         this.lecturer = lecturer;
         this.preRequisite = preRequisite;
         this.capacity = capacity;
-        setType("n");
+        //setType("n");
     }
 
 
@@ -187,12 +187,12 @@ class Course {
         numberOfStudents--;
     }
 
-    public void setType(String type) {
+    /*public void setType(String type) {
         switch (type) {
             case "t" -> this.type = "t";
             case "nt" -> this.type = "nt";
             case "n" -> this.type = "n";
             default -> System.out.println("Type does not exist! instead try:\nt, nt or n.");
         }
-    }
+    }*/
 }
