@@ -8,6 +8,5 @@
   "courseSection":  2,
   "prerequisites": ["CSE2023"],
   "lecturerId" : "1005",
-  "assistantId" : "3006",
-  "courseType" : "n"
+  "assistantId" : "3006"
 }
