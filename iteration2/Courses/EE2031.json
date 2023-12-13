@@ -9,5 +9,6 @@
   "prerequisites": [
     "PHYS1102"
   ],
-  "lecturerId": "2006"
+  "lecturerId": "2006",
+  "courseType" : "n"
 }

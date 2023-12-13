@@ -9,5 +9,6 @@
   "prerequisites": [
     ""
   ],
-  "lecturerId": "2002"
+  "lecturerId": "2002",
+  "courseType" : "nt"
 }

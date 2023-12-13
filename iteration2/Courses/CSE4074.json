@@ -8,5 +8,6 @@
   "courseSection":  3,
   "prerequisites": [""],
   "lecturerId" : "1004",
-  "assistantId" : "3005"
+  "assistantId" : "3005",
+  "courseType" : "n"
 }
