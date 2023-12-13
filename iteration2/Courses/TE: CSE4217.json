@@ -7,5 +7,6 @@
   "courseDay" :  4,
   "courseSection":  4,
   "prerequisites": ["CSE3038"],
-  "lecturerId" : "1005"
+  "lecturerId" : "1005",
+  "courseType" : "t"
 }
