@@ -661,11 +661,11 @@ public class UniversityFileSystem {
                 currentController.printErrorMessage("Username too long");
             else if (errorCode == 2)
                 currentController.printErrorMessage("Password too long");
+            return null;
         }
-        if (user == null) {
-            currentController.printErrorMessage("Username or Password mismatch");
-        }
-
+        
+        currentController.printErrorMessage("\nUsername or Password mismatch!");
+        
         return null;
 
     }

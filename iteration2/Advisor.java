@@ -55,7 +55,7 @@ class Advisor extends Lecturer implements User {
 
         String[] actionList = new String[4];
 
-        actionList[0] = "Select an action.";
+        actionList[0] = "\nSelect an action.";
         actionList[1] = "1) See students.";
         actionList[2] = "2) See messages.";
         actionList[3] = "3) Log out.";

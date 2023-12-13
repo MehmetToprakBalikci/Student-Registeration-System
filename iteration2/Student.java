@@ -43,7 +43,7 @@ class Student extends Person implements User {
 
         String[] actionList = new String[8];
 
-        actionList[0] = "Select an action.";
+        actionList[0] = "\nSelect an action.";
         actionList[1] = "1) Check courses available to register.";
         actionList[2] = "2) Check your registered courses.";
         actionList[3] = "3) See courses waiting to be registered.";

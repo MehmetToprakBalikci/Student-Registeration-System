@@ -26,6 +26,7 @@ public class UI {
     };*/
 
     public String[] requestCredentials() {
+    	scanner = new Scanner(System.in, "UTF-8");
         System.out.println("Enter your userName:");
         String userName = scanner.nextLine();
         System.out.println("Enter your password:");

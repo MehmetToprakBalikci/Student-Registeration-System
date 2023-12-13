@@ -234,9 +234,9 @@ class Course {
 
     public void setType(String type) {
         switch (type) {
-            case "t": this.type = "t";
-            case "nt": this.type = "nt";
-            case "n": this.type = "n";
+            case "t": this.type = "t"; break;
+            case "nt": this.type = "nt"; break;
+            case "n": this.type = "n"; break;
             default: System.out.println("Type does not exist! instead try:\nt, nt or n.");
         }
     }
