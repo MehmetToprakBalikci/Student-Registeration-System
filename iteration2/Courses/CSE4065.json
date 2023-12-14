@@ -1,0 +1,14 @@
+{
+  "courseCode": "CSE4065",
+  "courseName": "Intro. to Computational Genomics",
+  "courseCredit": 5,
+  "courseCapacity": 60,
+  "courseYear": 4,
+  "courseDay": 3,
+  "courseSection": 4,
+  "prerequisites": [
+    ""
+  ],
+  "lecturerId": "2001",
+  "courseType" : "t"
+}
