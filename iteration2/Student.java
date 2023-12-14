@@ -59,7 +59,7 @@ class Student extends Person implements User {
     @Override
     public String toString() {
 
-        return "Name: " + this.getFirstName() + ", Last Name: " + this.getLastName() + ", ";
+        return "Name: " + this.getFirstName() + this.getLastName() + ", StudentID: " + this.getStudentID() + ".";
     }
 
 
