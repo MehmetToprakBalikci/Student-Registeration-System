@@ -1,0 +1,14 @@
+{
+  "courseCode": "BUS2005",
+  "courseName": "International Business",
+  "courseCredit": 3,
+  "courseCapacity": 100,
+  "courseYear": 2,
+  "courseDay": 3,
+  "courseSection": 4,
+  "prerequisites": [
+    ""
+  ],
+  "lecturerId": "2001",
+  "courseType" : "nt"
+}

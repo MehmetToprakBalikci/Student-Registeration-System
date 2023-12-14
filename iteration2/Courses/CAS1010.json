@@ -1,0 +1,14 @@
+{
+  "courseCode": "CAS1010",
+  "courseName": "Our Biosphere",
+  "courseCredit": 3,
+  "courseCapacity": 100,
+  "courseYear": 1,
+  "courseDay": 3,
+  "courseSection": 4,
+  "prerequisites": [
+    ""
+  ],
+  "lecturerId": "2001",
+  "courseType" : "nt"
+}
