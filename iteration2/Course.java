@@ -240,4 +240,8 @@ class Course {
             default: System.out.println("Type does not exist! instead try:\nt, nt or n.");
         }
     }
+
+    public String getType() {
+        return type;
+    }
 }

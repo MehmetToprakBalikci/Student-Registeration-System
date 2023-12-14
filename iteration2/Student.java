@@ -351,11 +351,21 @@ class Student extends Person implements User {
 
     public boolean checkCourseAvailablity(Course course) {
         boolean isAvailable = true;
-        isAvailable = course.checkYearMatching(this.CURRENT_TRANSCRIPT.getYear())
-                && course.checkPreRequisite(CURRENT_TRANSCRIPT.getListOfCourses(), CURRENT_TRANSCRIPT.getListOfGrades())
-                && CURRENT_TRANSCRIPT.checkPassedCourses(course)
-                && course.checkCourseSection(registrationCompleteCourses, registrationWaitingCourses, cancelWaitingCourses) == null
-                && !checkExistence(course) && !course.isFull();
+        if(course.getType().equals("nt")) {
+            isAvailable = course.checkPreRequisite(CURRENT_TRANSCRIPT.getListOfCourses(), CURRENT_TRANSCRIPT.getListOfGrades())
+                    && CURRENT_TRANSCRIPT.checkPassedCourses(course)
+                    && course.checkCourseSection(registrationCompleteCourses, registrationWaitingCourses, cancelWaitingCourses) == null
+                    && !checkExistence(course) && !course.isFull();
+        }
+        else {
+            isAvailable = course.checkYearMatching(this.CURRENT_TRANSCRIPT.getYear())
+                    && course.checkPreRequisite(CURRENT_TRANSCRIPT.getListOfCourses(), CURRENT_TRANSCRIPT.getListOfGrades())
+                    && CURRENT_TRANSCRIPT.checkPassedCourses(course)
+                    && course.checkCourseSection(registrationCompleteCourses, registrationWaitingCourses, cancelWaitingCourses) == null
+                    && !checkExistence(course) && !course.isFull();
+        }
+
+
         return isAvailable;
     }
 
