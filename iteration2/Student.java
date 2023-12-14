@@ -168,7 +168,7 @@ class Student extends Person implements User {
                                 messageMenuList[0] = "Select an action.";
                                 messageMenuList[1] = "1) See sent messages.";
                                 messageMenuList[2] = "2) See received messages.";
-                                messageMenuList[3] = "3) Send message to a advisor.";
+                                messageMenuList[3] = "3) Send message to your advisor.";
                                 messageMenuList[4] = "4) Go back.";
                                 
                                 actionNumber = controller.printListReturnSelection(messageMenuList, -1);
@@ -186,7 +186,7 @@ class Student extends Person implements User {
                                         
                                         if (receivedMessages.size() != 0) {
                                             for (int i = 1; i<=receivedMessages.size(); i++) {
-                                                receivedMessagesList[i] = i + " " + receivedMessages.get(i-1).toString();
+                                                receivedMessagesList[i] = i + ") " + receivedMessages.get(i-1).toString();
                                             }
                                             actionNumber = controller.printListReturnSelection(receivedMessagesList, -1);
                                             if (actionNumber == receivedMessagesList.length - 1) break;
@@ -425,7 +425,6 @@ class Student extends Person implements User {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
     public String getUserName() {
         return userName;

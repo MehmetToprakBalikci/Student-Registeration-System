@@ -13,8 +13,6 @@ public interface User {
     
     public void setUserName(String userName);
     public void setPassword(String password);
-    public String getUserName();
-    public String getPassword();
 
     //iteration 2 part:
     public void sendMessage(Message message, User user);

@@ -195,7 +195,7 @@ class Advisor extends Lecturer implements User {
 	            		
 	            		if (receivedMessages.size() != 0) {
 		            		for (int i = 1; i<=receivedMessages.size(); i++) {
-		            			receivedMessagesList[i] = i + " " + receivedMessages.get(i-1).toString();
+		            			receivedMessagesList[i] = i + ") " + receivedMessages.get(i-1).toString();
 		            		}
 		            		actionNumber = controller.printListReturnSelection(receivedMessagesList, -1);
 		            		if (actionNumber == receivedMessagesList.length - 1) break;
@@ -285,15 +285,6 @@ class Advisor extends Lecturer implements User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     //iteration 2 part:
