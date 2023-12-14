@@ -11,7 +11,7 @@ import java.util.List;
 
 // this is the last version of filesystem after iteration1
 public class UniversityFileSystem {
-    private static UniversityFileSystem UNIVERSITY_FILE_SYSTEM;
+    private static UniversityFileSystem SINGLETON_UNIVERSITY_FILE_SYSTEM;
     private final List<Person> personList; // all persons
 
     // course part
@@ -47,11 +47,11 @@ public class UniversityFileSystem {
 
     // SingletonPattern is added for filesystem
     public static UniversityFileSystem getInstance() {
-        if (UNIVERSITY_FILE_SYSTEM == null) {
-            UNIVERSITY_FILE_SYSTEM = new UniversityFileSystem();
-            return UNIVERSITY_FILE_SYSTEM;
+        if (SINGLETON_UNIVERSITY_FILE_SYSTEM == null) {
+            SINGLETON_UNIVERSITY_FILE_SYSTEM = new UniversityFileSystem();
+            return SINGLETON_UNIVERSITY_FILE_SYSTEM;
         }
-        return UNIVERSITY_FILE_SYSTEM;
+        return SINGLETON_UNIVERSITY_FILE_SYSTEM;
 
 
     }
