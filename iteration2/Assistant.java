@@ -9,11 +9,6 @@ class Assistant extends Staff {
 
     }
 
-    public Assistant(String name, String lastName, String username, String password, String assistantID, List<Student> studentList) {
-        super(name, lastName);
-        this.assistantID = assistantID;
-    }
-
     public Assistant(String name, String lastName, String assistantID) {
         super(name, lastName);
         this.assistantID = assistantID;
@@ -28,5 +23,4 @@ class Assistant extends Staff {
         return "Assistant: " + this.getFirstName() + " " + this.getLastName();
     }
 
-//Assistant class, currently has no methods.
 }
