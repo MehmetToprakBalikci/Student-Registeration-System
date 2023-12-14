@@ -1,0 +1,14 @@
+{
+  "courseCode": "ME3022",
+  "courseName": "Mechatronics",
+  "courseCredit": 5,
+  "courseCapacity": 100,
+  "courseYear": 3,
+  "courseDay": 3,
+  "courseSection": 4,
+  "prerequisites": [
+    ""
+  ],
+  "lecturerId": "2001",
+  "courseType" : "t"
+}
