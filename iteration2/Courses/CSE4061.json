@@ -7,7 +7,7 @@
   "courseDay": 3,
   "courseSection": 4,
   "prerequisites": [
-    ""
+    "CSE3264"
   ],
   "lecturerId": "2001",
   "courseType" : "t"
