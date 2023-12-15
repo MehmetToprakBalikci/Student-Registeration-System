@@ -2,16 +2,8 @@
 
 // CourseSection class
 class CourseSection {
-    public int getDayNumber() {
-        return dayNumber;
-    }
-
+    
     private int dayNumber;
-
-    public int getSectionNumber() {
-        return sectionNumber;
-    }
-
     private int sectionNumber;
 
     // Constructor
@@ -25,6 +17,14 @@ class CourseSection {
         return !(this.dayNumber == sectionToCompare.dayNumber && this.sectionNumber == sectionToCompare.sectionNumber);
     }
 
+    public int getDayNumber() {
+        return dayNumber;
+    }
+    
+    public int getSectionNumber() {
+        return sectionNumber;
+    }
+    
     public String getCourseSectionString(){
         String day = "";
         String hour = "";
