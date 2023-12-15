@@ -7,7 +7,7 @@ public class UI {
     private Controller controller;
     private Scanner scanner;
 
-    public UI() {
+    private UI() {
         scanner = new Scanner(System.in, "UTF-8");
     }
 
@@ -33,13 +33,6 @@ public class UI {
     public Controller getSystem() {
         return controller;
     }
-
-    // Method to create UI
-   /* public static UI create() {
-        UI ui = new UI();
-
-        return ui;
-    };*/
 
     public String[] requestCredentials() {
         scanner = new Scanner(System.in, "UTF-8");
