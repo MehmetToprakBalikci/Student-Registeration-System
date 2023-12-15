@@ -24,33 +24,6 @@ public class Message {
         return message;
     }
 
-    public User getSender() {
-        return sender;
-    }
-
-    public User getReceiver() {
-        return receiver;
-    }
-
-    public boolean isRead() {
-        return isRead;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void setSender(User sender) {
-        this.sender = sender;
-    }
-
-    public void setReceiver(User receiver) {
-        this.receiver = receiver;
-    }
-
-    public void setRead(boolean isRead) {
-        this.isRead = isRead;
-    }
 
     @Override
     public String toString() {
