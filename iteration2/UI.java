@@ -4,7 +4,6 @@ import java.util.Scanner;
 // UI class
 public class UI {
     private static   UI singletonUI;
-    private Controller controller;
     private Scanner scanner;
 
     private UI() {
@@ -28,10 +27,6 @@ public class UI {
             return new UI();
         }
         return singletonUI;
-    }
-
-    public Controller getSystem() {
-        return controller;
     }
 
     public String[] requestCredentials() {
