@@ -24,7 +24,7 @@ class Advisor extends Lecturer implements User {
         this.receivedMessages = new ArrayList<>();
     }
 
-
+    
     public boolean compareCredentials(String username, String password) {
         if (this.userName == null || this.password == null) return false;
         return this.userName.equals(username) && this.password.equals(password);
@@ -68,7 +68,7 @@ class Advisor extends Lecturer implements User {
     public void runUserAction(int actionNumber, Controller controller) {
         
         switch (actionNumber) {
-        	// See students
+        	// See students action
             case 1:
 
 
@@ -168,7 +168,7 @@ class Advisor extends Lecturer implements User {
 
                     }
                 } 
-		// See messages
+		// See messages action
             case 2:
             	while (true) {
         		String[] messageList = new String[2];
@@ -279,13 +279,6 @@ class Advisor extends Lecturer implements User {
         this.studentList = studentList;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     //iteration 2 part:
     public void sendMessage(Message msg, User student) {

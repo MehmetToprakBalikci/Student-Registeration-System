@@ -428,14 +428,6 @@ class Student extends Person implements User {
         return registrationCompleteCourses;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getUserName() {
         return userName;
     }

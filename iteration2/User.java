@@ -10,9 +10,6 @@ public interface User {
     public boolean compareCredentials(String username, String password);
     // Placeholder for user's actions
     abstract void startActions(Controller controller);
-    
-    public void setUserName(String userName);
-    public void setPassword(String password);
 
     //iteration 2 part:
     public void sendMessage(Message message, User user);
