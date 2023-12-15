@@ -7,20 +7,19 @@ class Course {
     private final String COURSE_CODE;
     private final String COURSE_NAME;
     private final int COURSE_CREDIT;
+    private final int COURSE_YEAR;
+    private final CourseSection SECTION;
     private int capacity;
     private int numberOfStudents;
-
     private String type;
+    private Lecturer lecturer;
+    private Assistant assistant;
+    private List<Course> preRequisite;
+    
 
     public int getCourseYear() {
         return COURSE_YEAR;
     }
-
-    private final int COURSE_YEAR;
-    private final CourseSection SECTION;
-    private Lecturer lecturer;
-    private Assistant assistant;
-    private List<Course> preRequisite;
 
     public Lecturer getLecturer() {
         return lecturer;
