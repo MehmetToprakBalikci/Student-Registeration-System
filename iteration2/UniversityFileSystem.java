@@ -12,7 +12,7 @@ import java.util.List;
 // this is the last version of filesystem after iteration1
 public class UniversityFileSystem {
     private static UniversityFileSystem SINGLETON_UNIVERSITY_FILE_SYSTEM;
-    private final List<Person> personList; // all persons
+    private final List<Person> PERSON_LIST; // all persons
 
     // course part
     private final List<Course> SYSTEM_COURSES;  // all coursesList
@@ -31,7 +31,7 @@ public class UniversityFileSystem {
 
 
     private UniversityFileSystem() {
-        personList = new ArrayList<>();
+        PERSON_LIST = new ArrayList<>();
         SYSTEM_COURSES = new ArrayList<>();
         COURSES_PREQUISITES_CODES = new ArrayList<>();
         COURSES_LECTURER_IDS = new ArrayList<>();
@@ -156,7 +156,7 @@ public class UniversityFileSystem {
 
     private List<Advisor> getAdvisors() {
         List<Advisor> advisors = new ArrayList<>();
-        for (Person person : personList) {
+        for (Person person : PERSON_LIST) {
             if (person instanceof Advisor) {
                 advisors.add((Advisor) person);
             }
@@ -234,7 +234,7 @@ public class UniversityFileSystem {
 
     private List<Student> getStudents() {
         ArrayList<Student> students = new ArrayList<>();
-        for (Person person : personList) {
+        for (Person person : PERSON_LIST) {
             if (person instanceof Student) {
                 students.add((Student) person);
             }
@@ -348,7 +348,7 @@ public class UniversityFileSystem {
 
     private List<Assistant> getAssistants() {
         List<Assistant> assistants = new ArrayList<>();
-        for (Person person : personList) {
+        for (Person person : PERSON_LIST) {
             if (person instanceof Assistant) {
                 assistants.add((Assistant) person);
 
@@ -411,7 +411,7 @@ public class UniversityFileSystem {
     private List<Lecturer> getLecturers() {
         // use the lecturerid list;
         List<Lecturer> lecturers = new ArrayList<>();
-        for (Person person : personList) {
+        for (Person person : PERSON_LIST) {
             if (person instanceof Lecturer) {
                 lecturers.add((Lecturer) person);
             }
@@ -443,7 +443,7 @@ public class UniversityFileSystem {
                 String lastName = (String) jsonObject.get("lastName");
                 String assistantId = (String) jsonObject.get("assistantId");
                 Assistant assistant = new Assistant(name, lastName, assistantId);
-                personList.add(assistant);
+                PERSON_LIST.add(assistant);
 
             }
         } catch (IOException | ParseException e) {
@@ -471,7 +471,7 @@ public class UniversityFileSystem {
                 String lastName = (String) jsonObject.get("lastName");
                 String lecturerId = (String) jsonObject.get("lecturerId");
                 Lecturer lecturer = new Lecturer(name, lastName, lecturerId);
-                personList.add(lecturer);
+                PERSON_LIST.add(lecturer);
 
             }
         } catch (IOException | ParseException e) {
@@ -503,7 +503,7 @@ public class UniversityFileSystem {
                 JSONArray advisorsStudentIds = (JSONArray) jsonObject.get("Students");
                 List<String> ADVISORS_STUDENT_ID_LISTString = getStringList(advisorsStudentIds);
                 Advisor advisor = new Advisor(name, lastName, username, password, lecturerId, new ArrayList<>());
-                personList.add(advisor);
+                PERSON_LIST.add(advisor);
                 ADVISORS_STUDENT_ID_LIST.add(ADVISORS_STUDENT_ID_LISTString);
 
 
@@ -551,7 +551,7 @@ public class UniversityFileSystem {
                 STUDENTS_ADVISOR_IDS_LIST.add(advisorID);
                 //   Transcript transcript = new
                 Student student = new Student(name, lastName, username, password, studentID, transcript, new Advisor());
-                personList.add(student);
+                PERSON_LIST.add(student);
 
 
             }
@@ -658,7 +658,7 @@ public class UniversityFileSystem {
         String userName = userInfo[0];
         String password = userInfo[1];
         if (errorCode == 0) {
-            for (Person current : personList) {
+            for (Person current : PERSON_LIST) {
                 try {
                     user = (User) current;
                     if (user.compareCredentials(userName, password)) {
@@ -687,69 +687,5 @@ public class UniversityFileSystem {
         return errorNum;
     }
 
-   /* public void saveFiles() {
-
-        List<Person> persons = this.personList;
-        List<Student> students = new ArrayList<>();
-        List<Lecturer> lecturers = new ArrayList<>();
-        List<Advisor> advisors = new ArrayList<>();
-        for (Person person : persons) {
-            if (person instanceof Student)
-                students.add((Student) person);
-            else if (person instanceof Lecturer)
-                lecturers.add((Lecturer) person);
-            else
-                advisors.add((Advisor) person);
-        }
-
-        List<Course> courses = this.SYSTEM_COURSES;
-
-        JSONObject jsonObject = new JSONObject();
-
-        for (Course course : courses) {
-            jsonObject.put("courseCode", course.getCourseCode());
-            jsonObject.put("courseName", course.getCourseName());
-            jsonObject.put("courseCredit", course.getCourseCredit());
-            jsonObject.put("courseYear", course.getCourseYear());
-            jsonObject.put("courseDay", course.getSection().getDayNumber());
-            jsonObject.put("courseHour", course.getSection());
-
-
-            jsonObject.put("courseSection", course.getSection());
-            jsonObject.put("prerequisites", course.getCourseCode());
-
-            jsonObject.put("lecturerId", course.getLecturer().getLecturerID());
-
-            String fileName = course.getCourseCode() + ".json";
-            try {
-                FileWriter file = new FileWriter(fileName);
-                file.write(jsonObject.toJSONString());
-                file.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-
-        for (Lecturer lecturer : lecturers) {
-            /*jsonObject.put("type", "lecturer");
-            jsonObject.put("name", );
-            jsonObject.put("lastName", course.getCourseCredit());
-            jsonObject.put("username", course.getCourseYear());
-            jsonObject.put("password", course.getSection().getDayNumber());
-            jsonObject.put("lecturerId", course.getSection());
-            jsonObject.put("Students", course.getSection());
-
-
-            String fileName = lecturer.getLecturerID() + ".json";
-            try {
-                FileWriter file = new FileWriter(fileName);
-                file.write(jsonObject.toJSONString());
-                file.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    Methods for file operations need to be implemented*/
+   
 }
