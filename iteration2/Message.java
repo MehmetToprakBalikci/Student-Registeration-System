@@ -1,6 +1,6 @@
 public class Message {
 
-	private String title;
+    private String title;
     private String message;
     private User sender;
     private User receiver;
