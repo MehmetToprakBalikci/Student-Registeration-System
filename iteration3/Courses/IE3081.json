@@ -1,0 +1,15 @@
+{
+  "courseCode": "IE3081",
+  "courseName": "Modeling Discrete Simulation",
+  "courseCredit": 4,
+  "courseCapacity": 85,
+  "courseYear": 3,
+  "courseDay": 2,
+  "courseSection": 4,
+  "prerequisites": [
+    "STAT2253"
+  ],
+  "lecturerId": "2002",
+  "assistantId": "3001",
+  "courseType" : "n"
+}

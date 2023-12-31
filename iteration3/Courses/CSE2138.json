@@ -1,0 +1,13 @@
+{
+  "courseCode": "CSE2138",
+  "courseName": "System Programming",
+  "courseCredit": 7,
+  "courseCapacity": 75,
+  "courseYear" : 2,
+  "courseDay" :  2,
+  "courseSection":  3,
+  "prerequisites": [""],
+  "lecturerId" : "1002",
+  "assistantId" : "3004",
+  "courseType" : "n"
+}

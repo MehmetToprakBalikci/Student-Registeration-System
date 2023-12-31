@@ -1,0 +1,14 @@
+{
+  "courseCode": "MGT4084",
+  "courseName": "Innovation and New Product Development Management",
+  "courseCredit": 5,
+  "courseCapacity": 100,
+  "courseYear": 4,
+  "courseDay": 3,
+  "courseSection": 4,
+  "prerequisites": [
+    ""
+  ],
+  "lecturerId": "2001",
+  "courseType" : "t"
+}

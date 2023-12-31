@@ -1,0 +1,14 @@
+{
+  "courseCode": "FTE",
+  "courseName": "Faculty Technical Elective",
+  "courseCredit": 5,
+  "courseCapacity": 90,
+  "courseYear": 4,
+  "courseDay": 3,
+  "courseSection": 4,
+  "prerequisites": [
+    ""
+  ],
+  "lecturerId": "2007",
+  "courseType" : "t"
+}

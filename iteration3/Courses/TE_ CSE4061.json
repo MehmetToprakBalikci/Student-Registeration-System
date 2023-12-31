@@ -1,0 +1,12 @@
+{
+  "courseCode": "TE: CSE4075",
+  "courseName": "Compiler Design",
+  "courseCredit": 5,
+  "courseCapacity": 90,
+  "courseYear" : 4,
+  "courseDay" :  3,
+  "courseSection":  2,
+  "prerequisites": ["CSE3264"],
+  "lecturerId" : "1002",
+  "courseType" : "t"
+}

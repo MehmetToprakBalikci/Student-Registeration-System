@@ -1,0 +1,14 @@
+{
+  "courseCode": "CHE4080",
+  "courseName": "Chemical Eng. for Sustainable Biosphere",
+  "courseCredit": 5,
+  "courseCapacity": 100,
+  "courseYear": 4,
+  "courseDay": 3,
+  "courseSection": 4,
+  "prerequisites": [
+    ""
+  ],
+  "lecturerId": "2001",
+  "courseType" : "t"
+}

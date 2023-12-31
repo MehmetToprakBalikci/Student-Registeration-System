@@ -1,0 +1,46 @@
+{
+  "type": "student",
+  "name": "Bora",
+  "lastName": "Duman",
+  "username": "Duman1234",
+  "password": "BD123",
+  "studentId": "150121043",
+  "Transcript": {
+    "listOfCourses": [
+      "MATH1001",
+      "TRD121",
+      "PHYS1101",
+      "PHYS1102",
+      "CSE1200",
+      "CSE1241",
+      "CSE1242",
+      "MATH1002",
+      "MATH2059",
+      "CSE2138",
+      "MATH2055",
+      "EE2031"
+    ],
+    "listOfGrades": [
+      80,
+      45,
+      78,
+      90,
+      87,
+      76,
+      98,
+      76,
+      95,
+      85,
+      67,
+      45
+    ]
+  },
+  "advisorId": "1004",
+  "classLevel": "3",
+  "cancelWaitingCourses": [
+  ],
+  "registrationCompleteCourses": [
+  ],
+  "registrationWaitingCourses": [
+  ]
+}

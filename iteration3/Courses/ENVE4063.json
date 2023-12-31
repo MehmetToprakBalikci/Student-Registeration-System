@@ -1,0 +1,14 @@
+{
+  "courseCode": "ENVE4063",
+  "courseName": "Const. Materials for Env. Eng.",
+  "courseCredit": 5,
+  "courseCapacity": 100,
+  "courseYear": 4,
+  "courseDay": 3,
+  "courseSection": 4,
+  "prerequisites": [
+    ""
+  ],
+  "lecturerId": "2001",
+  "courseType" : "t"
+}

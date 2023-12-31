@@ -1,0 +1,12 @@
+{
+  "type": "advisor",
+  "name": "Haluk Rahmi",
+  "lastName": "Topcuoglu",
+  "username": "haluk231",
+  "password": "pasword1414",
+  "lecturerId": "1006",
+  "Students": [
+    "150121043",
+    "150122348"
+  ]
+}

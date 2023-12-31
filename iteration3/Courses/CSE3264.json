@@ -1,0 +1,13 @@
+{
+  "courseCode": "CSE3264",
+  "courseName": "Formal Lang. & Auto. Theory",
+  "courseCredit": 5,
+  "courseCapacity": 70,
+  "courseYear" : 3,
+  "courseDay" :  1,
+  "courseSection":  2,
+  "prerequisites": ["CSE2023"],
+  "lecturerId" : "1005",
+  "assistantId" : "3006",
+  "courseType" : "n"
+}

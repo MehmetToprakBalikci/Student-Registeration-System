@@ -1,0 +1,14 @@
+{
+  "courseCode": "UE",
+  "courseName": "University Elective",
+  "courseCredit": 3,
+  "courseCapacity": 70,
+  "courseYear": 4,
+  "courseDay": 5,
+  "courseSection": 5,
+  "prerequisites": [
+    ""
+  ],
+  "lecturerId": "2007",
+  "courseType" : "nt"
+}

@@ -1,0 +1,14 @@
+{
+  "courseCode": "MATH2055",
+  "courseName": "Differential Equations",
+  "courseCredit": 4,
+  "courseCapacity": 100,
+  "courseYear": 2,
+  "courseDay": 2,
+  "courseSection": 3,
+  "prerequisites": [
+    ""
+  ],
+  "lecturerId": "2004",
+  "courseType" : "n"
+}

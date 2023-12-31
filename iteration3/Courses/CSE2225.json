@@ -1,0 +1,13 @@
+{
+  "courseCode": "CSE2225",
+  "courseName": "Data Structures",
+  "courseCredit": 7,
+  "courseCapacity": 90,
+  "courseYear" : 2,
+  "courseDay" :  2,
+  "courseSection":  5,
+  "prerequisites": ["CSE1242"],
+  "lecturerId" : "1003",
+  "assistantId" : "3006",
+  "courseType" : "n"
+}

@@ -1,0 +1,13 @@
+{
+  "courseCode": "CSE4074",
+  "courseName": "Computer Networks",
+  "courseCredit": 5,
+  "courseCapacity": 50,
+  "courseYear" : 4,
+  "courseDay" :  2,
+  "courseSection":  3,
+  "prerequisites": [""],
+  "lecturerId" : "1004",
+  "assistantId" : "3005",
+  "courseType" : "n"
+}
