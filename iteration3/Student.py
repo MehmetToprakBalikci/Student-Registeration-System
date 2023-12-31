@@ -1,376 +1,372 @@
 class Student() :
 
     #String name, String lastName, String username, String password, String studentID, Transcript currentTranscript, Advisor currentAdvisor
-    def __init__(self, name, lastName, username, password, studentID, currentTranscript, currentAdvisor):
+    def __init__(self, name, last_name, username, password, student_id, current_transcript, current_advisor):
        
         # private final String
-        self.__USERNAME = username
+        self.__USER_NAME = username
         # private final String 
         self.__PASSWORD = password
         # private final String
-        self.__STUDENT_ID = studentID
+        self.__STUDENT_ID = student_id
         #private final Transcript , Transcript of the student
-        self.__CURRENT_TRANSCRIPT = currentTranscript
+        self.__CURRENT_TRANSCRIPT = current_transcript
         #private Advisor , Advisor of the student 
-        self.__currentAdvisor = currentAdvisor
+        self.__current_advisor = current_advisor
         #private List<Course> , Courses that the student is able to register
-        self.__currentAvailableCourses = []
+        self.__current_available_courses = []
         # private List<Course> , Courses that are waiting to be registered 
-        self.__registrationWaitingCourses = []
+        self.__registration_waiting_courses = []
         #private List<Course> , Courses that finished registration
-        self.__registrationCompleteCourses = []
+        self.__registration_complete_courses = []
         #private List<Course> , Courses that are waiting to be canceled
-        self.__cancelWaitingCourses = []
+        self.__cancel_waiting_courses = []
         #private List<Message> sentMessages , Messages that are sent
-        self.__sentMessages = []
+        self.__sent_messages = []
         #private List<Message> receivedMessages, Messages that are recieved
-        self.__receivedMessages = []
+        self.__received_messages = []
     
 
     def get_action_list(self):
-        actionList = []
-        actionList.append("\nSelect an action.")
-        actionList.append("1) Check courses available to register.")
-        actionList.append("2) Check your registered courses.")
-        actionList.append("3) See courses waiting to be registered.")
-        actionList.append("4) See courses waiting to be canceled.")
-        actionList.append("5) User transcript.")
-        actionList.append("6) Advisor information.")
-        actionList.append("7) See messages.")
-        actionList.append("8) Log out.")
-        return actionList
+        action_list = []
+        action_list.append("\nSelect an action.")
+        action_list.append("1) Check courses available to register.")
+        action_list.append("2) Check your registered courses.")
+        action_list.append("3) See courses waiting to be registered.")
+        action_list.append("4) See courses waiting to be canceled.")
+        action_list.append("5) User transcript.")
+        action_list.append("6) Advisor information.")
+        action_list.append("7) See messages.")
+        action_list.append("8) Log out.")
+        return action_list
     
     def __str__(self):
-        return "Name: " + self.getFirstName() + self.getLastName() + ", StudentID: " + self.get_student_id() + "."
+        return "Name: " + self.get_first_name() + self.get_last_name() + ", StudentID: " + self.get_student_id() + "."
     
     #Controller controller
     def start_actions(self, controller):
-        actionList = self.get_action_list()
+        action_list = self.get_action_list()
         #int
-        actionNumber = controller.printListReturnSelection(actionList, -1)
+        action_number = controller.print_list_return_selection(action_list, -1)
         MAX_ACTION = 8
         
-        while actionNumber != MAX_ACTION:
-            self.run_user_action(actionNumber, controller)
-            actionNumber = controller.printListReturnSelection(actionList, -1)
+        while action_number != MAX_ACTION:
+            self.run_user_action(action_number, controller)
+            action_number = controller.print_list_return_selection(action_list, -1)
 
     #int actionNumber, Controller controller
-    def run_user_action(self, actionNumber, controller):
+    def run_user_action(self, action_number, controller):
         ##Student selection part
-        #int
-        currentUserSelection
-        #Course
-        currentCourse
     
-        if actionNumber == 1:
-            currentUserSelection = controller.printListReturnSelection(
-            self.__get_course_return_list_string("Courses that are available to you select one:", self.currentAvailableCourses), -1)
-            if currentUserSelection != 1: # First selection
-                currentCourse = self.currentAvailableCourses[currentUserSelection - 2]
-                currentUserSelection = controller.printListReturnSelection[self.__get_course_info_string(currentCourse), -1]
-                if currentUserSelection == 1: # return back to available course menu page
+        if action_number == 1:
+            current_user_selection = controller.print_list_return_selection(
+            self.__get_course_return_list_string("Courses that are available to you select one:", self.__current_available_courses), -1)
+            if current_user_selection != 1: # First selection
+                current_course = self.__current_available_courses[current_user_selection - 2]
+                current_user_selection = controller.print_list_return_selection[self.__get_course_info_string(current_course), -1]
+                if current_user_selection == 1: # return back to available course menu page
                     self.run_user_action(1, controller)
-                elif currentUserSelection == 2: # register to the course
+                elif current_user_selection == 2: # register to the course
                     #string
-                    courseSectAvailabilityStr = currentCourse.checkCourseSection(self.registrationCompleteCourses, self.registrationWaitingCourses, self.cancelWaitingCourses)
-                    if ((not (currentCourse.checkTechnicalElectiveCount(self.registrationCompleteCourses, self.registrationWaitingCourses, self.cancelWaitingCourses) is None)) and (courseSectAvailabilityStr is None)) :
-                        courseSectAvailabilityStr = ""
-                        courseSectAvailabilityStr = currentCourse.checkTechnicalElectiveCount(self.registrationCompleteCourses, self.registrationWaitingCourses, self.cancelWaitingCourses)
-                    elif((not (currentCourse.checkNonTechnicalElectiveCount(self.registrationCompleteCourses, self.registrationWaitingCourses, self.cancelWaitingCourses) is None)) and (courseSectAvailabilityStr is None)) :
-                        courseSectAvailabilityStr = ""
-                        courseSectAvailabilityStr = currentCourse.checkNonTechnicalElectiveCount(self.registrationCompleteCourses, self.registrationWaitingCourses, self.cancelWaitingCourses)
-                        if courseSectAvailabilityStr is None:
-                            self.remove_element_from_current_available_courses(currentCourse)
-                            self.registrationWaitingCourses.add(currentCourse)
-                            controller.printSuccessMessage(currentCourse + " has been sent to your advisor " + self.currentAdvisor.getFirstName() + " " + self.currentAdvisor.getLastName())
+                    course_sect_availability_str = current_course.check_course_section(self.__registration_complete_courses, self.__registration_waiting_courses, self.__cancel_waiting_courses)
+                    if ((not (current_course.check_technical_elective_count(self.__registration_complete_courses, self.__registration_waiting_courses, self.__cancel_waiting_courses) is None)) and (course_sect_availability_str is None)) :
+                        course_sect_availability_str = ""
+                        course_sect_availability_str = currentCourse.check_technical_elective_count(self.__registration_complete_courses, self.__registration_waiting_courses, self.__cancel_waiting_courses)
+                    elif((not (current_course.check_non_technical_elective_count(self.__registration_complete_courses, self.__registration_waiting_courses, self.__cancel_waiting_courses) is None)) and (course_sect_availability_str is None)) :
+                        course_sect_availability_str = ""
+                        course_sect_availability_str = current_course.check_non_technical_elective_count(self.__registration_complete_courses, self.__registration_waiting_courses, self.__cancel_waiting_courses)
+                        if course_sect_availability_str is None:
+                            self.remove_element_from_current_available_courses(current_course)
+                            self.__registration_waiting_courses.append(current_course)
+                            controller.print_success_message(current_course + " has been sent to your advisor " + self.__current_advisor.get_first_name() + " " + self.__current_advisor.get_last_name())
                         else:
-                            controller.printErrorMessage(courseSectAvailabilityStr)
+                            controller.print_error_message(course_sect_availability_str)
                         
                         self.run_user_action(1, controller)
-                elif currentUserSelection == 3: # see your course lecturer
-                        controller.printList(self.__get_courses_lecturer_info(currentCourse))
+                elif current_user_selection == 3: # see your course lecturer
+                        controller.print_list(self.__get_courses_lecturer_info(current_course))
                         self.run_user_action(1, controller)
-                elif currentUserSelection == 4: # see your course assistant
-                        controller.printList(self.__get_courses_assistant_info(currentCourse))
+                elif current_user_selection == 4: # see your course assistant
+                        controller.print_list(self.__get_courses_assistant_info(current_course))
                         self.run_user_action(1, controller)
-                elif currentUserSelection == 5: # return back to first page
+                elif current_user_selection == 5: # return back to first page
                         return
-        elif currentUserSelection != 2: 
-            currentUserSelection = controller.printListReturnSelection(self.__get_course_return_list_string("Courses that have finalized registration, choose course to cancel:", self.registrationCompleteCourses), -1)
-            if currentUserSelection != 1:
-                currentCourse = self.registrationCompleteCourses.get(currentUserSelection - 2)
-                self.remove_element_from_registration_complete_courses(currentCourse)
-                self.cancelWaitingCourses.add(currentCourse)
-                controller.printSuccessMessage(currentCourse + "is successfully added to cancelWaiting.\n")
-        elif currentUserSelection != 3: 
-            controller.printList(
-                self.__get_course_list_string("Courses that are waiting to be finalized by your advisor ", self.registrationWaitingCourses))
+        elif current_user_selection != 2: 
+            current_user_selection = controller.print_list_return_selection(self.__get_course_return_list_string("Courses that have finalized registration, choose course to cancel:", self.__registration_complete_courses), -1)
+            if current_user_selection != 1:
+                currentCourse = self.__registration_complete_courses.get(current_user_selection - 2)
+                self.remove_element_from_registration_complete_courses(current_course)
+                self.__cancel_waiting_courses.append(current_course)
+                controller.print_success_message(current_course + "is successfully added to cancelWaiting.\n")
+        elif current_user_selection != 3: 
+            controller.print_list(
+                self.__get_course_list_string("Courses that are waiting to be finalized by your advisor ", self.__registration_waiting_courses))
 
-        elif currentUserSelection != 4: 
-            controller.printList(self.__get_course_list_string("Courses that are waiting to be canceled by your " + self.currentAdvisor.toString(), self.cancelWaitingCourses))
-        elif currentUserSelection != 5: 
-            controller.printList(self.CURRENT_TRANSCRIPT.getStudentTranscriptStringList())
-        elif currentUserSelection != 6: 
-            controller.printList(self.__string_to_list(self.currentAdvisor.toString()))
+        elif current_user_selection != 4: 
+            controller.print_list(self.__get_course_list_string("Courses that are waiting to be canceled by your " + self.__current_advisor.str(), self.__cancel_waiting_courses))
+        elif current_user_selection != 5: 
+            controller.print_list(self.__CURRENT_TRANSCRIPT.getStudentTranscriptStringList())
+        elif current_user_selection != 6: 
+            controller.print_list(self.__string_to_list(self.__current_advisor.str()))
 
-        elif currentUserSelection != 7: 
+        elif current_user_selection != 7: 
             while True :
-                messageList = ["", ""]
+                message_list = ["", ""]
                 
-                messageMenuList = []
-                messageMenuList.append("Select an action.")
-                messageMenuList.append("1) See sent messages.")
-                messageMenuList.append("2) See received messages.")
-                messageMenuList.append("3) Send message to your advisor.")
-                messageMenuList.append("4) Go back.")
+                message_menu_list = []
+                message_menu_list.append("Select an action.")
+                message_menu_list.append("1) See sent messages.")
+                message_menu_list.append("2) See received messages.")
+                message_menu_list.append("3) Send message to your advisor.")
+                message_menu_list.append("4) Go back.")
                 
-                actionNumber = controller.printListReturnSelection(messageMenuList, -1)
+                action_number = controller.print_list_return_selection(message_menu_list, -1)
                 
-                if actionNumber == 4:
+                if action_number == 4:
                     return
             
-                elif actionNumber == 2:
+                elif action_number == 2:
                     while True :
-                        receivedMessagesList = ["Received messages:"]
+                        received_messages_list = ["Received messages:"]
                         
                         
-                        if self.receivedMessages.len() != 0 :
+                        if self.received_messages.len() != 0 :
                             i = 0
-                            for currentRecievedMessage in self.receivedMessages:
-                                receivedMessagesList.append(i + ") " + currentRecievedMessage.str())
+                            for current_recieved_message in self.__received_messages:
+                                received_messages_list.append(i + ") " + current_recieved_message.str())
                                 i = i+1
 
-                            receivedMessagesList.append(") Go back.")
-                            actionNumber = controller.printListReturnSelection(receivedMessagesList, -1)
-                            if actionNumber == (receivedMessagesList.len() - 1):
+                            received_messages_list.append(") Go back.")
+                            action_number = controller.print_list_return_selection(received_messages_list, -1)
+                            if action_number == (received_messages_list.len() - 1):
                                 break
                             else :
-                                messageList[0] = self.receivedMessages.index(actionNumber-1).str() + "\n\n" + self.receivedMessages.index(actionNumber-1).str()
-                                messageList[1] = "1) Go back."
-                                self.receivedMessages.index(actionNumber-1).readMessage()
-                                actionNumber = controller.printListReturnSelection(messageList, -1)
-                                if actionNumber == 1:
+                                message_list[0] = self.__received_messages.index(action_number-1).str() + "\n\n" + self.__received_messages.index(action_number-1).str()
+                                message_list[1] = "1) Go back."
+                                self.__received_messages.index(action_number-1).read_message()
+                                action_number = controller.print_list_return_selection(message_list, -1)
+                                if action_number == 1:
                                     continue
                         else :
-                            receivedMessagesList[0] = "There is no received messages."
-                            actionNumber = controller.printListReturnSelection(receivedMessagesList, -1)
+                            received_messages_list[0] = "There is no received messages."
+                            action_number = controller.print_list_return_selection(received_messages_list, -1)
                             break
                     continue
-                elif actionNumber == 1: 
+                elif action_number == 1: 
                     while True:
-                        sentMessagesList = ["Sent messages:"]
+                        sent_messages_list = ["Sent messages:"]
 
-                        if self.sentMessages.len() != 0 : 
+                        if self.__sent_messages.len() != 0 : 
                             i = 0
-                            for currentSentMessage in self.sentMessages:
-                                sentMessagesList.append(i + ") " + currentSentMessage.str())
+                            for current_sent_message in self.__sent_messages:
+                                sent_messages_list.append(i + ") " + current_sent_message.str())
                                 i = i+1
                             
-                            actionNumber = controller.printListReturnSelection(sentMessagesList, -1)
-                            if actionNumber == (sentMessagesList.len() - 1) :
+                            actionNumber = controller.print_list_return_selection(sent_messages_list, -1)
+                            if actionNumber == (sent_messages_list.len() - 1) :
                                 break
                             else :
-                                messageList[0] = self.sentMessages.index(actionNumber-1).str() + "\n\n" + self.sentMessages.index(actionNumber-1).str()
-                                messageList[1] = "1) Go back."
-                                actionNumber = controller.printListReturnSelection(messageList, -1)
-                                if actionNumber == 1 :
+                                message_list[0] = self.__sent_messages.index(action_number-1).str() + "\n\n" + self.__sent_messages.index(action_number-1).str()
+                                message_list[1] = "1) Go back."
+                                action_number = controller.print_list_return_selection(message_list, -1)
+                                if action_number == 1 :
                                     continue
                         else :
-                            sentMessagesList[0] = "There is no sent messages."
-                            actionNumber = controller.printListReturnSelection(sentMessagesList, -1)
+                            sent_messages_list[0] = "There is no sent messages."
+                            action_number = controller.print_list_return_selection(sent_messages_list, -1)
                             break
                     continue
                 else :
-                    messageInfo = controller.requestMessageString()
-                    message = Message(messageInfo[0], messageInfo[1], self, self.currentAdvisor)
-                    self.send_message(message, self.currentAdvisor)
+                    message_info = controller.request_message_string()
+                    message = Message(message_info[0], message_info[1], self, self.__current_advisor)
+                    self.send_message(message, self.__current_advisor)
 
     def __get_course_info_string(self, course) :
-        courseInfoString = []
-        courseInfoString.append("Select your course action")
-        courseInfoString.append("1-)Return back to available course menu page")
-        courseInfoString.append("2-)Register to the " + self.course.str())
-        courseInfoString.append("3-)See the course's Lecturer")
-        courseInfoString.append("4-)See the course's assistant")
-        courseInfoString.append("5-)Return back to first menu page")
-        return courseInfoString
+        course_info_string = []
+        course_info_string.append("Select your course action")
+        course_info_string.append("1-)Return back to available course menu page")
+        course_info_string.append("2-)Register to the " + self.course.str())
+        course_info_string.append("3-)See the course's Lecturer")
+        course_info_string.append("4-)See the course's assistant")
+        course_info_string.append("5-)Return back to first menu page")
+        return course_info_string
     
-    def __get_courses_assistant_info(self, currentCourse) :
-        assistantInfo = [""]
-        if currentCourse.getAssistant() is None :
-            assistantInfo[0] = "There is no assistant assigned for this course"
+    def __get_courses_assistant_info(self, current_course) :
+        assistant_info = [""]
+        if current_course.get_assistant() is None :
+            assistant_info[0] = "There is no assistant assigned for this course"
         else :
-            assistantInfo[0] = currentCourse.getAssistant().str()
-        return assistantInfo
+            assistant_info[0] = current_course.get_assistant().str()
+        return assistant_info
     
-    def __get_courses_lecturer_info(self, currentCourse) :
-        lecturerInfo = [""]
-        lecturerInfo[0] = currentCourse.getLecturer().str()
-        return lecturerInfo
+    def __get_courses_lecturer_info(self, current_course) :
+        lecturer_info = [""]
+        lecturer_info[0] = current_course.getLecturer().str()
+        return lecturer_info
     
-    def __string_to_list(self, giveString) :
-        stringList = [""]
-        stringList[0] = giveString
-        return stringList
+    def __string_to_list(self, give_string) :
+        string_list = [""]
+        string_list[0] = give_string
+        return string_list
     
-    def __get_course_return_list_string(self, titleString, coursesList) :
+    def __get_course_return_list_string(self, title_string, courses_list) :
         # TODO NULL CHECK
-        size = self.coursesList.size()
-        courseListString = ["", ""]
-        courseListString[0] = titleString
-        courseListString[1] = "1-)Return back"
+        size = self.courses_list.size()
+        course_list_string = ["", ""]
+        course_list_string[0] = title_string
+        course_list_string[1] = "1-)Return back"
         i = 2
-        for currentCourse in coursesList :
-            courseListString.append(i + "-)" + currentCourse.str())
+        for current_course in courses_list :
+            course_list_string.append(i + "-)" + current_course.str())
             i = i + 1
 
-        return courseListString
+        return course_list_string
 
-    def __get_course_list_string(self, titleString, coursesList) :
-        size = coursesList.len()
-        courseListString = [""]
-        courseListString[0] = titleString
+    def __get_course_list_string(self, title_string, courses_list) :
+
+        course_list_string = [""]
+        course_list_string[0] = title_string
         i = 1
-        for currentCourse in coursesList :
-            courseListString.append(i + "-)" + currentCourse.str())
+        for current_course in courses_list :
+            course_list_string.append(i + "-)" + current_course.str())
             i = i + 1
         
-        return courseListString
+        return course_list_string
     
     def check_course_availablity(self, course) :
-        isAvailable = True
-        if course.getType().equals("nt") :
-            isAvailable = course.checkPreRequisite((self.CURRENT_TRANSCRIPT.getListOfCourses(), self.CURRENT_TRANSCRIPT.getListOfGrades()
-            and self.CURRENT_TRANSCRIPT.checkPassedCourses(course) 
+        is_available = True
+        if course.get_type() == "nt" :
+            is_available = course.check_pre_requisite((self.__CURRENT_TRANSCRIPT.get_list_of_courses(), self.__CURRENT_TRANSCRIPT.get_list_of_grades()
+            and self.__CURRENT_TRANSCRIPT.check_passed_courses(course) 
             and (not self.__check_existence(course)) 
-            and (not course.isFull())))
+            and (not course.is_full())))
         
         else :
-            isAvailable = course.checkYearMatching((self.CURRENT_TRANSCRIPT.getYear()
-            and course.checkPreRequisite(self.CURRENT_TRANSCRIPT.getListOfCourses(),self. CURRENT_TRANSCRIPT.getListOfGrades()) 
-            and self.CURRENT_TRANSCRIPT.checkPassedCourses(course) 
+            is_available = course.check_year_matching((self.__CURRENT_TRANSCRIPT.get_year()
+            and course.check_pre_requisite(self.__CURRENT_TRANSCRIPT.get_list_of_courses(),self. __CURRENT_TRANSCRIPT.get_list_of_grades()) 
+            and self.__CURRENT_TRANSCRIPT.check_passed_courses(course) 
             and (not self.__check_existence(course)) 
-            and (not course.isFull())))
+            and (not course.is_full())))
 
-        return isAvailable
+        return is_available
     
     def __check_existence(self, course) :
         exists = False
-        exists = (self.__check_list_for_course(self.cancelWaitingCourses, course) 
-                or self.__check_list_for_course(self.registrationCompleteCourses, course) 
-                or self.__check_list_for_course(self.registrationWaitingCourses, course))
+        exists = (self.__check_list_for_course(self.__cancel_waiting_courses, course) 
+                or self.__check_list_for_course(self.__registration_complete_courses, course) 
+                or self.__check_list_for_course(self.__registration_waiting_courses, course))
         return exists
     
     # Returns true if it finds a course in the list
-    def __check_list_for_course(self, courseList, course) :
-        for current in courseList :
+    def __check_list_for_course(self, course_list, course) :
+        for current in course_list :
             if course.equals(current) : 
                 return True
         return False
     
     def compare_credentials(self, username, password) :
-        if self.userName is None or self.password is None :
+        if self.__USER_NAME is None or self.__PASSWORD is None :
             return False
-        return self.userName == username and self.password == password
+        return self.__USER_NAME == username and self.__PASSWORD == password
 
     
-    def set_current_advisor(self, currentAdvisor) :
-        self.currentAdvisor = currentAdvisor
+    def set_current_advisor(self, current_advisor) :
+        self.__current_advisor = current_advisor
     
 
-    def get_student_id(self, ) :
-        return self.STUDENT_ID
+    def get_student_id(self) :
+        return self.__STUDENT_ID
     
     # iteration 2
     def send_message(self, msg, advisor) :
-        self.sentMessages.add(msg)
+        self.__sent_messages.append(msg)
         advisor.receive_message(msg)
 
 
     def receive_message(self, msg) :
-        self.receivedMessages.add(msg)
+        self.__received_messages.append(msg)
     
 
 
     def is_taking_course(self, course) :
-        return self.registrationCompleteCourses.contains(course) or self.cancelWaitingCourses.contains(course)
+        return self.__registration_complete_courses.contains(course) or self.__cancel_waiting_courses.contains(course)
     
 
-    def set_registration_waiting_courses(self, registrationWaitingCourses) :
-        self.registrationWaitingCourses = registrationWaitingCourses
+    def set_registration_waiting_courses(self, __registration_waiting_courses) :
+        self.__registration_waiting_courses = __registration_waiting_courses
     
 
-    def set_registration_complete_courses(self, registrationCompleteCourses) :
-        self.registrationCompleteCourses = registrationCompleteCourses
+    def set_registration_complete_courses(self, registration_complete_courses) :
+        self.__registration_complete_courses = registration_complete_courses
     
 
-    def set_cancel_waiting_courses(self, cancelWaitingCourses) :
-        self.cancelWaitingCourses = cancelWaitingCourses
+    def set_cancel_waiting_courses(self, cancel_waiting_courses) :
+        self.__cancel_waiting_courses = cancel_waiting_courses
     
 
     def get_current_advisor(self) :
-        return self.currentAdvisor
+        return self.__current_advisor
     
 
-    def set_current_available_courses(self, currentAvailableCourses) :
-        self.currentAvailableCourses = currentAvailableCourses
+    def set_current_available_courses(self, current_available_courses) :
+        self.__current_available_courses = current_available_courses
     
 
     def get_current_transcript(self) :
-        return self.CURRENT_TRANSCRIPT
+        return self.__CURRENT_TRANSCRIPT
     
 
     def get_registration_complete_courses(self) :
-        return self.registrationCompleteCourses
+        return self.__registration_complete_courses
     
 
     def get_user_name(self) :
-        return self.userName
+        return self.__USER_NAME
     
 
     def get_password(self) :
-        return self.password
+        return self.__PASSWORD
     
 
 
     def remove_element_from_current_available_courses(self, course) :
-        return self.currentAvailableCourses.remove(course)
+        return self.__current_available_courses.remove(course)
     
 
     def remove_element_from_registration_waiting_courses(self, course) :
-        return self.registrationWaitingCourses.remove(course)
+        return self.__registration_waiting_courses.remove(course)
     
 
     def remove_element_from_registration_complete_courses(self, course) :
-        return self.registrationCompleteCourses.remove(course)
+        return self.__registration_complete_courses.remove(course)
     
 
     def remove_element_from_cancel_waiting_courses(self, course) :
-        return self.cancelWaitingCourses.remove(course)
+        return self.__cancel_waiting_courses.remove(course)
     
 
     def add_element_to_current_available_courses(self, course) :
-        self.currentAvailableCourses.append(course)
+        self.__current_available_courses.append(course)
     
 
-    def addElementToRegistrationWaitingCourses(self, course) :
-        self.registrationWaitingCourses.append(course)
+    def add_element_to_registration_waiting_courses(self, course) :
+        self.__registration_waiting_courses.append(course)
     
 
     def add_element_to_registration_complete_courses(self, course) :
-        self.registrationCompleteCourses.append(course)
+        self.__registration_complete_courses.append(course)
     
 
     def add_element_to_cancel_waiting_courses(self, course) :
-        self.cancelWaitingCourses.append(course)
+        self.__cancel_waiting_courses.append(course)
     
 
     def get_cancel_waiting_courses(self) :
-        return self.cancelWaitingCourses
+        return self.__cancel_waiting_courses
     
 
     def get_registration_waiting_courses(self) :
-        return self.registrationWaitingCourses
+        return self.__registration_waiting_courses
 
     def get_available_courses(self, system_courses):
         for course in system_courses:
