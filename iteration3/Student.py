@@ -292,7 +292,7 @@ class Student() :
     
 
 
-    def is_takingCourse(self, course) :
+    def is_taking_course(self, course) :
         return self.registrationCompleteCourses.contains(course) or self.cancelWaitingCourses.contains(course)
     
 
@@ -371,15 +371,6 @@ class Student() :
 
     def get_registration_waiting_courses(self) :
         return self.registrationWaitingCourses
-
-    def is_taking_course(self, course):
-        pass
-
-    def set_current_advisor(self, advisor):
-        pass
-
-    def set_registration_waiting_courses(self, course_waiting_string_list):
-        pass
 
     def get_available_courses(self, system_courses):
         for course in system_courses:
