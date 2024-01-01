@@ -6,13 +6,17 @@ from Controller import Controller
 
 
 class Advisor(Lecturer, User):
-    def __init__(self, name, last_name, username, password, lecturer_id, student_list):
+
+    def __init__(self, name="", last_name="", username="", password="", lecturer_id="", student_list=None):
         super().__init__(name, last_name, lecturer_id)
-        self.__student_list = student_list
-        self.__user_name = username
-        self.__password = password
-        self.__sent_messages = []
-        self.__received_messages = []
+        self.user_name = username
+        self.password = password
+        if student_list is None:
+            self.student_list = []
+        else:
+            self.student_list = student_list
+        self.sent_messages = []
+        self.received_messages = []
 
     def compare_credentials(self, username, password):
         if self.user_name is None or self.password is None:
