@@ -31,7 +31,7 @@ class Student(Person, User) :
     
 
     def get_action_list(self):
-        logging.info("Student: Getting action string list")
+        logging.info("Getting action string list")
         action_list = []
         action_list.append("\nSelect an action.")
         action_list.append("1) Check courses available to register.")
@@ -51,18 +51,23 @@ class Student(Person, User) :
     def start_actions(self, controller):
         action_list = self.get_action_list()
 
-        logging.info("Student: Starting actions")
+        logging.info("Starting actions")
         #int
         action_number = controller.print_list_return_selection(action_list, -1)
         MAX_ACTION = 8
         
         while action_number != MAX_ACTION:
             if not action_number.isdigit :
-                logging.error("Student: Action selection is not a number!")
+                logging.error("Action selection is not a number!")
             try:  
                 self.run_user_action(action_number, controller)
-            except ValueError:
-                controller.print_error_message("Expected Integer Error")
+            except ValueError as e:
+                controller.print_error_message(str(e))
+            except TypeError as e1:
+                controller.print_error_message(str(e1))
+            except :
+                 logging.critical("Something went wrong while running actions of student!")
+                 controller.print_error_message("Something went wrong!")
             finally:    
                 action_number = controller.print_list_return_selection(action_list, -1)
 
@@ -71,56 +76,64 @@ class Student(Person, User) :
     #int actionNumber, Controller controller
     def run_user_action(self, action_number, controller):
         ##Student selection part
-        logging.info("Student: Trying to run the action selected by user")
+        logging.info("Trying to run the action selected by user")
         if action_number == 1:
-            logging.info("Student: Selected action = 1")
+            logging.info("Selected action = 1")
 
             current_user_selection = controller.print_list_return_selection(
             self.__get_course_return_list_string("Courses that are available to you select one:", self.__current_available_courses), -1)
-            if not current_user_selection.isdigit() :
-                logging.critical("Student: Course selection was not given an integer!")
+            if not isinstance(current_user_selection, int) :
+                logging.error("Course selection was not given an integer!")
                 raise ValueError("Expected Integer Error")
             
             if current_user_selection != 1: 
                 current_course = self.__current_available_courses[current_user_selection - 2]
                 current_user_selection = controller.print_list_return_selection[self.__get_course_info_string(current_course), -1]
-                if not current_user_selection.isdigit() :
-                    logging.critical("Student: Course selection was not given an integer!")
+                if not isinstance(current_user_selection, int) :
+                    logging.error("Course selection was not given an integer!")
                     raise ValueError("Expected Integer Error")
                 
                 if current_user_selection == 1: # return back to available course menu page
-                    logging.info("Student: Selected action in menu2 = 1")
+                    logging.info("Selected action in menu2 = 1")
                     self.run_user_action(1, controller)
                 elif current_user_selection == 2: # register to the course
-                    logging.info("Student: Selected action in menu2 = 2")
+                    logging.info("Selected action in menu2 = 2")
                     course_sect_availability_str = current_course.check_course_section(self.__registration_complete_courses, self.__registration_waiting_courses, self.__cancel_waiting_courses)
                     
                     if ((not (current_course.check_technical_elective_count(self.__registration_complete_courses, self.__registration_waiting_courses, self.__cancel_waiting_courses) is None)) and (course_sect_availability_str is None)) :
+                        logging.debug("Technical elective check passed")
                         course_sect_availability_str = ""
                         course_sect_availability_str = currentCourse.check_technical_elective_count(self.__registration_complete_courses, self.__registration_waiting_courses, self.__cancel_waiting_courses)
                     elif((not (current_course.check_non_technical_elective_count(self.__registration_complete_courses, self.__registration_waiting_courses, self.__cancel_waiting_courses) is None)) and (course_sect_availability_str is None)) :
+                        logging.debug("Non technical elective check passed")
                         course_sect_availability_str = ""
                         course_sect_availability_str = current_course.check_non_technical_elective_count(self.__registration_complete_courses, self.__registration_waiting_courses, self.__cancel_waiting_courses)
-                        if course_sect_availability_str is None:
-                            self.remove_element_from_current_available_courses(current_course)
-                            self.__registration_waiting_courses.append(current_course)
-                            controller.print_success_message(current_course + " has been sent to your advisor " + self.__current_advisor.get_first_name() + " " + self.__current_advisor.get_last_name())
-                        else:
-                            controller.print_error_message(course_sect_availability_str)
-                        
-                        self.run_user_action(1, controller)
+                    if course_sect_availability_str is None:
+                        logging.debug("Checked course availability to be alright")
+                        self.remove_element_from_current_available_courses(current_course)
+                        self.__registration_waiting_courses.append(current_course)
+                        controller.print_success_message(current_course + " has been sent to your advisor " + self.__current_advisor.get_first_name() + " " + self.__current_advisor.get_last_name())
+                    else:
+                        logging.debug("Checked course availability to be NOT alright")
+                        controller.print_error_message(course_sect_availability_str)
+                    self.run_user_action(1, controller)
                 elif current_user_selection == 3: # see your course lecturer
+                        logging.info("Selected action in menu2 = 3")
                         controller.print_list(self.__get_courses_lecturer_info(current_course))
                         self.run_user_action(1, controller)
                 elif current_user_selection == 4: # see your course assistant
+                        logging.info("Selected action in menu2 = 4")
                         controller.print_list(self.__get_courses_assistant_info(current_course))
                         self.run_user_action(1, controller)
                 elif current_user_selection == 5: # return back to first page
+                        logging.info("Selected action in menu2 = 5")
                         return
         elif current_user_selection != 2: 
-            current_user_selection = controller.print_list_return_selection(self.__get_course_return_list_string("Courses that have finalized registration, choose course to cancel:", self.__registration_complete_courses), -1)
-            if not current_user_selection.isdigit() :
-                logging.critical("Student: Course selection was not given an integer!")
+            logging.info("Selected action = 2")
+            current_user_selection = controller.print_list_return_selection(
+            self.__get_course_return_list_string("Courses that have finalized registration, choose course to cancel:", self.__registration_complete_courses), -1)
+            if not isinstance(current_user_selection, int) :
+                logging.error("Course selection was not given an integer!")
                 raise ValueError("Expected Integer Error")
             
             if current_user_selection != 1:
@@ -129,18 +142,23 @@ class Student(Person, User) :
                 self.__cancel_waiting_courses.append(current_course)
                 controller.print_success_message(current_course + "is successfully added to cancelWaiting.\n")
         elif current_user_selection != 3: 
+            logging.info("Selected action = 3")
             controller.print_list(
-                self.__get_course_list_string("Courses that are waiting to be finalized by your advisor ", self.__registration_waiting_courses))
-
+            self.__get_course_list_string("Courses that are waiting to be finalized by your advisor ", self.__registration_waiting_courses))
+        
         elif current_user_selection != 4: 
+            logging.info("Selected action = 4")
             controller.print_list(self.__get_course_list_string("Courses that are waiting to be canceled by your " + self.__current_advisor.str(), self.__cancel_waiting_courses))
         elif current_user_selection != 5: 
+            logging.info("Selected action = 5")
             controller.print_list(self.__CURRENT_TRANSCRIPT.getStudentTranscriptStringList())
         elif current_user_selection != 6: 
+            logging.info("Selected action = 6")
             controller.print_list(self.__string_to_list(self.__current_advisor.str()))
 
         elif current_user_selection != 7: 
             while True :
+                logging.info("Getting message selection list")
                 message_list = ["", ""]
                 
                 message_menu_list = []
@@ -151,19 +169,21 @@ class Student(Person, User) :
                 message_menu_list.append("4) Go back.")
                 
                 action_number = controller.print_list_return_selection(message_menu_list, -1)
-                if not action_number.isdigit() :
-                    logging.critical("Student: Course selection was not given an integer!")
+                if not isinstance(action_number, int) :
+                    logging.error("Course selection was not given an integer!")
                     raise ValueError("Expected Integer Error")
                 
                 if action_number == 4:
+                    logging.info("Returned from message seleciton list")
                     return
             
                 elif action_number == 2:
+                    logging.info("Selected action in message menu = 2")
                     while True :
                         received_messages_list = ["Received messages:"]
-                        
-                        
+                        logging.info("Checking recieved messages")
                         if self.__received_messages.len() != 0 :
+                            logging.debug("There are recieved messages!")
                             i = 0
                             for current_recieved_message in self.__received_messages:
                                 received_messages_list.append(i + ") " + current_recieved_message.str())
@@ -171,69 +191,88 @@ class Student(Person, User) :
 
                             received_messages_list.append(") Go back.")
                             action_number = controller.print_list_return_selection(received_messages_list, -1)
-                            if not action_number.isdigit() :
-                                logging.critical("Student: Course selection was not given an integer!")
+                            if not isinstance(action_number, int) :
+                                logging.error("Course selection was not given an integer!")
                                 raise ValueError("Expected Integer Error")
                             
                             if action_number == (received_messages_list.len() - 1):
+                                logging.info("Returning back from recieved messages")
                                 break
                             else :
+                                logging.info("Reading selected message from recieved messages")
                                 message_list[0] = self.__received_messages.index(action_number-1).str() + "\n\n" + self.__received_messages.index(action_number-1).str()
                                 message_list[1] = "1) Go back."
                                 self.__received_messages.index(action_number-1).read_message()
                                 action_number = controller.print_list_return_selection(message_list, -1)
-                                if not action_number.isdigit() :
-                                    logging.critical("Student: Course selection was not given an integer!")
+                                if not isinstance(action_number, int) :
+                                    logging.error("Course selection was not given an integer!")
                                     raise ValueError("Expected Integer Error")
                                 if action_number == 1:
                                     continue
                         else :
+                            logging.debug("There are no recieved messages!")
                             received_messages_list[0] = "There is no received messages."
                             action_number = controller.print_list_return_selection(received_messages_list, -1)
-                            if not action_number.isdigit() :
-                                logging.critical("Student: Course selection was not given an integer!")
+                            if not isinstance(action_number, int) :
+                                logging.error("Course selection was not given an integer!")
                                 raise ValueError("Expected Integer Error")
                             break
                     continue
                 elif action_number == 1: 
+                    logging.info("Selected action in message menu = 1")
                     while True:
                         sent_messages_list = ["Sent messages:"]
+                        logging.info("Checking recieved messages")
 
                         if self.__sent_messages.len() != 0 : 
+                            logging.debug("There are recieved messages!")
                             i = 0
                             for current_sent_message in self.__sent_messages:
                                 sent_messages_list.append(i + ") " + current_sent_message.str())
                                 i = i+1
                             
                             action_number = controller.print_list_return_selection(sent_messages_list, -1)
-                            if not action_number.isdigit() :
-                                logging.critical("Student: Course selection was not given an integer!")
+                            if not isinstance(action_number, int) :
+                                logging.error("Course selection was not given an integer!")
                                 raise ValueError("Expected Integer Error")
                             if action_number == (sent_messages_list.len() - 1) :
+                                logging.info("Returning back from recieved messages")
                                 break
                             else :
+                                logging.info("Reading selected message from recieved messages")
                                 message_list[0] = self.__sent_messages.index(action_number-1).str() + "\n\n" + self.__sent_messages.index(action_number-1).str()
                                 message_list[1] = "1) Go back."
                                 action_number = controller.print_list_return_selection(message_list, -1)
-                                if not action_number.isdigit() :
-                                    logging.critical("Student: Course selection was not given an integer!")
+                                if not isinstance(action_number, int) :
+                                    logging.error("Course selection was not given an integer!")
                                     raise ValueError("Expected Integer Error")
                                 if action_number == 1 :
                                     continue
                         else :
+                            logging.debug("There are no recieved messages!")
                             sent_messages_list[0] = "There is no sent messages."
                             action_number = controller.print_list_return_selection(sent_messages_list, -1)
-                            if not action_number.isdigit() :
-                                logging.critical("Student: Course selection was not given an integer!")
+                            if not isinstance(action_number, int) :
+                                logging.error("Course selection was not given an integer!")
                                 raise ValueError("Expected Integer Error")
                             break
                     continue
                 else :
+                    logging.info("Selected action in message menu = 3")
                     message_info = controller.request_message_string()
+                    
+                    if message_info == None :
+                        logging.error("Given string was empty!")
+                        raise ValueError("Empty String")
                     message = Message(message_info[0], message_info[1], self, self.__current_advisor)
                     self.send_message(message, self.__current_advisor)
 
     def __get_course_info_string(self, course) :
+        logging.debug("Getting course string menu")
+        if course == None:
+            logging.critical("Could not found the chosen course!")
+            raise TypeError("The given course doesn't exist")
+        
         course_info_string = []
         course_info_string.append("Select your course action")
         course_info_string.append("1-)Return back to available course menu page")
@@ -244,6 +283,7 @@ class Student(Person, User) :
         return course_info_string
     
     def __get_courses_assistant_info(self, current_course) :
+        logging.debug("Getting assistant string of the course")
         assistant_info = [""]
         if current_course.get_assistant() is None :
             assistant_info[0] = "There is no assistant assigned for this course"
@@ -252,6 +292,9 @@ class Student(Person, User) :
         return assistant_info
     
     def __get_courses_lecturer_info(self, current_course) :
+        logging.debug("Getting lecturer string of the course")
+        if current_course.getLecturer() is None :
+            raise TypeError("No lecturer of the course")
         lecturer_info = [""]
         lecturer_info[0] = current_course.getLecturer().str()
         return lecturer_info
@@ -262,8 +305,8 @@ class Student(Person, User) :
         return string_list
     
     def __get_course_return_list_string(self, title_string, courses_list) :
-        # TODO NULL CHECK
-        size = self.courses_list.size()
+        
+        logging.debug("Getting course strings of the given course list that is going to be used for asking the user for an input")
         course_list_string = ["", ""]
         course_list_string[0] = title_string
         course_list_string[1] = "1-)Return back"
@@ -275,7 +318,7 @@ class Student(Person, User) :
         return course_list_string
 
     def __get_course_list_string(self, title_string, courses_list) :
-
+        logging.debug("Getting course strings of the given course list")
         course_list_string = [""]
         course_list_string[0] = title_string
         i = 1
@@ -285,7 +328,8 @@ class Student(Person, User) :
         
         return course_list_string
     
-    def check_course_availablity(self, course) :
+    def check_course_availability(self, course) :
+        logging.debug("InMethodCCA: Checking if the course is available for student to register")
         is_available = True
         if course.get_type() == "nt" :
             is_available = course.check_pre_requisite((self.__CURRENT_TRANSCRIPT.get_list_of_courses(), self.__CURRENT_TRANSCRIPT.get_list_of_grades()
@@ -299,18 +343,31 @@ class Student(Person, User) :
             and self.__CURRENT_TRANSCRIPT.check_passed_courses(course) 
             and (not self.__check_existence(course)) 
             and (not course.is_full())))
-
+        if is_available :
+            logging.debug("InMethodCCA: The course is available!")
+        else :
+            logging.debug("InMethodCCA: The course isnt available!")
         return is_available
     
     def __check_existence(self, course) :
+        logging.debug("InMethodCE: Checking if the course exists for this student")
         exists = False
         exists = (self.__check_list_for_course(self.__cancel_waiting_courses, course) 
                 or self.__check_list_for_course(self.__registration_complete_courses, course) 
                 or self.__check_list_for_course(self.__registration_waiting_courses, course))
+        if exists :
+            logging.debug("InMethodCE: The course exists!")
+        else :
+            logging.debug("InMethodCE: The course doesnt exist!")
         return exists
     
     # Returns true if it finds a course in the list
     def __check_list_for_course(self, course_list, course) :
+        logging.debug("InMethodCLFC: Checking the list if the course exists inside!")
+        if course_list == None or course_list.len() == 0 :
+            logging.warning("Given course list doesnt exist or empty!")
+            return False
+        
         for current in course_list :
             if course.equals(current) : 
                 return True
@@ -321,23 +378,33 @@ class Student(Person, User) :
             return False
         return self.__USER_NAME == username and self.__PASSWORD == password
 
+    def get_available_courses(self, system_courses):
+        available_courses = []
+        if system_courses == None or system_courses.len() == 0 :
+            logging.warning("Given course list doesnt exist or empty!")
+            return None
+        
+        for course in system_courses:
+            if self.check_course_availability(course):
+                available_courses.append(course)
     
+    def send_message(self, msg, advisor) :
+        logging.info("Sending message to advisor")
+        self.__sent_messages.append(msg)
+        advisor.receive_message(msg)
+
+
+    def receive_message(self, msg) :
+        logging.info("Recieving message from advisor")
+        self.__received_messages.append(msg)
+
+
     def set_current_advisor(self, current_advisor) :
         self.__current_advisor = current_advisor
     
 
     def get_student_id(self) :
         return self.__STUDENT_ID
-    
-    # iteration 2
-    def send_message(self, msg, advisor) :
-        self.__sent_messages.append(msg)
-        advisor.receive_message(msg)
-
-
-    def receive_message(self, msg) :
-        self.__received_messages.append(msg)
-    
 
 
     def is_taking_course(self, course) :
@@ -420,8 +487,5 @@ class Student(Person, User) :
     def get_registration_waiting_courses(self) :
         return self.__registration_waiting_courses
 
-    def get_available_courses(self, system_courses):
-        for course in system_courses:
-            if self.check_course_availability(course):
-                self.available_courses.append(course)
+   
 
