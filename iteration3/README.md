@@ -1,4 +1,4 @@
-# Iteration 2
+# Iteration 3
 This is the folder with the contents of the first iteration of the project.
 # Links regarding the poll for the changes to be made in second iteration (Choose only 3 options!)
 Voting : https://directpoll.com/v?XDVhEtcN5dcBOSUQAMMtQs3dvUGqUwM  
