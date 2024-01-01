@@ -1,8 +1,11 @@
-class Student() :
+import logging
+import Person
+import User
+class Student(Person, User) :
 
     #String name, String lastName, String username, String password, String studentID, Transcript currentTranscript, Advisor currentAdvisor
     def __init__(self, name, last_name, username, password, student_id, current_transcript, current_advisor):
-       
+        super(name, last_name)
         # private final String
         self.__USER_NAME = username
         # private final String 
@@ -28,6 +31,7 @@ class Student() :
     
 
     def get_action_list(self):
+        logging.info("Student: Getting action string list")
         action_list = []
         action_list.append("\nSelect an action.")
         action_list.append("1) Check courses available to register.")
@@ -41,34 +45,56 @@ class Student() :
         return action_list
     
     def __str__(self):
-        return "Name: " + self.get_first_name() + self.get_last_name() + ", StudentID: " + self.get_student_id() + "."
+        return "Name: " + super().get_first_name() + super().get_last_name() + ", StudentID: " + self.get_student_id() + "."
     
     #Controller controller
     def start_actions(self, controller):
         action_list = self.get_action_list()
+
+        logging.info("Student: Starting actions")
         #int
         action_number = controller.print_list_return_selection(action_list, -1)
         MAX_ACTION = 8
         
         while action_number != MAX_ACTION:
-            self.run_user_action(action_number, controller)
-            action_number = controller.print_list_return_selection(action_list, -1)
+            if not action_number.isdigit :
+                logging.error("Student: Action selection is not a number!")
+            try:  
+                self.run_user_action(action_number, controller)
+            except ValueError:
+                controller.print_error_message("Expected Integer Error")
+            finally:    
+                action_number = controller.print_list_return_selection(action_list, -1)
+
+        
 
     #int actionNumber, Controller controller
     def run_user_action(self, action_number, controller):
         ##Student selection part
-    
+        logging.info("Student: Trying to run the action selected by user")
         if action_number == 1:
+            logging.info("Student: Selected action = 1")
+
             current_user_selection = controller.print_list_return_selection(
             self.__get_course_return_list_string("Courses that are available to you select one:", self.__current_available_courses), -1)
-            if current_user_selection != 1: # First selection
+            if not current_user_selection.isdigit() :
+                logging.critical("Student: Course selection was not given an integer!")
+                raise ValueError("Expected Integer Error")
+            
+            if current_user_selection != 1: 
                 current_course = self.__current_available_courses[current_user_selection - 2]
                 current_user_selection = controller.print_list_return_selection[self.__get_course_info_string(current_course), -1]
+                if not current_user_selection.isdigit() :
+                    logging.critical("Student: Course selection was not given an integer!")
+                    raise ValueError("Expected Integer Error")
+                
                 if current_user_selection == 1: # return back to available course menu page
+                    logging.info("Student: Selected action in menu2 = 1")
                     self.run_user_action(1, controller)
                 elif current_user_selection == 2: # register to the course
-                    #string
+                    logging.info("Student: Selected action in menu2 = 2")
                     course_sect_availability_str = current_course.check_course_section(self.__registration_complete_courses, self.__registration_waiting_courses, self.__cancel_waiting_courses)
+                    
                     if ((not (current_course.check_technical_elective_count(self.__registration_complete_courses, self.__registration_waiting_courses, self.__cancel_waiting_courses) is None)) and (course_sect_availability_str is None)) :
                         course_sect_availability_str = ""
                         course_sect_availability_str = currentCourse.check_technical_elective_count(self.__registration_complete_courses, self.__registration_waiting_courses, self.__cancel_waiting_courses)
@@ -93,6 +119,10 @@ class Student() :
                         return
         elif current_user_selection != 2: 
             current_user_selection = controller.print_list_return_selection(self.__get_course_return_list_string("Courses that have finalized registration, choose course to cancel:", self.__registration_complete_courses), -1)
+            if not current_user_selection.isdigit() :
+                logging.critical("Student: Course selection was not given an integer!")
+                raise ValueError("Expected Integer Error")
+            
             if current_user_selection != 1:
                 currentCourse = self.__registration_complete_courses.get(current_user_selection - 2)
                 self.remove_element_from_registration_complete_courses(current_course)
@@ -121,6 +151,9 @@ class Student() :
                 message_menu_list.append("4) Go back.")
                 
                 action_number = controller.print_list_return_selection(message_menu_list, -1)
+                if not action_number.isdigit() :
+                    logging.critical("Student: Course selection was not given an integer!")
+                    raise ValueError("Expected Integer Error")
                 
                 if action_number == 4:
                     return
@@ -130,7 +163,7 @@ class Student() :
                         received_messages_list = ["Received messages:"]
                         
                         
-                        if self.received_messages.len() != 0 :
+                        if self.__received_messages.len() != 0 :
                             i = 0
                             for current_recieved_message in self.__received_messages:
                                 received_messages_list.append(i + ") " + current_recieved_message.str())
@@ -138,6 +171,10 @@ class Student() :
 
                             received_messages_list.append(") Go back.")
                             action_number = controller.print_list_return_selection(received_messages_list, -1)
+                            if not action_number.isdigit() :
+                                logging.critical("Student: Course selection was not given an integer!")
+                                raise ValueError("Expected Integer Error")
+                            
                             if action_number == (received_messages_list.len() - 1):
                                 break
                             else :
@@ -145,11 +182,17 @@ class Student() :
                                 message_list[1] = "1) Go back."
                                 self.__received_messages.index(action_number-1).read_message()
                                 action_number = controller.print_list_return_selection(message_list, -1)
+                                if not action_number.isdigit() :
+                                    logging.critical("Student: Course selection was not given an integer!")
+                                    raise ValueError("Expected Integer Error")
                                 if action_number == 1:
                                     continue
                         else :
                             received_messages_list[0] = "There is no received messages."
                             action_number = controller.print_list_return_selection(received_messages_list, -1)
+                            if not action_number.isdigit() :
+                                logging.critical("Student: Course selection was not given an integer!")
+                                raise ValueError("Expected Integer Error")
                             break
                     continue
                 elif action_number == 1: 
@@ -162,18 +205,27 @@ class Student() :
                                 sent_messages_list.append(i + ") " + current_sent_message.str())
                                 i = i+1
                             
-                            actionNumber = controller.print_list_return_selection(sent_messages_list, -1)
-                            if actionNumber == (sent_messages_list.len() - 1) :
+                            action_number = controller.print_list_return_selection(sent_messages_list, -1)
+                            if not action_number.isdigit() :
+                                logging.critical("Student: Course selection was not given an integer!")
+                                raise ValueError("Expected Integer Error")
+                            if action_number == (sent_messages_list.len() - 1) :
                                 break
                             else :
                                 message_list[0] = self.__sent_messages.index(action_number-1).str() + "\n\n" + self.__sent_messages.index(action_number-1).str()
                                 message_list[1] = "1) Go back."
                                 action_number = controller.print_list_return_selection(message_list, -1)
+                                if not action_number.isdigit() :
+                                    logging.critical("Student: Course selection was not given an integer!")
+                                    raise ValueError("Expected Integer Error")
                                 if action_number == 1 :
                                     continue
                         else :
                             sent_messages_list[0] = "There is no sent messages."
                             action_number = controller.print_list_return_selection(sent_messages_list, -1)
+                            if not action_number.isdigit() :
+                                logging.critical("Student: Course selection was not given an integer!")
+                                raise ValueError("Expected Integer Error")
                             break
                     continue
                 else :
