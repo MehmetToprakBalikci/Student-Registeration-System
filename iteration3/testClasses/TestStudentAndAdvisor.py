@@ -3,7 +3,44 @@ import unittest
 import Student
 
 class TestStudentAndAdvisor(unittest.TestCase) :
-   
+    
+
+    def student_run_user_action_registration_waiting_courses1(self) :
+        self.assertTrue(self.__start_test_procedure(self.__get_test_string(1, 1), 1, 1));
+    def student_run_user_action_registration_waiting_courses2(self) :
+        self.assertTrue(self.__start_test_procedure(self.__get_test_string(1, 2), 1, 2));
+    def student_run_user_action_registration_waiting_courses3(self) :
+        self.assertTrue(self.__start_test_procedure(self.__get_test_string(1, 3), 1, 3));
+    def student_run_user_action_registration_waiting_courses4(self) :
+        self.assertTrue(self.__start_test_procedure(self.__get_test_string(1, 4), 1, 4));
+    def student_run_user_action_registration_waiting_courses5(self) :
+        self.assertTrue(self.__start_test_procedure(self.__get_test_string(1, 5), 1, 5));
+    
+
+    
+    def student_run_user_action_cancel_waiting_courses1(self) :
+        self.assertTrue(self.__start_test_procedure(self.__get_test_string(2, 1), 2, 1));
+    def student_run_user_action_cancel_waiting_courses2(self) :
+        self.assertTrue(self.__start_test_procedure(self.__get_test_string(2, 2), 2, 2));
+    def student_run_user_action_cancel_waiting_courses3(self) :
+        self.assertTrue(self.__start_test_procedure(self.__get_test_string(2, 3), 2, 3));
+    def student_run_user_action_cancel_waiting_courses4(self) :
+        self.assertTrue(self.__start_test_procedure(self.__get_test_string(2, 4), 2, 4));
+    def student_run_user_action_cancel_waiting_courses5(self) :
+        self.assertTrue(self.__start_test_procedure(self.__get_test_string(2, 5), 2, 5));
+       
+    
+    def advisor_run_user_actionwaiting_registration_selection1(self) : 
+        self.assertTrue(self.__start_test_procedure(self.__get_test_string(3, 1) ,3 , 1))
+    def advisor_run_user_actionwaiting_registration_selection2(self) : 
+        self.assertTrue(self.__start_test_procedure(self.__get_test_string(3, 2) ,3 , 2))
+    def advisor_run_user_actionwaiting_registration_selection3(self) : 
+        self.assertTrue(self.__start_test_procedure(self.__get_test_string(3, 3) ,3 , 3))
+    def advisor_run_user_actionwaiting_registration_selection4(self) : 
+        self.assertTrue(self.__start_test_procedure(self.__get_test_string(3, 4) ,3 , 4))
+    def advisor_run_user_actionwaiting_registration_selection5(self) : 
+        self.assertTrue(self.__start_test_procedure(self.__get_test_string(3, 5) ,3 , 5))
+
     
     def __get_test_string(self, test_type, test_num) :
         test_string = None
