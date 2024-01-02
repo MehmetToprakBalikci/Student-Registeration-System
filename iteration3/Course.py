@@ -9,7 +9,7 @@ from CourseSection import CourseSection
 class Course:
     __course_code, __course_name, __type = "", "", ""
     __lecturer, __assistant, __section = None, None, None
-    __course_credit, __course_year, __capacity, __number_of_students = int(0)
+    __course_credit, __course_year, __capacity, __number_of_students = int(0), int(0), int(0), int(0)
     __prerequisite: list = []
 
     # Just use this constructor with assistant and capacity, if assistant and capacity are unused give None and 0!!
@@ -62,7 +62,6 @@ class Course:
         if self.is_full():
             return "this course's capacity full!."
         return None
-
 
     def check_technical_elective_count(self, registration_complete_courses: list,
                                        registration_waiting_courses: list,
@@ -178,8 +177,8 @@ class Course:
     def is_full(self):
         return self.__number_of_students >= self.__capacity
 
-    def get_course_string(self):
-        return self.__course_code + " " + self.__course_name
+    def __str__(self):
+        return str(self.__course_code) + " " + str(self.__course_name)
 
     def course_status(self):
-        return "NumberOfStudent: " + self.__number_of_students + " " + "Capacity: " + self.__capacity
+        return "NumberOfStudent: " + str(self.__number_of_students) + " " + "Capacity: " + str(self.__capacity)

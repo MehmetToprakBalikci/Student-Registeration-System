@@ -23,7 +23,7 @@ class CourseSection:
     def get_section_number(self):
         return self.__section_number
 
-    def get_course_section_string(self):
+    def __str__(self):
         day, hour = "", ""
 
         if self.__day_number == 1:
@@ -42,9 +42,9 @@ class CourseSection:
         # 8.30  9.30  10.30  11.30  13  14  15  16  17  18
         # 1     2     3      4      5   6   7   8   9   10
         if 1 <= self.__section_number <= 4:
-            hour = str.format("%d.30", self.__section_number + 7)
+            hour = f"{self.__section_number + 7}.30"
         elif self.__section_number < 15:
-            hour = str.format("%d.00", self.__section_number + 8)
+            hour = f"{self.__section_number + 8}.00"
         else:
             hour = "Invalid Hour"
 

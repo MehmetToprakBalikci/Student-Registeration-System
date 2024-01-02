@@ -29,8 +29,8 @@ class Grade:
             return "FF"
         return "Invalid Grade"
 
-    def get_grade_string(self):
-        return "Grade : " + self.__numerical_grade + ", Letter Grade : " + self.get_letter_grade()
+    def __str__(self):
+        return f"Grade: {self.__numerical_grade} {", Letter Grade : "} {self.get_letter_grade()}"
 
     def get_numerical_grade(self):
         return self.__numerical_grade

@@ -1,3 +1,6 @@
+import logging
+
+
 class Transcript:
     __list_of_courses, __list_of_grades = [], []
     __student_credits, __student_year, __gpa = int(0), int(1), float(0)
@@ -34,7 +37,7 @@ class Transcript:
         return transcript_string
 
     # basically toString method
-    def get_transcript_string(self) -> str:
+    def __str__(self):
         digit_precision = 2
         temp_gpa = round(self.__gpa, 2)
         out_string = "Cumulative Gpa: " + str(self.__gpa)
@@ -44,10 +47,16 @@ class Transcript:
 
     # calculates the credits from taken courses
     def calculate_credit(self):
-        if len(self.__list_of_courses) == 0:
-            print("No courses for student found!")  # TODO remove print
-        if len(self.__list_of_grades) == 0:
-            print("No courses for student found!")
+        if self.__list_of_courses is None:
+            logging.warn("No courses for student found!")
+            return 0
+        elif len(self.__list_of_courses) == 0:
+            logging.warn("No courses for student found!")
+        if self.__list_of_grades is None:
+            logging.warn("No grades for student found!")
+            return 0
+        elif len(self.__list_of_grades) == 0:
+            logging.warn("No grades for student found!")
 
         for i in range(len(self.__list_of_courses)):
             if self.__list_of_grades[i].get_numerical_grade() >= 35:
@@ -56,10 +65,15 @@ class Transcript:
     # calculates the gpa from grades
     def calculate_gpa(self):
         total_credit = 0
-        if len(self.__list_of_courses) == 0:
-            print("No courses for student found!")  # TODO remove print
-        if len(self.__list_of_grades) == 0:
-            print("No courses for student found!")
+        if self.__list_of_courses is None:
+            logging.warn("No courses for student found!")
+            return 0
+        elif len(self.__list_of_courses) == 0:
+            logging.warn("No courses for student found!")
+        if self.__list_of_grades is None:
+            logging.warn("No courses for student found!")
+        elif len(self.__list_of_grades) == 0:
+            logging.warn("No courses for student found!")
 
         weighted_values = []
         for i in range(len(self.__list_of_grades)):
@@ -73,7 +87,7 @@ class Transcript:
         for value in weighted_values:
             total_weighted_values += weighted_values
 
-        self.__gpa = float(total_weighted_values) / (float(total_credit)*25)
+        self.__gpa = float(total_weighted_values) / (float(total_credit) * 25)
 
     # calculates the year from credits and gpa
     def calculate_year(self):

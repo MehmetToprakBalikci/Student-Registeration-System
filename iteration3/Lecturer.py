@@ -9,5 +9,5 @@ class Lecturer(Staff):
         super().__init__(name, last_name)
         self.__lecturer_id = lecturer_id
 
-    def get_lecturer_string(self) -> str:
-        return "Lecturer: " + self.get_first_name() + " " + self.get_last_name()
+    def __str__(self):
+        return f"Lecturer: {self.get_first_name()} {self.get_last_name()}"

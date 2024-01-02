@@ -18,6 +18,6 @@ class Message:
     def get_message(self):
         return self.__message
 
-    def get_message_string(self):  # TODO Convert the names of toString methods in user
-        s = "Title: " + self.__title + ", " + "Sender: " + self.__sender.toString()
+    def __str__(self):
+        s = "Title: " + self.__title + ", " + "Sender: " + self.__sender.__str__()
         return s + ", " + "Receiver: " + self.__receiver().toString() + ", " + "Read: " + self.__is_read
