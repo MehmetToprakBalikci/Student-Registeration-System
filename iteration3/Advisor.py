@@ -178,7 +178,7 @@ class Advisor(Lecturer, User):
         message = Message(message_info[0], message_info[1], self, self.student_list[action_number - 1])
         self.send_message(message, self.student_list[action_number - 1])
 
-    def __send_message(self, message, student):
+    def send_message(self, message, student):
         self.sent_messages.append(message)
         student.receive_message(message)
 
