@@ -3,7 +3,7 @@ import string
 
 
 class CourseSection:
-    __day_number, __section_number = int(0)
+    __day_number, __section_number = int(0), int(0)
 
     def __init__(self, day_number: int, section_number: int):
         self.__day_number = day_number
