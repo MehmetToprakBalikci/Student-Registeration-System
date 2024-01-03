@@ -34,30 +34,30 @@ class Course:
                 logging.error("course object in registration_complete_courses not an instance of Course class!")
             else:
                 if self.equals(course):
-                    return ("This course:(" + course.get_course_string() +
+                    return ("This course:(" + course.__str__() +
                             ")" + "already exist in completedRegistrationCourses.Try to select another course")
                 if not course.get_course_section().compare_availability(self.__section):
-                    return ("This course is conflicting with the time of the course : " + course.get_course_string()
+                    return ("This course is conflicting with the time of the course : " + course.__str__()
                             + " inside your courses that are registered!")
         for course in registration_waiting_courses:
             if not isinstance(course, Course):
                 logging.error("course object in registration_waiting_courses not an instance of Course class!")
             else:
                 if self.equals(course):
-                    return ("This course:(" + course.get_course_string() +
+                    return ("This course:(" + course.__str__() +
                             ")" + "already exist in registrationWaitingCourses.Try to select another course")
                 if not course.get_course_section().compare_availability(self.__section):
-                    return ("This course is conflicting with the time of the course : " + course.get_course_string()
+                    return ("This course is conflicting with the time of the course : " + course.__str__()
                             + " inside your courses that are waiting to be registered!")
         for course in cancel_waiting_courses:
             if not isinstance(course, Course):
                 logging.error("course object in cancel_waiting_courses not an instance of Course class!")
             else:
                 if self.equals(course):
-                    return ("This course:(" + course.get_course_string() +
+                    return ("This course:(" + course.__str__() +
                             ")" + "already exist in cancelWaitingCourses.Try to select another course")
                 if not course.get_course_section().compare_availability(self.__section):
-                    return ("This course is conflicting with the time of the course : " + course.get_course_string()
+                    return ("This course is conflicting with the time of the course : " + course.__str__()
                             + " inside your courses that are waiting to be cancelled!")
         if self.is_full():
             return "this course's capacity full!."
