@@ -1,6 +1,7 @@
 import logging
-import Person
-import User
+from Person  import Person
+from User import User
+from Message import Message
 class Student(Person, User) :
 
     #String name, String lastName, String username, String password, String studentID, Transcript currentTranscript, Advisor currentAdvisor

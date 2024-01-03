@@ -1,7 +1,11 @@
 import os
 import unittest
-import Student
-import logging
+from Student import Student
+from Controller import Controller
+from Advisor import Advisor
+from Course import Course
+from Grade import Grade
+from Transcript import Transcript
 class TestStudentAndAdvisor(unittest.TestCase) :
     
 
