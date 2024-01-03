@@ -2,7 +2,7 @@ import logging
 from Person  import Person
 from User import User
 from Message import Message
-
+from Controller import Controller
 class Student(Person, User) :
 
     #String name, String lastName, String username, String password, String studentID, Transcript currentTranscript, Advisor currentAdvisor
@@ -50,41 +50,41 @@ class Student(Person, User) :
         return "Name: " + super().get_first_name() + super().get_last_name() + ", StudentID: " + self.get_student_id() + "."
     
     #Controller controller
-    def start_actions(self, controller):
+    def start_actions(self):
         action_list = self.get_action_list()
 
         logging.info("Starting actions")
         #int
-        action_number = controller.print_list_return_selection(action_list, -1)
+        action_number = Controller.get_instance().print_list_return_selection(action_list, -1)
         MAX_ACTION = 8
         
         while action_number != MAX_ACTION:
             if not action_number.isdigit :
                 logging.error("Action selection is not a number!")
             try:  
-                self.run_user_action(action_number, controller)
+                self.run_user_action(action_number)
             except ValueError as e:
-                controller.print_error_message(str(e))
+                Controller.get_instance().print_error_message(str(e))
                 raise
             except TypeError as e1:
-                controller.print_error_message(str(e1))
+                Controller.get_instance().print_error_message(str(e1))
                 raise
             except Exception :
                 logging.critical("Something went wrong while running actions of student!")
-                controller.print_error_message("Something went wrong!")
+                Controller.get_instance().print_error_message("Something went wrong!")
             finally:    
-                action_number = controller.print_list_return_selection(action_list, -1)
+                action_number = Controller.get_instance().print_list_return_selection(action_list, -1)
 
         
 
     #int actionNumber, Controller controller
-    def run_user_action(self, action_number, controller):
+    def run_user_action(self, action_number):
         ##Student selection part
         logging.info("Trying to run the action selected by user")
         if action_number == 1:
             logging.info("Selected action = 1")
 
-            current_user_selection = controller.print_list_return_selection(
+            current_user_selection = Controller.get_instance().print_list_return_selection(
             self.__get_course_return_list_string("Courses that are available to you select one:",
                                                  self.__current_available_courses), -1)
             if not isinstance(current_user_selection, int) :
@@ -92,14 +92,14 @@ class Student(Person, User) :
                 raise ValueError("Expected Integer Error")
             if current_user_selection != 1: 
                 current_course = self.__current_available_courses[current_user_selection - 2]
-                current_user_selection = controller.print_list_return_selection[
+                current_user_selection = Controller.get_instance().print_list_return_selection[
                     self.__get_course_info_string(current_course), -1]
                 if not isinstance(current_user_selection, int) :
                     logging.error("Course selection was not given an integer!")
                     raise ValueError("Expected Integer Error")
                 if current_user_selection == 1: # return back to available course menu page
                     logging.info("Selected action in menu2 = 1")
-                    self.run_user_action(1, controller)
+                    self.run_user_action(1)
                 elif current_user_selection == 2: # register to the course
                     logging.info("Selected action in menu2 = 2")
                     course_sect_availability_str = current_course.check_course_section(
@@ -116,25 +116,25 @@ class Student(Person, User) :
                         logging.debug("Checked course availability to be alright")
                         self.remove_element_from_current_available_courses(current_course)
                         self.__registration_waiting_courses.append(current_course)
-                        controller.print_success_message(current_course + " has been sent to your advisor " + self.__current_advisor.get_first_name() + " " + self.__current_advisor.get_last_name())
+                        Controller.get_instance().print_success_message(current_course + " has been sent to your advisor " + self.__current_advisor.get_first_name() + " " + self.__current_advisor.get_last_name())
                     else:
                         logging.debug("Checked course availability to be NOT alright")
-                        controller.print_error_message(course_sect_availability_str)
-                    self.run_user_action(1, controller)
+                        Controller.get_instance().print_error_message(course_sect_availability_str)
+                    self.run_user_action(1)
                 elif current_user_selection == 3: # see your course lecturer
                     logging.info("Selected action in menu2 = 3")
-                    controller.print_list(self.__get_courses_lecturer_info(current_course))
-                    self.run_user_action(1, controller)
+                    Controller.get_instance().print_list(self.__get_courses_lecturer_info(current_course))
+                    self.run_user_action(1)
                 elif current_user_selection == 4: # see your course assistant
                     logging.info("Selected action in menu2 = 4")
-                    controller.print_list(self.__get_courses_assistant_info(current_course))
-                    self.run_user_action(1, controller)
+                    Controller.get_instance().print_list(self.__get_courses_assistant_info(current_course))
+                    self.run_user_action(1)
                 elif current_user_selection == 5: # return back to first page
                     logging.info("Selected action in menu2 = 5")
                     return
         elif current_user_selection != 2 :
             logging.info("Selected action = 2")
-            current_user_selection = controller.print_list_return_selection(
+            current_user_selection = Controller.get_instance().print_list_return_selection(
             self.__get_course_return_list_string("Courses that have finalized registration, choose course to cancel:", self.__registration_complete_courses), -1)
             if not isinstance(current_user_selection, int) :
                 logging.error("Course selection was not given an integer!")
@@ -143,20 +143,20 @@ class Student(Person, User) :
                 current_course = self.__registration_complete_courses.get(current_user_selection - 2)
                 self.remove_element_from_registration_complete_courses(current_course)
                 self.__cancel_waiting_courses.append(current_course)
-                controller.print_success_message(current_course + "is successfully added to cancelWaiting.\n")
+                Controller.get_instance().print_success_message(current_course + "is successfully added to cancelWaiting.\n")
         elif current_user_selection != 3 :
             logging.info("Selected action = 3")
-            controller.print_list(
+            Controller.get_instance().print_list(
             self.__get_course_list_string("Courses that are waiting to be finalized by your advisor ", self.__registration_waiting_courses))
         elif current_user_selection != 4 :
             logging.info("Selected action = 4")
-            controller.print_list(self.__get_course_list_string("Courses that are waiting to be canceled by your " + str(self.__current_advisor), str(self.__cancel_waiting_courses)))
+            Controller.get_instance().print_list(self.__get_course_list_string("Courses that are waiting to be canceled by your " + str(self.__current_advisor), str(self.__cancel_waiting_courses)))
         elif current_user_selection != 5 :
             logging.info("Selected action = 5")
-            controller.print_list(self.__CURRENT_TRANSCRIPT.getStudentTranscriptStringList())
+            Controller.get_instance().print_list(self.__CURRENT_TRANSCRIPT.getStudentTranscriptStringList())
         elif current_user_selection != 6 :
             logging.info("Selected action = 6")
-            controller.print_list(self.__string_to_list(self.__current_advisor.str()))
+            Controller.get_instance().print_list(self.__string_to_list(self.__current_advisor.str()))
         elif current_user_selection != 7 :
             while True :
                 logging.info("Getting message selection list")
@@ -167,7 +167,7 @@ class Student(Person, User) :
                 message_menu_list.append("2) See received messages.")
                 message_menu_list.append("3) Send message to your advisor.")
                 message_menu_list.append("4) Go back.")
-                action_number = controller.print_list_return_selection(message_menu_list, -1)
+                action_number = Controller.get_instance().print_list_return_selection(message_menu_list, -1)
                 if not isinstance(action_number, int) :
                     logging.error("Course selection was not given an integer!")
                     raise ValueError("Expected Integer Error")
@@ -186,7 +186,7 @@ class Student(Person, User) :
                                 received_messages_list.append(i + ") " + str(current_recieved_message))
                                 i = i+1
                             received_messages_list.append(") Go back.")
-                            action_number = controller.print_list_return_selection(received_messages_list, -1)
+                            action_number = Controller.get_instance().print_list_return_selection(received_messages_list, -1)
                             if not isinstance(action_number, int) :
                                 logging.error("Course selection was not given an integer!")
                                 raise ValueError("Expected Integer Error")
@@ -197,7 +197,7 @@ class Student(Person, User) :
                             message_list[0] = str(self.__received_messages.index(action_number-1)) + "\n\n" + str(self.__received_messages.index(action_number-1))
                             message_list[1] = "1) Go back."
                             self.__received_messages.index(action_number-1).read_message()
-                            action_number = controller.print_list_return_selection(message_list, -1)
+                            action_number = Controller.get_instance().print_list_return_selection(message_list, -1)
                             if not isinstance(action_number, int) :
                                 logging.error("Course selection was not given an integer!")
                                 raise ValueError("Expected Integer Error")
@@ -206,7 +206,7 @@ class Student(Person, User) :
                         else :
                             logging.debug("There are no recieved messages!")
                             received_messages_list[0] = "There is no received messages."
-                            action_number = controller.print_list_return_selection(received_messages_list, -1)
+                            action_number = Controller.get_instance().print_list_return_selection(received_messages_list, -1)
                             if not isinstance(action_number, int) :
                                 logging.error("Course selection was not given an integer!")
                                 raise ValueError("Expected Integer Error")
@@ -223,7 +223,7 @@ class Student(Person, User) :
                             for current_sent_message in self.__sent_messages:
                                 sent_messages_list.append(i + ") " + str(current_sent_message))
                                 i = i+1
-                            action_number = controller.print_list_return_selection(sent_messages_list, -1)
+                            action_number = Controller.get_instance().print_list_return_selection(sent_messages_list, -1)
                             if not isinstance(action_number, int) :
                                 logging.error("Course selection was not given an integer!")
                                 raise ValueError("Expected Integer Error")
@@ -234,7 +234,7 @@ class Student(Person, User) :
                                 logging.info("Reading selected message from recieved messages")
                                 message_list[0] = str(self.__sent_messages.index(action_number-1)) + "\n\n" + str(self.__sent_messages.index(action_number-1))
                                 message_list[1] = "1) Go back."
-                                action_number = controller.print_list_return_selection(message_list, -1)
+                                action_number = Controller.get_instance().print_list_return_selection(message_list, -1)
                                 if not isinstance(action_number, int) :
                                     logging.error("Course selection was not given an integer!")
                                     raise ValueError("Expected Integer Error")
@@ -243,7 +243,7 @@ class Student(Person, User) :
                         else :
                             logging.debug("There are no recieved messages!")
                             sent_messages_list[0] = "There is no sent messages."
-                            action_number = controller.print_list_return_selection(sent_messages_list, -1)
+                            action_number = Controller.get_instance().print_list_return_selection(sent_messages_list, -1)
                             if not isinstance(action_number, int) :
                                 logging.error("Course selection was not given an integer!")
                                 raise ValueError("Expected Integer Error")
@@ -251,7 +251,7 @@ class Student(Person, User) :
                     continue
                 else :
                     logging.info("Selected action in message menu = 3")
-                    message_info = controller.request_message_string()
+                    message_info = Controller.get_instance().request_message_string()
                     if message_info is None :
                         logging.error("Given string was empty!")
                         raise ValueError("Empty String")
