@@ -51,7 +51,7 @@ class Advisor(Lecturer, User):
             logging.info("3) Log out selected")
             return
 
-    def see_students(self):
+    def __see_students(self):
         while True:
             student_size = len(self.student_list)
             student_menu_list = ["Select a student for action."]
@@ -66,7 +66,7 @@ class Advisor(Lecturer, User):
             selected_student = self.student_list[action_number - 1]
             self.process_student_actions(selected_student)
 
-    def process_student_actions(self, selected_student):
+    def __process_student_actions(self, selected_student):
         control_flag = True
         while control_flag:
             registration_waiting_courses_size = len(selected_student.registration_waiting_courses)
@@ -94,7 +94,7 @@ class Advisor(Lecturer, User):
                                selected_student.cancel_waiting_courses)[action_number - 1]
             self.process_course_actions(selected_student, selected_course)
 
-    def process_course_actions(self, selected_student, selected_course):
+    def __process_course_actions(self, selected_student, selected_course):
         course_action_menu_list = [f"{selected_student}\n{selected_course}", "1) Accept request.", "2) Reject request."]
 
         action_number = Controller.getInstance().print_list_return_selection(course_action_menu_list, -1)
@@ -109,7 +109,7 @@ class Advisor(Lecturer, User):
             selected_student.remove_element_from_registration_waiting_courses(selected_course)
             selected_student.add_element_to_current_available_courses(selected_course)
 
-    def see_messages(self):
+    def __see_messages(self):
         while True:
             message_menu_list = [
                 "Select an action.",
@@ -134,7 +134,7 @@ class Advisor(Lecturer, User):
                 logging.info(f"{action_number}) Send message to a student selected")
                 self.send_message_to_student()
 
-    def see_received_messages(self):
+    def __see_received_messages(self):
         while True:
             received_messages_list = [f"Received messages:"]
 
@@ -155,7 +155,7 @@ class Advisor(Lecturer, User):
                 action_number = Controller.getInstance().print_list_return_selection(received_messages_list, -1)
                 break
 
-    def see_sent_messages(self):
+    def __see_sent_messages(self):
         while True:
             sent_messages_list = [f"Sent messages:"]
 
@@ -176,13 +176,13 @@ class Advisor(Lecturer, User):
                 action_number = Controller.getInstance().print_list_return_selection(sent_messages_list, -1)
                 break
 
-    def read_message(self, message):
+    def __read_message(self, message):
         message_list = [f"{message}\n\n{message.get_message()}", "1) Go back."]
         action_number = Controller.getInstance().print_list_return_selection(message_list, -1)
         if action_number == 1:
             return
 
-    def send_message_to_student(self):
+    def __send_message_to_student(self):
         student_size = len(self.student_list)
         student_to_send_message = ["Select a student to send a message."]
         student_to_send_message.extend([f"{i + 1}) {self.student_list[i]}" for i in range(student_size)])
@@ -195,11 +195,11 @@ class Advisor(Lecturer, User):
         logging.info(f"{action_number}) Student selected for send message")
         message_info = Controller.getInstance().request_message_string()
         message = Message(message_info[0], message_info[1], self, self.student_list[action_number - 1])
-        self.send_message(message, self.student_list[action_number - 1])
+        self.__send_message(message, self.student_list[action_number - 1])
         logging.info("Message sent")
 
 
-    def send_message(self, message, student):
+    def __send_message(self, message, student):
         self.sent_messages.append(message)
         student.receive_message(message)
 
