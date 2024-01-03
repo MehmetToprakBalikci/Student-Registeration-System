@@ -30,7 +30,7 @@ class Advisor(Lecturer, User):
         logging.info("Starting actions")
         while True:
             action_list = self.get_action_list()
-            action_number = Controller.getInstance().print_list_return_selection(action_list, -1)
+            action_number = Controller.get_instance().print_list_return_selection(action_list, -1)
             if action_number != 3:
                 self.run_user_action(action_number)
             else:
@@ -58,7 +58,7 @@ class Advisor(Lecturer, User):
             student_menu_list.extend([f"{i + 1}) {self.__student_list[i]}" for i in range(student_size)])
             student_menu_list.append(f"{student_size + 1}) Go back.")
 
-            action_number = Controller.getInstance().print_list_return_selection(student_menu_list, -1)
+            action_number = Controller.get_instance().print_list_return_selection(student_menu_list, -1)
             if action_number == student_size + 1:
                 logging.info(f"{action_number}) Go back selected")
                 return
@@ -83,7 +83,7 @@ class Advisor(Lecturer, User):
                 [f"{i + 1 + registration_waiting_courses_size}) {selected_student.cancel_waiting_courses[i]}"
                  for i in range(cancel_waiting_courses_size)])
 
-            action_number = Controller.getInstance().print_list_return_selection(course_menu_list, -1)
+            action_number = Controller.get_instance().print_list_return_selection(course_menu_list, -1)
 
             if action_number == registration_waiting_courses_size + cancel_waiting_courses_size + 1:
                 logging.info(f"{action_number}) Go back selected")

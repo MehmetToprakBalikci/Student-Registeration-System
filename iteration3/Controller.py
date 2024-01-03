@@ -34,17 +34,17 @@ class Controller:
         Controller.__jsonWriter.saveFiles()
         Controller.__ui.callEndMessage(0)
 
-    def printErrorMessage(self, errorMessage):
+    def print_error_message(self, errorMessage):
         Controller.__ui.printConsoleErrorMessage(errorMessage)
 
-    def printListReturnSelection(self, stringsList, errorInt):
+    def print_list_return_selection(self, stringsList, errorInt):
         return Controller.__ui.printConsoleListReturnSelection(stringsList, errorInt)
 
-    def printList(self, stringList):
+    def print_list(self, stringList):
         Controller.__ui.printConsoleList(stringList)
 
-    def printSuccessMessage(self, successMessage):
+    def print_success_message(self, successMessage):
         Controller.__ui.printConsoleSuccessMessage(successMessage)
 
-    def requestMessageString(self):
+    def request_message_string(self):
         return Controller.__ui.requestMessageStringFromUser()
