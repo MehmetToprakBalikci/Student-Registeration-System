@@ -11,7 +11,7 @@ class Controller:
         Controller.__ui.initialize()
 
     @classmethod
-    def getInstance(cls, input=None):
+    def get_instance(cls, input=None):
         if cls.__singletonController is None:
             cls.__singletonController = Controller(input)
         return cls.__singletonController

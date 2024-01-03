@@ -7,7 +7,7 @@ class User(ABC):
         pass
 
     @abstractmethod
-    def run_user_action(self, action_number):
+    def run_user_action(self, action_number, controller):
         pass
 
     @abstractmethod
@@ -15,7 +15,7 @@ class User(ABC):
         pass
 
     @abstractmethod
-    def start_actions(self):
+    def start_actions(self, controller):
         pass
 
     # Methods added in iteration 2
