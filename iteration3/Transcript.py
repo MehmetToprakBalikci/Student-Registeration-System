@@ -12,9 +12,9 @@ class Transcript:
     def __init__(self, list_of_courses, list_of_grades):
         self.__list_of_courses = list_of_courses
         self.__list_of_grades = list_of_grades
-        self.calculate_credit()
-        self.calculate_gpa()
-        self.calculate_year()
+        self.__calculate_credit()
+        self.__calculate_gpa()
+        self.__calculate_year()
 
     # checks if a course is passed
     def check_passed_courses(self, checked_course: Course) -> bool:
@@ -47,7 +47,7 @@ class Transcript:
         return out_string
 
     # calculates the credits from taken courses
-    def calculate_credit(self):
+    def __calculate_credit(self):
         if self.__list_of_courses is None:
             logging.warning("No courses for student found!")
             return 0
@@ -64,7 +64,7 @@ class Transcript:
                 self.__student_credits += self.__list_of_courses[i].get_course_credit()
 
     # calculates the gpa from grades
-    def calculate_gpa(self):
+    def __calculate_gpa(self):
         total_credit = 0
         if self.__list_of_courses is None:
             logging.warning("No courses for student found!")
@@ -91,7 +91,7 @@ class Transcript:
         self.__gpa = float(total_weighted_values) / (float(total_credit) * 25)
 
     # calculates the year from credits and gpa
-    def calculate_year(self):
+    def __calculate_year(self):
         if self.__student_credits > 90:
             self.__student_year = 4
         elif self.__student_credits > 60:

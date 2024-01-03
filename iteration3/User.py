@@ -20,7 +20,7 @@ class User(ABC):
 
     # Methods added in iteration 2
     @abstractmethod
-    def __send_message(self, message, user):
+    def send_message(self, message, user):
         pass
 
     @abstractmethod

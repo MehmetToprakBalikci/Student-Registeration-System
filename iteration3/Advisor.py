@@ -199,7 +199,7 @@ class Advisor(Lecturer, User):
         logging.info("Message sent")
 
 
-    def __send_message(self, message, student):
+    def send_message(self, message, student):
         self.sent_messages.append(message)
         student.receive_message(message)
 
