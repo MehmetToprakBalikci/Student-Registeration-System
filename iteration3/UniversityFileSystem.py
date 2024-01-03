@@ -8,6 +8,7 @@ from Advisor import  Advisor
 from Assistant import  Assistant
 from  Lecturer import Lecturer
 from Transcript import Transcript
+from Assistant import Assistant
 
 
 def get_assistant_id(course_json):
