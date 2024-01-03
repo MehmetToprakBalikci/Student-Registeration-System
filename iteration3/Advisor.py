@@ -9,19 +9,19 @@ class Advisor(Lecturer, User):
 
     def __init__(self, name="", last_name="", username="", password="", lecturer_id="", student_list=None):
         super().__init__(name, last_name, lecturer_id)
-        self.user_name = username
-        self.password = password
+        self.__user_name = username
+        self.__password = password
         if student_list is None:
-            self.student_list = []
+            self.__student_list = []
         else:
-            self.student_list = student_list
-        self.sent_messages = []
-        self.received_messages = []
+            self.__student_list = student_list
+        self.__sent_messages = []
+        self.__received_messages = []
 
     def compare_credentials(self, username, password):
-        if self.user_name is None or self.password is None:
+        if self.__user_name is None or self.__password is None:
             return False
-        return self.user_name == username and self.password == password
+        return self.__user_name == username and self.__password == password
 
     def __str__(self):
         return f"Advisor: {self.get_first_name()} {self.get_last_name()}"
@@ -43,19 +43,19 @@ class Advisor(Lecturer, User):
     def run_user_action(self, action_number):
         if action_number == 1:
             logging.info("1) See students selected")
-            self.see_students()
+            self.__see_students()
         elif action_number == 2:
             logging.info("2) See messages selected")
-            self.see_messages()
+            self.__see_messages()
         elif action_number == 3:
             logging.info("3) Log out selected")
             return
 
     def __see_students(self):
         while True:
-            student_size = len(self.student_list)
+            student_size = len(self.__student_list)
             student_menu_list = ["Select a student for action."]
-            student_menu_list.extend([f"{i + 1}) {self.student_list[i]}" for i in range(student_size)])
+            student_menu_list.extend([f"{i + 1}) {self.__student_list[i]}" for i in range(student_size)])
             student_menu_list.append(f"{student_size + 1}) Go back.")
 
             action_number = Controller.getInstance().print_list_return_selection(student_menu_list, -1)
@@ -63,8 +63,8 @@ class Advisor(Lecturer, User):
                 logging.info(f"{action_number}) Go back selected")
                 return
             logging.info(f"{action_number}) Student selected")
-            selected_student = self.student_list[action_number - 1]
-            self.process_student_actions(selected_student)
+            selected_student = self.__student_list[action_number - 1]
+            self.__process_student_actions(selected_student)
 
     def __process_student_actions(self, selected_student):
         control_flag = True
@@ -92,7 +92,7 @@ class Advisor(Lecturer, User):
             logging.info(f"{action_number}) Course selected")
             selected_course = (selected_student.registration_waiting_courses +
                                selected_student.cancel_waiting_courses)[action_number - 1]
-            self.process_course_actions(selected_student, selected_course)
+            self.__process_course_actions(selected_student, selected_course)
 
     def __process_course_actions(self, selected_student, selected_course):
         course_action_menu_list = [f"{selected_student}\n{selected_course}", "1) Accept request.", "2) Reject request."]
@@ -126,30 +126,30 @@ class Advisor(Lecturer, User):
                 return
             elif action_number == 2:
                 logging.info(f"{action_number}) See received messages selected")
-                self.see_received_messages()
+                self.__see_received_messages()
             elif action_number == 1:
                 logging.info(f"{action_number}) See sent messages selected")
-                self.see_sent_messages()
+                self.__see_sent_messages()
             else:
                 logging.info(f"{action_number}) Send message to a student selected")
-                self.send_message_to_student()
+                self.__send_message_to_student()
 
     def __see_received_messages(self):
         while True:
             received_messages_list = [f"Received messages:"]
 
-            if self.received_messages:
-                received_messages_list.extend([f"{i + 1}) {self.received_messages[i]}" for i in range(len(self.received_messages))])
-                received_messages_list.append(f"{len(self.received_messages) + 1}) Go back.")
+            if self.__received_messages:
+                received_messages_list.extend([f"{i + 1}) {self.__received_messages[i]}" for i in range(len(self.__received_messages))])
+                received_messages_list.append(f"{len(self.__received_messages) + 1}) Go back.")
 
                 action_number = Controller.getInstance().print_list_return_selection(received_messages_list, -1)
 
-                if action_number == len(self.received_messages) + 1:
+                if action_number == len(self.__received_messages) + 1:
                     logging.info(f"{action_number}) Go back selected")
                     break
                 logging.info(f"{action_number}) Message selected")
-                message = self.received_messages[action_number - 1]
-                self.read_message(message)
+                message = self.__received_messages[action_number - 1]
+                self.__read_message(message)
             else:
                 received_messages_list[0] = "There is no received messages."
                 action_number = Controller.getInstance().print_list_return_selection(received_messages_list, -1)
@@ -159,33 +159,31 @@ class Advisor(Lecturer, User):
         while True:
             sent_messages_list = [f"Sent messages:"]
 
-            if self.sent_messages:
-                sent_messages_list.extend([f"{i + 1}) {self.sent_messages[i]}" for i in range(len(self.sent_messages))])
-                sent_messages_list.append(f"{len(self.sent_messages) + 1}) Go back.")
+            if self.__sent_messages:
+                sent_messages_list.extend([f"{i + 1}) {self.__sent_messages[i]}" for i in range(len(self.__sent_messages))])
+                sent_messages_list.append(f"{len(self.__sent_messages) + 1}) Go back.")
 
                 action_number = Controller.getInstance().print_list_return_selection(sent_messages_list, -1)
 
-                if action_number == len(self.sent_messages) + 1:
+                if action_number == len(self.__sent_messages) + 1:
                     logging.info(f"{action_number}) Go back selected")
                     break
                 logging.info(f"{action_number}) Message selected")
-                message = self.sent_messages[action_number - 1]
-                self.read_message(message)
+                message = self.__sent_messages[action_number - 1]
+
+                message_list = [f"{message}\n\n{message.get_message()}", "1) Go back."]
+                action_number = Controller.getInstance().print_list_return_selection(message_list, -1)
+                if action_number == 1:
+                    return
             else:
                 sent_messages_list[0] = "There is no sent messages."
                 action_number = Controller.getInstance().print_list_return_selection(sent_messages_list, -1)
                 break
 
-    def __read_message(self, message):
-        message_list = [f"{message}\n\n{message.get_message()}", "1) Go back."]
-        action_number = Controller.getInstance().print_list_return_selection(message_list, -1)
-        if action_number == 1:
-            return
-
     def __send_message_to_student(self):
-        student_size = len(self.student_list)
+        student_size = len(self.__student_list)
         student_to_send_message = ["Select a student to send a message."]
-        student_to_send_message.extend([f"{i + 1}) {self.student_list[i]}" for i in range(student_size)])
+        student_to_send_message.extend([f"{i + 1}) {self.__student_list[i]}" for i in range(student_size)])
         student_to_send_message.append(f"{student_size + 1}) Go back.")
 
         action_number = Controller.getInstance().print_list_return_selection(student_to_send_message, -1)
@@ -194,14 +192,13 @@ class Advisor(Lecturer, User):
             return
         logging.info(f"{action_number}) Student selected for send message")
         message_info = Controller.getInstance().request_message_string()
-        message = Message(message_info[0], message_info[1], self, self.student_list[action_number - 1])
-        self.__send_message(message, self.student_list[action_number - 1])
+        message = Message(message_info[0], message_info[1], self, self.__student_list[action_number - 1])
+        self.send_message(message, self.__student_list[action_number - 1])
         logging.info("Message sent")
 
-
     def send_message(self, message, student):
-        self.sent_messages.append(message)
+        self.__sent_messages.append(message)
         student.receive_message(message)
 
     def receive_message(self, message):
-        self.received_messages.append(message)
+        self.__received_messages.append(message)
