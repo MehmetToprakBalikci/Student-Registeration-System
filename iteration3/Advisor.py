@@ -202,3 +202,9 @@ class Advisor(Lecturer, User):
 
     def receive_message(self, message):
         self.__received_messages.append(message)
+
+    def get_student_list(self):
+        return self.__student_list
+
+    def set_student_list(self, student_list):
+        self.__student_list = student_list
