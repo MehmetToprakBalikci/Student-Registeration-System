@@ -149,7 +149,10 @@ class Advisor(Lecturer, User):
                     break
                 logging.info(f"{action_number}) Message selected")
                 message = self.__received_messages[action_number - 1]
-                self.__read_message(message)
+                message_list = [f"{message}\n\n{message.get_message()}", "1) Go back."]
+                action_number = Controller.getInstance().print_list_return_selection(message_list, -1)
+                if action_number == 1:
+                    return
             else:
                 received_messages_list[0] = "There is no received messages."
                 action_number = Controller.getInstance().print_list_return_selection(received_messages_list, -1)
@@ -170,7 +173,6 @@ class Advisor(Lecturer, User):
                     break
                 logging.info(f"{action_number}) Message selected")
                 message = self.__sent_messages[action_number - 1]
-
                 message_list = [f"{message}\n\n{message.get_message()}", "1) Go back."]
                 action_number = Controller.getInstance().print_list_return_selection(message_list, -1)
                 if action_number == 1:
