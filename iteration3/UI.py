@@ -35,11 +35,20 @@ class UI:
     def printConsoleListReturnSelection(self, stringList, errorInt):
         if errorInt == 0:
             raise Exception("emptyListStringException")
+
         while True:
             self.printConsoleList(stringList)
-            choice = int(input())
-            if 0 < choice < len(stringList):
-                return choice
+
+            try:
+                choice = self.readInput()
+                choice = int(choice)
+                if 0 < choice < len(stringList):
+                    return choice
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+            except Exception as e:
+                print(f"Error reading input: {e}")
+                sys.exit(1)
 
     def printConsoleList(self, stringList):
         for string in stringList:
