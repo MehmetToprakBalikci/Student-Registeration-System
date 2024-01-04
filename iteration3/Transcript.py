@@ -121,12 +121,8 @@ class Transcript:
     # Setters
     def set_list_of_courses(self, list_of_courses):
         self.__list_of_courses = list_of_courses
-        self.__calculate_credit()
-        self.__calculate_gpa()
-        self.__calculate_year()
+
 
     def set_list_of_grades(self, list_of_grades):
         self.__list_of_grades = list_of_grades
-        self.__calculate_credit()
-        self.__calculate_gpa()
-        self.__calculate_year()
+  
