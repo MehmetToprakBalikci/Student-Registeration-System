@@ -32,7 +32,6 @@ class Advisor(Lecturer, User):
         while True:
             action_list = self.get_action_list()
             action_number = Controller.get_instance().print_list_return_selection(action_list, -1)
-            jsonwriter()
             if action_number != 3:
                 self.run_user_action(action_number)
             else:

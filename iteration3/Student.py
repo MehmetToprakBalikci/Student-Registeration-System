@@ -200,11 +200,11 @@ class Student(Person, User):
                         logging.info("Checking recieved messages")
                         if len(self.__received_messages) != 0:
                             logging.debug("There are recieved messages!")
-                            i = 0
+                            i = 1
                             for current_recieved_message in self.__received_messages:
-                                received_messages_list.append(i + ") " + str(current_recieved_message))
+                                received_messages_list.append(str(i) + ") " + str(current_recieved_message))
                                 i = i + 1
-                            received_messages_list.append(") Go back.")
+                            received_messages_list.append(str(i) + ") Go back.")
                             action_number = Controller.get_instance().print_list_return_selection(
                                 received_messages_list, -1)
                             if not isinstance(action_number, int):
@@ -214,10 +214,10 @@ class Student(Person, User):
                                 logging.info("Returning back from recieved messages")
                                 break
                             logging.info("Reading selected message from recieved messages")
-                            message_list[0] = str(self.__received_messages.index(action_number - 1)) + "\n\n" + str(
-                                self.__received_messages.index(action_number - 1))
+                            message_list[0] = str(self.__received_messages[action_number - 1]) + "\n\n" + str(
+                                self.__received_messages[action_number - 1])
                             message_list[1] = "1) Go back."
-                            self.__received_messages.index(action_number - 1).read_message()
+                            self.__received_messages[action_number - 1].read_message()
                             action_number = Controller.get_instance().print_list_return_selection(message_list, -1)
                             if not isinstance(action_number, int):
                                 logging.error("Course selection was not given an integer!")
@@ -227,6 +227,7 @@ class Student(Person, User):
                         else:
                             logging.debug("There are no recieved messages!")
                             received_messages_list[0] = "There is no received messages."
+                            received_messages_list.append("1-) Go back.")
                             action_number = Controller.get_instance().print_list_return_selection(
                                 received_messages_list, -1)
                             if not isinstance(action_number, int):
@@ -241,12 +242,12 @@ class Student(Person, User):
                         logging.info("Checking recieved messages")
                         if len(self.__sent_messages) != 0:
                             logging.debug("There are recieved messages!")
-                            i = 0
+                            i = 1
                             for current_sent_message in self.__sent_messages:
                                 sent_messages_list.append(str(i) + ") " + str(current_sent_message))
                                 i = i + 1
-                            action_number = Controller.get_instance().print_list_return_selection(sent_messages_list,
-                                                                                                  -1)
+                            sent_messages_list.append(str(i) + ") Go back.")
+                            action_number = Controller.get_instance().print_list_return_selection(sent_messages_list,-1)
                             if not isinstance(action_number, int):
                                 logging.error("Course selection was not given an integer!")
                                 raise ValueError("Expected Integer Error")
@@ -255,8 +256,8 @@ class Student(Person, User):
                                 break
                             else:
                                 logging.info("Reading selected message from recieved messages")
-                                message_list[0] = str(self.__sent_messages.index(action_number - 1)) + "\n\n" + str(
-                                    self.__sent_messages.index(action_number - 1))
+                                message_list[0] = str(self.__sent_messages[action_number - 1]) + "\n\n" + str(
+                                    self.__sent_messages[action_number - 1])
                                 message_list[1] = "1) Go back."
                                 action_number = Controller.get_instance().print_list_return_selection(message_list, -1)
                                 if not isinstance(action_number, int):
@@ -267,6 +268,7 @@ class Student(Person, User):
                         else:
                             logging.debug("There are no recieved messages!")
                             sent_messages_list[0] = "There is no sent messages."
+                            sent_messages_list.append("1-) Go back.")
                             action_number = Controller.get_instance().print_list_return_selection(sent_messages_list,
                                                                                                   -1)
                             if not isinstance(action_number, int):
