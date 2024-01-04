@@ -154,7 +154,7 @@ class Student(Person, User):
             if not isinstance(current_user_selection, int):
                 logging.error("Course selection was not given an integer!")
                 raise ValueError("Expected Integer Error")
-            if current_user_selection == 1:
+            if current_user_selection != 1:
                 current_course = self.__registration_complete_courses[current_user_selection - 2]
                 self.remove_element_from_registration_complete_courses(current_course)
                 self.__cancel_waiting_courses.append(current_course)

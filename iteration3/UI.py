@@ -4,7 +4,7 @@ class UI:
     __singletonUI = None
 
     def __init__(self, input=None):
-        self.scanner = input if input else sys.stdin
+        self.file = input if input is not None else sys.stdin
 
     @classmethod
     def getInstance(cls, input=None):

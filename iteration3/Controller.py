@@ -15,7 +15,7 @@ class Controller:
 
     def __init__(self, input=None):
         try:
-            UI.getInstance().initialize()
+            UI.getInstance(input).initialize()
         except Exception as e:
             logging.error("Error initializing Controller: %s", e)
             sys.exit(1)
