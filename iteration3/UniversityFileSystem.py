@@ -258,7 +258,7 @@ class UniversityFileSystem:
             index += 1
 
     def __update_students(self):
-        self.__update_students_advisor(self.__ADVISORS_STUDENT_ID_LIST)
+        self.__update_students_advisor(self.__STUDENTS_ADVISOR_IDS_LIST)
         self.__update_students_waiting_course_lists(self.__STUDENTS_REGISTRATION_WAITING_COURSES)
         self.__update_students_registration_complete_course_lists(self.__STUDENTS_REGISTRATION_COMPLETE_COURSES)
         self.__update_students_cancel_waiting_course_lists(self.__STUDENTS_CANCEL_WAITING_COURSE_CODES)
@@ -311,7 +311,7 @@ class UniversityFileSystem:
         students = self.__get_students()
         index = 0
         for student in students:
-            current_students_advisor_id = advisors_student_id_list[index]
+            current_students_advisor_id = self.__STUDENTS_ADVISOR_IDS_LIST[index]
             advisor = self.__find_advisor(current_students_advisor_id)
             student.set_current_advisor(advisor)
             index += 1

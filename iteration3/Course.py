@@ -182,3 +182,6 @@ class Course:
 
     def course_status(self):
         return "NumberOfStudent: " + str(self.__number_of_students) + " " + "Capacity: " + str(self.__capacity)
+
+    def set_lecturer(self, lecturer):
+        self.__lecturer = lecturer

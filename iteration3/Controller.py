@@ -47,7 +47,7 @@ class Controller:
             Controller.__jsonWriter = jsonwriter.get_instance(self.__user)
             Controller.__jsonWriter.saveFiles()
             UI.getInstance().callEndMessage(0)
-        except Exception as e:
+        except ArithmeticError as e:
             logging.error("Error during Controller's start process: %s", e)
 
     def print_error_message(self, error_message):
