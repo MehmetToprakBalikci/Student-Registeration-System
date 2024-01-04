@@ -401,3 +401,12 @@ class UniversityFileSystem:
         if password_len > 25:
             return 2
         return 0  # valid userName and password
+
+
+     # Getter for PERSON_LIST
+    def get_person_list(self):
+        return self.__PERSON_LIST
+
+    # Setter for PERSON_LIST
+    def set_person_list(self, person_list):
+        self.__PERSON_LIST = person_list

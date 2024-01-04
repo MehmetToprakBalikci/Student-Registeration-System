@@ -102,18 +102,31 @@ class Transcript:
         if self.__student_year <= 3 <= self.__gpa:
             self.__student_year += 1
 
-    # getters
-    def get_gpa(self):
-        return self.__gpa
-
-    def get_student_year(self):
-        return self.__student_year
-
-    def get_student_credit(self):
-        return self.__student_credits
+    # Getters
+    def get_list_of_courses(self):
+        return self.__list_of_courses
 
     def get_list_of_grades(self):
         return self.__list_of_grades
 
-    def get_list_of_courses(self):
-        return self.__list_of_courses
+    def get_student_credits(self):
+        return self.__student_credits
+
+    def get_student_year(self):
+        return self.__student_year
+
+    def get_gpa(self):
+        return self.__gpa
+
+    # Setters
+    def set_list_of_courses(self, list_of_courses):
+        self.__list_of_courses = list_of_courses
+        self.__calculate_credit()
+        self.__calculate_gpa()
+        self.__calculate_year()
+
+    def set_list_of_grades(self, list_of_grades):
+        self.__list_of_grades = list_of_grades
+        self.__calculate_credit()
+        self.__calculate_gpa()
+        self.__calculate_year()
