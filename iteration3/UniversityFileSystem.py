@@ -366,7 +366,7 @@ class UniversityFileSystem:
         logging.warning("CHECK BOTH THE ADVISOR ID ON COURSE PART AND ADVISOR!! UNMATCH")
         return None
 
-    def __get_signed_person(self, user_info, current_controller):
+    def get_signed_person(self, user_info, current_controller):
         user = None
         error_code = self.__check_user_name_password_length(user_info)
         user_name = user_info[0]

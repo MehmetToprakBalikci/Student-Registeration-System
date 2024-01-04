@@ -40,12 +40,12 @@ class Controller:
                     break
 
                 user_info = UI.getInstance().requestCredentials()
-                self.__user = UniversityFileSystem.get_instance().getSignedPerson(user_info, self)
+                self.__user = UniversityFileSystem.get_instance().get_signed_person(user_info, self)
                 if self.__user:
-                    self.__user.startActions(self)
+                    self.__user.start_actions()
 
             Controller.__jsonWriter = jsonwriter.get_instance(self.__user)
-            Controller.__jsonWriter.saveFiles()
+            Controller.__jsonWriter.save_files()
             UI.getInstance().callEndMessage(0)
         except ArithmeticError as e:
             logging.error("Error during Controller's start process: %s", e)

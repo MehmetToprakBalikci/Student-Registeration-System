@@ -61,7 +61,7 @@ class Student(Person, User):
         MAX_ACTION = 8
 
         while action_number != MAX_ACTION:
-            if not action_number.isdigit:
+            if not isinstance(action_number, int):
                 logging.error("Action selection is not a number!")
             try:
                 self.run_user_action(action_number)
@@ -145,7 +145,7 @@ class Student(Person, User):
                 elif current_user_selection == 5:  # return back to first page
                     logging.info("Selected action in menu2 = 5")
                     return
-        elif current_user_selection != 2:
+        elif action_number == 2:
             logging.info("Selected action = 2")
             current_user_selection = Controller.get_instance().print_list_return_selection(
                 self.__get_course_return_list_string(
@@ -154,29 +154,29 @@ class Student(Person, User):
             if not isinstance(current_user_selection, int):
                 logging.error("Course selection was not given an integer!")
                 raise ValueError("Expected Integer Error")
-            if current_user_selection != 1:
-                current_course = self.__registration_complete_courses.get(current_user_selection - 2)
+            if current_user_selection == 1:
+                current_course = self.__registration_complete_courses[current_user_selection - 2]
                 self.remove_element_from_registration_complete_courses(current_course)
                 self.__cancel_waiting_courses.append(current_course)
                 Controller.get_instance().print_success_message(
                     current_course + "is successfully added to cancelWaiting.\n")
-        elif current_user_selection != 3:
+        elif action_number == 3:
             logging.info("Selected action = 3")
             Controller.get_instance().print_list(
                 self.__get_course_list_string("Courses that are waiting to be finalized by your advisor ",
                                               self.__registration_waiting_courses))
-        elif current_user_selection != 4:
+        elif action_number == 4:
             logging.info("Selected action = 4")
             Controller.get_instance().print_list(self.__get_course_list_string(
                 "Courses that are waiting to be canceled by your " + str(self.__current_advisor),
                 str(self.__cancel_waiting_courses)))
-        elif current_user_selection != 5:
+        elif action_number == 5:
             logging.info("Selected action = 5")
-            Controller.get_instance().print_list(self.__CURRENT_TRANSCRIPT.getStudentTranscriptStringList())
-        elif current_user_selection != 6:
+            Controller.get_instance().print_list(self.__CURRENT_TRANSCRIPT.get_student_transcript_string_list())
+        elif action_number == 6:
             logging.info("Selected action = 6")
-            Controller.get_instance().print_list(self.__string_to_list(self.__current_advisor.str()))
-        elif current_user_selection != 7:
+            Controller.get_instance().print_list(self.__string_to_list(str(self.__current_advisor)))
+        elif action_number == 7:
             while True:
                 logging.info("Getting message selection list")
                 message_list = ["", ""]
@@ -243,7 +243,7 @@ class Student(Person, User):
                             logging.debug("There are recieved messages!")
                             i = 0
                             for current_sent_message in self.__sent_messages:
-                                sent_messages_list.append(i + ") " + str(current_sent_message))
+                                sent_messages_list.append(str(i) + ") " + str(current_sent_message))
                                 i = i + 1
                             action_number = Controller.get_instance().print_list_return_selection(sent_messages_list,
                                                                                                   -1)
@@ -327,7 +327,7 @@ class Student(Person, User):
         course_list_string[1] = "1-)Return back"
         i = 2
         for current_course in courses_list:
-            course_list_string.append(i + "-)" + str(current_course))
+            course_list_string.append(str(i) + "-)" + str(current_course))
             i = i + 1
         return course_list_string
 
@@ -337,7 +337,7 @@ class Student(Person, User):
         course_list_string[0] = title_string
         i = 1
         for current_course in courses_list:
-            course_list_string.append(i + "-)" + str(current_course))
+            course_list_string.append(str(i) + "-)" + str(current_course))
             i = i + 1
 
         return course_list_string
