@@ -8,6 +8,7 @@ from UniversityFileSystem import UniversityFileSystem
 # Configure basic logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+
 class Controller:
     __singletonController = None
     __UNIVERSITY_FILE_SYSTEM = None
@@ -37,15 +38,14 @@ class Controller:
     def start(self):
         try:
             Controller.__UNIVERSITY_FILE_SYSTEM.loadFiles()
-            startMenu = ["Select an action.", "1) Log in.", "2) Exit."]
-            actionNumber = 1
+            start_menu = ["Select an action.", "1) Log in.", "2) Exit."]
             while True:
-                actionNumber = Controller.__ui.printConsoleListReturnSelection(startMenu, -1)
-                if actionNumber == 2:
+                action_number = Controller.__ui.printConsoleListReturnSelection(start_menu, -1)
+                if action_number == 2:
                     break
 
-                userInfo = Controller.__ui.requestCredentials()
-                self.__user = Controller.__UNIVERSITY_FILE_SYSTEM.getSignedPerson(userInfo, self)
+                user_info = Controller.__ui.requestCredentials()
+                self.__user = Controller.__UNIVERSITY_FILE_SYSTEM.getSignedPerson(user_info, self)
                 if self.__user:
                     self.__user.startActions(self)
 
@@ -55,28 +55,28 @@ class Controller:
         except Exception as e:
             logging.error("Error during Controller's start process: %s", e)
 
-    def print_error_message(self, errorMessage):
+    def print_error_message(self, error_message):
         try:
-            Controller.__ui.printConsoleErrorMessage(errorMessage)
+            Controller.__ui.printConsoleErrorMessage(error_message)
         except Exception as e:
             logging.error("Error printing Controller error message: %s", e)
 
-    def print_list_return_selection(self, stringsList, errorInt):
+    def print_list_return_selection(self, strings_list, error_int):
         try:
-            return Controller.__ui.printConsoleListReturnSelection(stringsList, errorInt)
+            return Controller.__ui.printConsoleListReturnSelection(strings_list, error_int)
         except Exception as e:
             logging.error("Error printing Controller list and returning selection: %s", e)
             return -1
 
-    def print_list(self, stringList):
+    def print_list(self, string_list):
         try:
-            Controller.__ui.printConsoleList(stringList)
+            Controller.__ui.printConsoleList(string_list)
         except Exception as e:
             logging.error("Error printing Controller list: %s", e)
 
-    def print_success_message(self, successMessage):
+    def print_success_message(self, success_message):
         try:
-            Controller.__ui.printConsoleSuccessMessage(successMessage)
+            Controller.__ui.printConsoleSuccessMessage(success_message)
         except Exception as e:
             logging.error("Error printing Controller success message: %s", e)
 

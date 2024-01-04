@@ -120,6 +120,7 @@ class jsonwriter:  # Singleton class to write the updated student data into json
         if not isinstance(self.__person, Advisor):
             logging.info("Not an instance of Advisor!")
         else:
+            self.__person.__class__ = Advisor  # added as per the request of Tolga F. :)
             for student in self.__person.get_student_list():
                 self.update_student_file(student)
 
