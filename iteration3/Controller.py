@@ -1,7 +1,7 @@
 import logging
 import sys
 
-import JsonWriter
+from jsonwriter import jsonwriter
 from UI import UI
 from UniversityFileSystem import UniversityFileSystem
 
@@ -49,7 +49,7 @@ class Controller:
                 if self.__user:
                     self.__user.startActions(self)
 
-            Controller.__jsonWriter = JsonWriter.getInstance(self.__user)
+            Controller.__jsonWriter = jsonwriter.get_instance(self.__user)
             Controller.__jsonWriter.saveFiles()
             Controller.__ui.callEndMessage(0)
         except Exception as e:

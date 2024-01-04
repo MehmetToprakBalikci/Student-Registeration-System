@@ -1,12 +1,12 @@
 import json
 import os
 
-import Advisor
-import Student
+from Advisor import Advisor
+from Student import Student
 import logging
 
 
-class jsonWriter:  # Singleton class to write the updated student data into json files
+class jsonwriter:  # Singleton class to write the updated student data into json files
     _instance = None
     __person = None
 
@@ -17,10 +17,10 @@ class jsonWriter:  # Singleton class to write the updated student data into json
     # override new method to make singleton
     def __new__(cls, person):
         if cls._instance is None:
-            cls._instance = super(jsonWriter, cls).__new__(cls)
+            cls._instance = super(jsonwriter, cls).__new__(cls)
         return cls._instance
 
-    def update_student_file(self, student: Student):
+    def update_student_file(self, student):
         file_directory = "iteration3/Students"  # directory for all student files
         file_list = os.listdir(file_directory)  # list all files in directory into files_list
         file_name = str(student.get_student_id())  # file currently in search
@@ -39,11 +39,11 @@ class jsonWriter:  # Singleton class to write the updated student data into json
         last_name = json_data["lastName"]
         user_name = student.get_user_name()
         password = student.get_password()
-        student_id = student.get_id()
-        courses = student.get_current_trnscript().get_list_of_courses()
-        grades = student.get_current_trnscript().get_list_of_grades()
+        student_id = student.get_student_id()
+        courses = student.get_current_transcript().get_list_of_courses()
+        grades = student.get_current_transcript().get_list_of_grades()
         adv_id = student.get_current_advisor().get_lecturer_id()
-        class_level = str(student.get_current_trnscript.get_year())
+        class_level = str(student.get_current_transcript.get_year())
 
         cancel_waiting_courses, registration_complete_courses, registration_waiting_courses = [], [], []
         for course in student.get_cancel_waiting_courses():  # make lists and populate for use later
