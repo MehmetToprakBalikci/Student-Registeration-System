@@ -32,6 +32,10 @@ class UI:
         input()
         sys.exit(status)
 
+    def readInput(self):
+        """ Reads a line from the input source. """
+        return self.scanner.readline().strip()
+    
     def printConsoleListReturnSelection(self, stringList, errorInt):
         if errorInt == 0:
             raise Exception("emptyListStringException")
