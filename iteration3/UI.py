@@ -34,7 +34,9 @@ class UI:
 
     def readInput(self):
         """ Reads a line from the input source. """
-        return self.scanner.readline().strip()
+        if self.file is None :
+            return input()
+        return self.file.readline().strip()
     
     def printConsoleListReturnSelection(self, stringList, errorInt):
         if errorInt == 0:
