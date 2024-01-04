@@ -121,13 +121,13 @@ class UniversityFileSystem:
                     
                     transcript = self.__getTranscript(student_transcript)
 
-                    self.STUDENTS_CANCEL_WAITING_COURSE_CODES.append(student_cancelWaitingCourses)
-                    self.STUDENTS_REGISTRATION_WAITING_COURSES.append(student_registrationWaitingCourses)
-                    self.STUDENTS_REGISTRATION_COMPLETE_COURSES.append(student_registrationCompleteCourses)
-                    self.STUDENTS_ADVISOR_IDS_LIST.append(student_advisorId)
+                    self.__STUDENTS_CANCEL_WAITING_COURSE_CODES.append(student_cancelWaitingCourses)
+                    self.__STUDENTS_REGISTRATION_WAITING_COURSES.append(student_registrationWaitingCourses)
+                    self.__STUDENTS_REGISTRATION_COMPLETE_COURSES.append(student_registrationCompleteCourses)
+                    self.__STUDENTS_ADVISOR_IDS_LIST.append(student_advisorId)
 
                     student = Student(student_name,student_lastName,student_username,student_password,student_studentID,transcript,Advisor())
-                    self.PERSON_LIST.append(student)    
+                    self.__PERSON_LIST.append(student)    
 
         except (IOError,json.JSONDecodeError) as e:
             print("error has occured in readStudents ",e)
@@ -156,7 +156,7 @@ class UniversityFileSystem:
 
     def __getCourse(self,courseCode):
 
-        for course in self.SYSTEM_COURSES:
+        for course in self.__SYSTEM_COURSES:
             if course.get_course_code().equals(courseCode):
                 return course
         return None
@@ -186,8 +186,8 @@ class UniversityFileSystem:
                     advisor_lecturerId = advisor_json.get("lecturerId")
                     advisor_Students = advisor_json.get("Students")
                     advisor = Advisor(advisor_name,advisor_lastName,advisor_username,advisor_password,advisor_lecturerId,[])
-                    self.PERSON_LIST.append(advisor)
-                    self.ADVISORS_STUDENT_ID_LIST.append(advisor_Students)
+                    self.__PERSON_LIST.append(advisor)
+                    self.__ADVISORS_STUDENT_ID_LIST.append(advisor_Students)
 
         except (IOError,json.JSONDecodeError) as e:
             print("error has occured in read_advisor ",e)
@@ -211,7 +211,7 @@ class UniversityFileSystem:
                     lecturer_lastName = lecturer_json.get("lastName")
                     lecturer_lecturerId = lecturer_json.get("lecturerId")
                     lecturer = Lecturer(lecturer_name,lecturer_lastName,lecturer_lecturerId)
-                    self.PERSON_LIST.append(lecturer)
+                    self.__PERSON_LIST.append(lecturer)
         
         except (IOError,json.JSONDecodeError) as e:
             print("error has occured in read_lecturer ",e)
@@ -240,7 +240,8 @@ class UniversityFileSystem:
                     assistant_lastName = assistant_json.get("lastName")
                     assistant_assistantId = assistant_json.get("assistantId")
                     assistant = Assistant(assistant_name,assistant_lastName,assistant_assistantId)
-                    self.PERSON_LIST.append(assistant)
+                    self.__PERSON_LIST.append(assistant)
+
         except (IOError,json.JSONDecodeError) as e:
             print("error has occured in readassistants ",e)
             raise RuntimeError(e)
