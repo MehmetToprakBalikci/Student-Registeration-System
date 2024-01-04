@@ -93,7 +93,6 @@ class UniversityFileSystem:
         except (IOError, json.JSONDecodeError) as e:
             raise RuntimeError(e)
 
-
     def __read_students(self):
         directory_path = "iteration3/Students"
         try:
@@ -102,10 +101,10 @@ class UniversityFileSystem:
                 print("Check the Students directory position!!")
                 logging.error("Check the Students directory position!!")
                 return
-            
+
             for file_name in file_list:
-                file_path = os.path.join(directory_path,file_name)
-                with open(file_path,'-r') as file:
+                file_path = os.path.join(directory_path, file_name)
+                with open(file_path, '-r') as file:
                     student_json = json.load(file)
                     ## getting Student attributes 
                     student_name = student_json.get("name")
@@ -115,10 +114,10 @@ class UniversityFileSystem:
                     student_studentID = student_json.get("studentId")
                     student_advisorId = student_json.get("advisorId")
                     student_transcript = student_json.get("Transcript")
-                    student_cancelWaitingCourses= student_json.get("cancelWaitingCourses",[])
-                    student_registrationCompleteCourses = student_json.get("registrationCompleteCourses",[])
-                    student_registrationWaitingCourses= student_json.get("registrationWaitingCourses",[])
-                    
+                    student_cancelWaitingCourses = student_json.get("cancelWaitingCourses", [])
+                    student_registrationCompleteCourses = student_json.get("registrationCompleteCourses", [])
+                    student_registrationWaitingCourses = student_json.get("registrationWaitingCourses", [])
+
                     transcript = self.__getTranscript(student_transcript)
 
                     self.__STUDENTS_CANCEL_WAITING_COURSE_CODES.append(student_cancelWaitingCourses)
@@ -126,35 +125,35 @@ class UniversityFileSystem:
                     self.__STUDENTS_REGISTRATION_COMPLETE_COURSES.append(student_registrationCompleteCourses)
                     self.__STUDENTS_ADVISOR_IDS_LIST.append(student_advisorId)
 
-                    student = Student(student_name,student_lastName,student_username,student_password,student_studentID,transcript,Advisor())
-                    self.__PERSON_LIST.append(student)    
+                    student = Student(student_name, student_lastName, student_username, student_password,
+                                      student_studentID, transcript, Advisor())
+                    self.__PERSON_LIST.append(student)
 
-        except (IOError,json.JSONDecodeError) as e:
-            print("error has occured in readStudents ",e)
+        except (IOError, json.JSONDecodeError) as e:
+            print("error has occured in readStudents ", e)
             raise RuntimeError(e)
-        except Exception as e :
-            print("error has occured in readStudents ",e)
+        except Exception as e:
+            print("error has occured in readStudents ", e)
             raise Exception(e)
 
-    def __getTranscript(self,studentTranscript):
+    def __getTranscript(self, studentTranscript):
 
         transcriptCourseList = studentTranscript.get('listOfCourses')
         transcriptGrades = studentTranscript.get('listOfGrades')
-        
+
         courses = list()
         for courseCode in transcriptCourseList:
             course = self.__getCourse(courseCode)
             courses.append(course)
-        
+
         grades = list()
         for currentGrade in transcriptGrades:
             grade = Grade(currentGrade)
             grades.append(grade)
-        
-        return Transcript(courses,grades)
-        
 
-    def __getCourse(self,courseCode):
+        return Transcript(courses, grades)
+
+    def __getCourse(self, courseCode):
 
         for course in self.__SYSTEM_COURSES:
             if course.get_course_code().equals(courseCode):
@@ -167,14 +166,14 @@ class UniversityFileSystem:
         self.__read_assistants()
 
     def __read_advisors(self):
-        directory_path  = "iteraton3/Advisors"
+        directory_path = "iteraton3/Advisors"
         try:
             file_list = os.listdir(directory_path)
             if not file_list:
                 print("Check the Lecturers directory position!!")
                 logging.error("Check the Lecturers directory position!!")
                 return
-            
+
             for file_name in file_list:
                 file_path = os.path.join(directory_path, file_name)
                 with open(file_path, '-r') as file:
@@ -185,42 +184,42 @@ class UniversityFileSystem:
                     advisor_password = advisor_json.get("password")
                     advisor_lecturerId = advisor_json.get("lecturerId")
                     advisor_Students = advisor_json.get("Students")
-                    advisor = Advisor(advisor_name,advisor_lastName,advisor_username,advisor_password,advisor_lecturerId,[])
+                    advisor = Advisor(advisor_name, advisor_lastName, advisor_username, advisor_password,
+                                      advisor_lecturerId, [])
                     self.__PERSON_LIST.append(advisor)
                     self.__ADVISORS_STUDENT_ID_LIST.append(advisor_Students)
 
-        except (IOError,json.JSONDecodeError) as e:
-            print("error has occured in read_advisor ",e)
-            raise RuntimeError(e) 
-        
+        except (IOError, json.JSONDecodeError) as e:
+            print("error has occured in read_advisor ", e)
+            raise RuntimeError(e)
+
     def __read_lecturers(self):
-        directory_path =  "iteration3/Lecturers"
+        directory_path = "iteration3/Lecturers"
         try:
             file_list = os.listdir(directory_path)
             if not file_list:
                 print("Check the Lecturers directory position!!")
                 logging.error("Check the Lecturers directory position!!")
                 return
-            
+
             for file_name in file_list:
                 file_path = os.path.join(directory_path, file_name)
                 with open(file_path, '-r') as file:
-                    lecturer_json  = json.load(file)
+                    lecturer_json = json.load(file)
                     ## getting attributes 
                     lecturer_name = lecturer_json.get("name")
                     lecturer_lastName = lecturer_json.get("lastName")
                     lecturer_lecturerId = lecturer_json.get("lecturerId")
-                    lecturer = Lecturer(lecturer_name,lecturer_lastName,lecturer_lecturerId)
+                    lecturer = Lecturer(lecturer_name, lecturer_lastName, lecturer_lecturerId)
                     self.__PERSON_LIST.append(lecturer)
-        
-        except (IOError,json.JSONDecodeError) as e:
-            print("error has occured in read_lecturer ",e)
-            raise RuntimeError(e)
-        
-        except Exception as e :
-            print("error has occured in read_lecturer ",e)
-            raise Exception(e)
 
+        except (IOError, json.JSONDecodeError) as e:
+            print("error has occured in read_lecturer ", e)
+            raise RuntimeError(e)
+
+        except Exception as e:
+            print("error has occured in read_lecturer ", e)
+            raise Exception(e)
 
     def __read_assistants(self):
         directory_path = "iteration3/Assistants"
@@ -230,7 +229,7 @@ class UniversityFileSystem:
                 print("Check the Assistants directory position!!")
                 logging.error("Check the Assistants directory position!!")
                 return
-            
+
             for file_name in file_list:
                 file_path = os.path.join(directory_path, file_name)
                 with open(file_path, '-r') as file:
@@ -239,14 +238,14 @@ class UniversityFileSystem:
                     assistant_name = assistant_json.get("name")
                     assistant_lastName = assistant_json.get("lastName")
                     assistant_assistantId = assistant_json.get("assistantId")
-                    assistant = Assistant(assistant_name,assistant_lastName,assistant_assistantId)
+                    assistant = Assistant(assistant_name, assistant_lastName, assistant_assistantId)
                     self.__PERSON_LIST.append(assistant)
 
-        except (IOError,json.JSONDecodeError) as e:
-            print("error has occured in readassistants ",e)
+        except (IOError, json.JSONDecodeError) as e:
+            print("error has occured in readassistants ", e)
             raise RuntimeError(e)
-        except Exception as e :
-            print("error has occured in readassistants ",e)
+        except Exception as e:
+            print("error has occured in readassistants ", e)
             raise Exception(e)
 
     def __update_courses(self):

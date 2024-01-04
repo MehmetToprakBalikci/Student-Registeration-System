@@ -1,6 +1,10 @@
 import logging
 import sys
 
+import JsonWriter
+from UI import UI
+from UniversityFileSystem import UniversityFileSystem
+
 # Configure basic logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -13,7 +17,7 @@ class Controller:
 
     def __init__(self, input=None):
         try:
-            Controller.__UNIVERSITY_FILE_SYSTEM = UniversityFileSystem.getInstance()
+            Controller.__UNIVERSITY_FILE_SYSTEM = UniversityFileSystem.get_instance()
             Controller.__ui = UI.getInstance(input)
             Controller.__ui.initialize()
         except Exception as e:
