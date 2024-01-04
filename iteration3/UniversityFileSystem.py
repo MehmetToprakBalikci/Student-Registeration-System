@@ -51,7 +51,7 @@ class UniversityFileSystem:
         logging.info("all files  were successfully read ")
 
     def __read_courses(self):
-        directory_path = "iteration2/Courses"
+        directory_path = "iteration3/Courses"
         try:
             file_list = os.listdir(directory_path)
             if not file_list:
