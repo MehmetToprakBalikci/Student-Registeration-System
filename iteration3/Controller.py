@@ -20,7 +20,15 @@ class Controller:
             logging.error("Error initializing Controller: %s", e)
             sys.exit(1)
 
-
+    @classmethod
+    def get_instance(cls, input=None):
+        try:
+            if cls.__singletonController is None:
+                cls.__singletonController = Controller(input)
+            return cls.__singletonController
+        except Exception as e:
+            logging.error("Error getting Controller instance: %s", e)
+            sys.exit(1)
 
     def start(self):
         try:
