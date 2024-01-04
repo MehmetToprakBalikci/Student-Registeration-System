@@ -2,10 +2,7 @@ import json
 import logging
 import os
 
-from Student import Student
 from Course import Course
-from Advisor import Advisor
-from Assistant import Assistant
 from Lecturer import Lecturer
 from Transcript import Transcript
 from Assistant import Assistant
@@ -37,7 +34,7 @@ class UniversityFileSystem:
             cls.SINGLETON_UNIVERSITY_FILE_SYSTEM = UniversityFileSystem()
         return cls.SINGLETON_UNIVERSITY_FILE_SYSTEM
 
-    def __load_files(self):
+    def load_files(self):
         self.__read_courses()
         self.__read_students()
         self.__read_staffs()
@@ -51,7 +48,7 @@ class UniversityFileSystem:
         logging.info("all files  were successfully read ")
 
     def __read_courses(self):
-        directory_path = "iteration3/Courses"
+        directory_path = "Courses"
         try:
             file_list = os.listdir(directory_path)
             if not file_list:
@@ -61,7 +58,7 @@ class UniversityFileSystem:
 
             for file_name in file_list:
                 file_path = os.path.join(directory_path, file_name)
-                with open(file_path, '-r') as file:
+                with open(file_path, 'r') as file:
                     course_json = json.load(file)
 
                     # Getting course attributes
@@ -83,8 +80,8 @@ class UniversityFileSystem:
                     self.__COURSES_ASSISTANT_IDS.append(assistant_id)
 
                     # create course object TODO: course constructor will be added
-                    course = Course(course_code, course_name, int(course_credit), int(course_year), int(course_hour),
-                                    Lecturer(), Assistant(), [], int(course_capacity))
+                    course = Course(course_code, course_name, int(course_credit), int(course_year), int(course_day), int(course_hour),
+                                    Lecturer(), [], Assistant(), int(course_capacity))
                     if course_type in {"t", "nt"}:
                         course.set_type(course_type)
 
@@ -94,7 +91,9 @@ class UniversityFileSystem:
             raise RuntimeError(e)
 
     def __read_students(self):
-        directory_path = "iteration3/Students"
+        from Student import Student
+        from Advisor import Advisor
+        directory_path = "Students"
         try:
             file_list = os.listdir(directory_path)
             if not file_list:
@@ -104,7 +103,7 @@ class UniversityFileSystem:
 
             for file_name in file_list:
                 file_path = os.path.join(directory_path, file_name)
-                with open(file_path, '-r') as file:
+                with open(file_path, 'r') as file:
                     student_json = json.load(file)
                     ## getting Student attributes 
                     student_name = student_json.get("name")
@@ -153,10 +152,10 @@ class UniversityFileSystem:
 
         return Transcript(courses, grades)
 
-    def __getCourse(self, courseCode):
+    def __getCourse(self, course_code):
 
         for course in self.__SYSTEM_COURSES:
-            if course.get_course_code().equals(courseCode):
+            if course.get_course_code() == course_code:
                 return course
         return None
 
@@ -166,7 +165,8 @@ class UniversityFileSystem:
         self.__read_assistants()
 
     def __read_advisors(self):
-        directory_path = "iteraton3/Advisors"
+        from Advisor import Advisor
+        directory_path = "Advisors"
         try:
             file_list = os.listdir(directory_path)
             if not file_list:
@@ -176,7 +176,7 @@ class UniversityFileSystem:
 
             for file_name in file_list:
                 file_path = os.path.join(directory_path, file_name)
-                with open(file_path, '-r') as file:
+                with open(file_path, 'r') as file:
                     advisor_json = json.load(file)
                     advisor_name = advisor_json.get("name")
                     advisor_lastName = advisor_json.get("lastName")
@@ -194,7 +194,7 @@ class UniversityFileSystem:
             raise RuntimeError(e)
 
     def __read_lecturers(self):
-        directory_path = "iteration3/Lecturers"
+        directory_path = "Lecturers"
         try:
             file_list = os.listdir(directory_path)
             if not file_list:
@@ -204,7 +204,7 @@ class UniversityFileSystem:
 
             for file_name in file_list:
                 file_path = os.path.join(directory_path, file_name)
-                with open(file_path, '-r') as file:
+                with open(file_path, 'r') as file:
                     lecturer_json = json.load(file)
                     ## getting attributes 
                     lecturer_name = lecturer_json.get("name")
@@ -222,7 +222,7 @@ class UniversityFileSystem:
             raise Exception(e)
 
     def __read_assistants(self):
-        directory_path = "iteration3/Assistants"
+        directory_path = "Assistants"
         try:
             file_list = os.listdir(directory_path)
             if not file_list:
@@ -232,7 +232,7 @@ class UniversityFileSystem:
 
             for file_name in file_list:
                 file_path = os.path.join(directory_path, file_name)
-                with open(file_path, '-r') as file:
+                with open(file_path, 'r') as file:
                     assistant_json = json.load(file)
                     ## getting attributes of assistants 
                     assistant_name = assistant_json.get("name")
@@ -285,9 +285,11 @@ class UniversityFileSystem:
             index += 1
 
     def __get_students(self):
+        from Student import Student
         return [person for person in self.__PERSON_LIST if isinstance(person, Student)]
 
     def __get_advisors(self):
+        from Advisor import Advisor
         return [person for person in self.__PERSON_LIST if isinstance(person, Advisor)]
 
     def __get_student_list(self, current_advisors_student_string_list):
@@ -358,7 +360,7 @@ class UniversityFileSystem:
 
     def __get_lecturer(self, lecturers, lecturer_id):
         for lecturer in lecturers:
-            if lecturer.get_lecturer_id == lecturer_id:
+            if lecturer.get_lecturer_id() == lecturer_id:
                 return lecturer
 
         logging.warning("CHECK BOTH THE ADVISOR ID ON COURSE PART AND ADVISOR!! UNMATCH")

@@ -1,8 +1,9 @@
 import logging
+from Controller import Controller
 from Person import Person
 from User import User
 from Message import Message
-from Controller import Controller
+
 
 
 class Student(Person, User):

@@ -1,8 +1,5 @@
 import json
 import os
-
-from Advisor import Advisor
-from Student import Student
 import logging
 
 
@@ -117,16 +114,22 @@ class jsonwriter:  # Singleton class to write the updated student data into json
 
 
     def update_student_files_as_advisor(self):
+        from Advisor import Advisor
         if not isinstance(self.__person, Advisor):
             logging.info("Not an instance of Advisor!")
         else:
-            self.__person.__class__ = Advisor  # added as per the request of Tolga F. :)
             for student in self.__person.get_student_list():
                 self.update_student_file(student)
 
     def save_files(self):
+        from Advisor import Advisor
+        from Student import Student
         if isinstance(self.__person, Student):
             self.update_student_file(self.__person)  # the function takes person instead
             # of student this time! prepare other func accordingly
         else:
+            self.__person.__class__ = Advisor  # added as per the request of Tolga F. :)
             self.update_student_files_as_advisor()
+
+    def get_instance(self):
+        pass
