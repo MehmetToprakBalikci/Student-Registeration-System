@@ -71,9 +71,9 @@ class Student(Person, User):
             except TypeError as e1:
                 Controller.get_instance().print_error_message(str(e1))
                 raise
-            except Exception:
-                logging.critical("Something went wrong while running actions of student!")
-                Controller.get_instance().print_error_message("Something went wrong!")
+            #except Exception:
+                #logging.critical("Something went wrong while running actions of student!")
+                #Controller.get_instance().print_error_message("Something went wrong!")
             finally:
                 action_number = Controller.get_instance().print_list_return_selection(action_list, -1)
 
