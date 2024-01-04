@@ -185,3 +185,9 @@ class Course:
 
     def set_lecturer(self, lecturer):
         self.__lecturer = lecturer
+
+    def set_assistant(self, assistant):
+        self.__assistant = assistant
+
+    def set_prerequisite(self, prerequisites):
+        self.__prerequisite = prerequisites
