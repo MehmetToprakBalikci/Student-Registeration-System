@@ -28,12 +28,18 @@ class jsonwriter:  # Singleton class to write the updated student data into json
         file_list = os.listdir(file_directory)  # list all files in directory into files_list
         file_name = str(student.get_student_id())  # file currently in search
         file = None
-        for f in file_list:  # iterate through list to find the file in search
-            if file_name in f:
-                file_path = os.path.join(file_directory, f)
-                file = open(file_path)
-                break
+        try:
+            file_list = os.listdir(file_directory)
+            if not file_list:
+                logging.error("Check the Students directory position!!")
 
+            for f in file_list:  # iterate through list to find the file in search
+                if file_name in f:
+                    file_path = os.path.join(file_directory, f)
+                    file = open(file_path)
+                    break
+        except IOError as e:
+            raise RuntimeError(e)
         if file is None:
             logging.warning("Student does not exist in the file system!")
 
@@ -136,7 +142,5 @@ class jsonwriter:  # Singleton class to write the updated student data into json
             self.update_student_file(self.__person)  # the function takes person instead
             # of student this time! prepare other func accordingly
         else:
-#            self.__person.__class__ = Advisor  # added as per the request of Tolga F. :)
+            #            self.__person.__class__ = Advisor  # added as per the request of Tolga F. :)
             self.update_student_files_as_advisor()
-
-
