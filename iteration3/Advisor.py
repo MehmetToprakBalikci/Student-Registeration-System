@@ -5,7 +5,6 @@ from Lecturer import Lecturer
 from User import User
 
 
-
 class Advisor(Lecturer, User):
 
     def __init__(self, name="", last_name="", username="", password="", lecturer_id="", student_list=None):
@@ -73,16 +72,12 @@ class Advisor(Lecturer, User):
             registration_waiting_courses_size = len(selected_student.get_registration_waiting_courses())
             cancel_waiting_courses_size = len(selected_student.get_cancel_waiting_courses())
 
-            course_menu_list = [
-                f"{selected_student}\nChoose a course for action.",
-                f"{registration_waiting_courses_size + cancel_waiting_courses_size + 1}) Go back."
-            ]
+            course_menu_list = [f"{selected_student}\nChoose a course for accept or reject the request."]
 
-            course_menu_list.extend(
-                [f"{i + 1}) {selected_student.get_registration_waiting_courses()[i]}" for i in range(registration_waiting_courses_size)])
-            course_menu_list.extend(
-                [f"{i + 1 + registration_waiting_courses_size}) {selected_student.get_cancel_waiting_courses()[i]}"
-                 for i in range(cancel_waiting_courses_size)])
+            course_menu_list.extend([f"Registration waiting courses:\n{i + 1}) {selected_student.get_registration_waiting_courses()[i]}" for i in range(registration_waiting_courses_size)])
+            course_menu_list.extend([f"Cancel waiting courses:\n{i + 1 + registration_waiting_courses_size}) {selected_student.get_cancel_waiting_courses()[i]}" for i in range(cancel_waiting_courses_size)])
+
+            course_menu_list.append(f"{registration_waiting_courses_size + cancel_waiting_courses_size + 1}) Go back.")
 
             action_number = Controller.get_instance().print_list_return_selection(course_menu_list, -1)
 
@@ -91,25 +86,49 @@ class Advisor(Lecturer, User):
                 control_flag = False
                 continue
             logging.info(f"{action_number}) Course selected")
-            selected_course = (selected_student.get_registration_waiting_courses() +
-                               selected_student.get_cancel_waiting_courses())[action_number - 1]
-            self.__process_course_actions(selected_student, selected_course)
+            selected_course = (selected_student.get_registration_waiting_courses() + selected_student.get_cancel_waiting_courses())[action_number - 1]
+            self.__process_course_actions(selected_student, selected_course, action_number)
 
-    def __process_course_actions(self, selected_student, selected_course):
-        course_action_menu_list = [f"{selected_student}\n{selected_course}", "1) Accept request.", "2) Reject request."]
+    def __process_course_actions(self, selected_student, selected_course, action_number):
 
-        action_number = Controller.get_instance().print_list_return_selection(course_action_menu_list, -1)
+        registration_waiting_courses_size = len(selected_student.get_registration_waiting_courses())
 
-        if action_number == 1:
-            logging.info("1) Request accepted")
-            selected_student.remove_element_from_registration_waiting_courses(selected_course)
-            selected_student.add_element_to_registration_complete_courses(selected_course)
-            selected_course.increment_student_amount()
+        # If the course is registration waiting course
+        if action_number <= registration_waiting_courses_size:
+
+            course_action_menu_list = [f"{selected_student}\n{selected_course}", "1) Accept registration request.", "2) Reject registration request.", "3) Go back."]
+            action_number = Controller.get_instance().print_list_return_selection(course_action_menu_list, -1)
+
+            if action_number == 1:
+                logging.info("1) Registration request accepted")
+                selected_student.remove_element_from_registration_waiting_courses(selected_course)
+                selected_student.add_element_to_registration_complete_courses(selected_course)
+                selected_course.increment_student_amount()
+            elif action_number == 2:
+                logging.info("2) Registration request rejected")
+                selected_student.remove_element_from_registration_waiting_courses(selected_course)
+                selected_student.add_element_to_current_available_courses(selected_course)
+
+            else:
+                return
+        # If the course is cancel waiting course
         else:
-            logging.info("2) Request rejected")
-            selected_student.remove_element_from_registration_waiting_courses(selected_course)
-            selected_student.add_element_to_current_available_courses(selected_course)
-            selected_course.decrement_student_amount()
+            course_action_menu_list = [f"{selected_student}\n{selected_course}", "1) Accept cancel request.", "2) Reject cancel request.", "3) Go back."]
+
+            action_number = Controller.get_instance().print_list_return_selection(course_action_menu_list, -1)
+
+            if action_number == 1:
+                logging.info("1) Cancel request accepted")
+                selected_student.remove_element_from_cancel_waiting_courses(selected_course)
+                selected_student.add_element_to_current_available_courses(selected_course)
+                selected_course.decrement_student_amount()
+            elif action_number == 2:
+                logging.info("2) Cancel request rejected")
+                selected_student.remove_element_from_cancel_waiting_courses(selected_course)
+                selected_student.add_element_to_registration_complete_courses(selected_course)
+
+            else:
+                return
 
     def __see_messages(self):
         while True:
