@@ -16,6 +16,12 @@ def get_assistant_id(course_json):
 class UniversityFileSystem:
     SINGLETON_UNIVERSITY_FILE_SYSTEM = None
 
+    @classmethod
+    def get_instance(cls):
+        if cls.SINGLETON_UNIVERSITY_FILE_SYSTEM is None:
+            cls.SINGLETON_UNIVERSITY_FILE_SYSTEM = UniversityFileSystem()
+        return cls.SINGLETON_UNIVERSITY_FILE_SYSTEM
+
     def __init__(self):
         self.__PERSON_LIST = []
         self.__SYSTEM_COURSES = []
@@ -28,12 +34,6 @@ class UniversityFileSystem:
         self.__STUDENTS_ADVISOR_IDS_LIST = []
         self.__ADVISORS_STUDENT_ID_LIST = []
 
-    @classmethod
-    def get_instance(cls):
-        if cls.SINGLETON_UNIVERSITY_FILE_SYSTEM is None:
-            cls.SINGLETON_UNIVERSITY_FILE_SYSTEM = UniversityFileSystem()
-        return cls.SINGLETON_UNIVERSITY_FILE_SYSTEM
-
     def load_files(self):
         self.__read_courses()
         self.__read_students()
@@ -45,7 +45,7 @@ class UniversityFileSystem:
         self.__set_each_course_student_number()
         self.__update_advisors()
 
-        logging.info("all files  were successfully read ")
+    logging.info("all files  were successfully read ")
 
     def __read_courses(self):
         directory_path = "Courses"
@@ -80,7 +80,8 @@ class UniversityFileSystem:
                     self.__COURSES_ASSISTANT_IDS.append(assistant_id)
 
                     # create course object TODO: course constructor will be added
-                    course = Course(course_code, course_name, int(course_credit), int(course_year), int(course_day), int(course_hour),
+                    course = Course(course_code, course_name, int(course_credit), int(course_year), int(course_day),
+                                    int(course_hour),
                                     Lecturer(), [], Assistant(), int(course_capacity))
                     if course_type in {"t", "nt"}:
                         course.set_type(course_type)
@@ -105,7 +106,7 @@ class UniversityFileSystem:
                 file_path = os.path.join(directory_path, file_name)
                 with open(file_path, 'r') as file:
                     student_json = json.load(file)
-                    ## getting Student attributes 
+                    ## getting Student attributes
                     student_name = student_json.get("name")
                     student_lastName = student_json.get("lastName")
                     student_username = student_json.get("username")
@@ -153,7 +154,6 @@ class UniversityFileSystem:
         return Transcript(courses, grades)
 
     def __getCourse(self, course_code):
-
         for course in self.__SYSTEM_COURSES:
             if course.get_course_code() == course_code:
                 return course
@@ -206,7 +206,7 @@ class UniversityFileSystem:
                 file_path = os.path.join(directory_path, file_name)
                 with open(file_path, 'r') as file:
                     lecturer_json = json.load(file)
-                    ## getting attributes 
+                    ## getting attributes
                     lecturer_name = lecturer_json.get("name")
                     lecturer_lastName = lecturer_json.get("lastName")
                     lecturer_lecturerId = lecturer_json.get("lecturerId")
@@ -234,7 +234,7 @@ class UniversityFileSystem:
                 file_path = os.path.join(directory_path, file_name)
                 with open(file_path, 'r') as file:
                     assistant_json = json.load(file)
-                    ## getting attributes of assistants 
+                    ## getting attributes of assistants
                     assistant_name = assistant_json.get("name")
                     assistant_lastName = assistant_json.get("lastName")
                     assistant_assistantId = assistant_json.get("assistantId")
@@ -249,12 +249,30 @@ class UniversityFileSystem:
             raise Exception(e)
 
     def __update_courses(self):
+        # lecturer set
         lecturers = self.__get_lecturers()
         ordered_lecturers = self.__get_ordered_lecturer_list(lecturers)
         index = 0
         for course in self.__SYSTEM_COURSES:
             lecturer = ordered_lecturers[index]
             course.set_lecturer(lecturer)
+            index += 1
+
+        # assistant set
+        assistants = self.__get_assistants()
+        ordered_assistants = self.__get_ordered_assistant_list(assistants)
+        index = 0
+        for course in self.__SYSTEM_COURSES:
+            assistant = ordered_assistants[index]
+            course.set_assistant(assistant)
+            index += 1
+
+        # assign prerequisites
+        index = 0
+        for course in self.__SYSTEM_COURSES:
+            prerequisite_codes_string = self.__COURSES_PREREQUISITES_CODES[index]
+            prerequisiteCodesList = self.__get_prerequisite_codes_list(prerequisite_codes_string)
+            course.set_prerequisite(prerequisiteCodesList)
             index += 1
 
     def __update_students(self):
@@ -264,14 +282,13 @@ class UniversityFileSystem:
         self.__update_students_cancel_waiting_course_lists(self.__STUDENTS_CANCEL_WAITING_COURSE_CODES)
         # no need to that method: design issue !!
         # TODO: get_available_courses method should be implemented in student class
-        # self.update_students_available_courses()
-        pass
+        self.update_students_available_courses()
 
     def __set_each_course_student_number(self):
         for course in self.__SYSTEM_COURSES:
             for student in self.__get_students():
                 if student.is_taking_course(course):
-                    course.increase_student_number()
+                    course.increment_student_amount()
 
     def __update_advisors(self):
         advisors = self.__get_advisors()
@@ -329,15 +346,17 @@ class UniversityFileSystem:
         index = 0
         for student in students:
             course_waiting_string_list = students_registration_waiting_courses[index]
-            student.set_registration_waiting_courses(course_waiting_string_list)
+            students_waiting_course_list = self.convert_to_course_list(course_waiting_string_list)
+            student.set_registration_waiting_courses(students_waiting_course_list)
             index += 1
 
     def __update_students_registration_complete_course_lists(self, students_registration_complete_courses):
         students = self.__get_students()
         index = 0
         for student in students:
-            course_waiting_string_list = students_registration_complete_courses[index]
-            student.set_registration_waiting_courses(course_waiting_string_list)
+            registration_complete_course_string_list = students_registration_complete_courses[index]
+            registration_complete_courses = self.convert_to_course_list(registration_complete_course_string_list)
+            student.set_registration_complete_courses(registration_complete_courses)
             index += 1
 
     def __update_students_cancel_waiting_course_lists(self, students_cancel_waiting_course_codes):
@@ -345,11 +364,23 @@ class UniversityFileSystem:
         index = 0
         for student in students:
             course_waiting_string_list = students_cancel_waiting_course_codes[index]
-            student.set_registration_waiting_courses(course_waiting_string_list)
+            cancel_waiting_courses = self.convert_to_course_list(course_waiting_string_list)
+            student.set_cancel_waiting_courses(cancel_waiting_courses)
             index += 1
 
     def __get_lecturers(self):
         return [person for person in self.__PERSON_LIST if isinstance(person, Lecturer)]
+
+    def convert_to_course_list(self, students_cancel_waiting_course_codes):
+        course_list = []
+        if (len(students_cancel_waiting_course_codes) == 0):
+            return course_list
+
+        for course_code in students_cancel_waiting_course_codes:
+            course = self.__getCourse(course_code)
+            course_list.append(course)
+
+        return course_list
 
     def __get_ordered_lecturer_list(self, lecturers):
         ordered_lecturers = []
@@ -402,8 +433,43 @@ class UniversityFileSystem:
             return 2
         return 0  # valid userName and password
 
+    def __get_assistants(self):
+        return [person for person in self.__PERSON_LIST if isinstance(person, Assistant)]
 
-     # Getter for PERSON_LIST
+    def __get_ordered_assistant_list(self, assistants):
+        ordered_assistants = []
+        for assistant_id in self.__COURSES_ASSISTANT_IDS:
+            assistant = self.__get_assistant(assistants, assistant_id)
+            ordered_assistants.append(assistant)
+        return ordered_assistants
+
+    def __get_assistant(self, assistants, assistant_id):
+        if assistant_id == None:
+            return None
+
+        for assistant in assistants:
+            if assistant.get_assistant_id() == assistant_id:
+                return assistant
+        logging.warning("CHECK BOTH THE ASSISTANT ID ON COURSE PART AND ADVISOR!! UNMATCH")
+        return None
+
+    def __get_prerequisite_codes_list(self, prerequisite_codes_string):
+        prerequisite_code_list = []
+        if prerequisite_codes_string[0] == "":
+            return prerequisite_code_list
+
+        for course_code in prerequisite_codes_string:
+            course = self.__getCourse(course_code)
+            prerequisite_code_list.append(course)
+
+        return prerequisite_code_list
+
+    def update_students_available_courses(self):
+        for student in self.__get_students():
+            available_courses = student.get_available_courses(self.__SYSTEM_COURSES)
+            student.set_current_available_courses(available_courses)
+
+    # Getter for PERSON_LIST
     def get_person_list(self):
         return self.__PERSON_LIST
 

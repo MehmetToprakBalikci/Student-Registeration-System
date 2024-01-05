@@ -5,7 +5,6 @@ from User import User
 from Message import Message
 
 
-
 class Student(Person, User):
 
     # String name, String lastName, String username, String password, String studentID, Transcript currentTranscript, Advisor currentAdvisor
@@ -71,9 +70,9 @@ class Student(Person, User):
             except TypeError as e1:
                 Controller.get_instance().print_error_message(str(e1))
                 raise
-            #except Exception:
-                #logging.critical("Something went wrong while running actions of student!")
-                #Controller.get_instance().print_error_message("Something went wrong!")
+            # except Exception:
+            # logging.critical("Something went wrong while running actions of student!")
+            # Controller.get_instance().print_error_message("Something went wrong!")
             finally:
                 action_number = Controller.get_instance().print_list_return_selection(action_list, -1)
 
@@ -93,8 +92,8 @@ class Student(Person, User):
                 raise ValueError("Expected Integer Error")
             if current_user_selection != 1:
                 current_course = self.__current_available_courses[current_user_selection - 2]
-                current_user_selection = Controller.get_instance().print_list_return_selection[
-                    self.__get_course_info_string(current_course), -1]
+                current_user_selection = Controller.get_instance().print_list_return_selection(
+                    self.__get_course_info_string(current_course), -1)
                 if not isinstance(current_user_selection, int):
                     logging.error("Course selection was not given an integer!")
                     raise ValueError("Expected Integer Error")
@@ -129,7 +128,7 @@ class Student(Person, User):
                         self.remove_element_from_current_available_courses(current_course)
                         self.__registration_waiting_courses.append(current_course)
                         Controller.get_instance().print_success_message(
-                            current_course + " has been sent to your advisor " + self.__current_advisor.get_first_name() + " " + self.__current_advisor.get_last_name())
+                            current_course.__str__() + " has been sent to your advisor " + self.__current_advisor.get_first_name() + " " + self.__current_advisor.get_last_name())
                     else:
                         logging.debug("Checked course availability to be NOT alright")
                         Controller.get_instance().print_error_message(course_sect_availability_str)
@@ -159,7 +158,7 @@ class Student(Person, User):
                 self.remove_element_from_registration_complete_courses(current_course)
                 self.__cancel_waiting_courses.append(current_course)
                 Controller.get_instance().print_success_message(
-                    current_course + "is successfully added to cancelWaiting.\n")
+                    current_course.__str__() + "is successfully added to cancelWaiting.\n")
         elif action_number == 3:
             logging.info("Selected action = 3")
             Controller.get_instance().print_list(
@@ -169,7 +168,7 @@ class Student(Person, User):
             logging.info("Selected action = 4")
             Controller.get_instance().print_list(self.__get_course_list_string(
                 "Courses that are waiting to be canceled by your " + str(self.__current_advisor),
-                str(self.__cancel_waiting_courses)))
+                self.__cancel_waiting_courses))
         elif action_number == 5:
             logging.info("Selected action = 5")
             Controller.get_instance().print_list(self.__CURRENT_TRANSCRIPT.get_student_transcript_string_list())
@@ -247,7 +246,8 @@ class Student(Person, User):
                                 sent_messages_list.append(str(i) + ") " + str(current_sent_message))
                                 i = i + 1
                             sent_messages_list.append(str(i) + ") Go back.")
-                            action_number = Controller.get_instance().print_list_return_selection(sent_messages_list,-1)
+                            action_number = Controller.get_instance().print_list_return_selection(sent_messages_list,
+                                                                                                  -1)
                             if not isinstance(action_number, int):
                                 logging.error("Course selection was not given an integer!")
                                 raise ValueError("Expected Integer Error")
@@ -310,10 +310,10 @@ class Student(Person, User):
 
     def __get_courses_lecturer_info(self, current_course):
         logging.debug("Getting lecturer string of the course")
-        if current_course.getLecturer() is None:
+        if current_course.get_lecturer() is None:
             raise TypeError("No lecturer of the course")
         lecturer_info = [""]
-        lecturer_info[0] = str(current_course.getLecturer())
+        lecturer_info[0] = str(current_course.get_lecturer())
         return lecturer_info
 
     def __string_to_list(self, give_string):
@@ -348,18 +348,20 @@ class Student(Person, User):
         logging.debug("InMethodCCA: Checking if the course is available for student to register")
         is_available = True
         if course.get_type() == "nt":
-            is_available = course.check_pre_requisite(
-                (self.__CURRENT_TRANSCRIPT.get_list_of_courses(), self.__CURRENT_TRANSCRIPT.get_list_of_grades()
-                 and self.__CURRENT_TRANSCRIPT.check_passed_courses(course)
-                 and (not self.__check_existence(course))
-                 and (not course.is_full())))
+
+            is_available = (course.check_prerequisite(
+                self.__CURRENT_TRANSCRIPT.get_list_of_courses(), self.__CURRENT_TRANSCRIPT.get_list_of_grades())
+                            and self.__CURRENT_TRANSCRIPT.check_passed_courses(course)
+                            and (not self.__check_existence(course))
+                            and (not course.is_full()))
         else:
-            is_available = course.check_year_matching((self.__CURRENT_TRANSCRIPT.get_year()
-                                                       and course.check_pre_requisite(
-                        self.__CURRENT_TRANSCRIPT.get_list_of_courses(), self.__CURRENT_TRANSCRIPT.get_list_of_grades())
-                                                       and self.__CURRENT_TRANSCRIPT.check_passed_courses(course)
-                                                       and (not self.__check_existence(course))
-                                                       and (not course.is_full())))
+            is_available = (course.check_year_matching(self.__CURRENT_TRANSCRIPT.get_student_year())
+                            and (course.check_prerequisite(
+                        self.__CURRENT_TRANSCRIPT.get_list_of_courses(),
+                        self.__CURRENT_TRANSCRIPT.get_list_of_grades()))
+                            and self.__CURRENT_TRANSCRIPT.check_passed_courses(course)
+                            and (not self.__check_existence(course))
+                            and (not course.is_full()))
         if is_available:
             logging.debug("InMethodCCA: The course is available!")
         else:
@@ -382,7 +384,7 @@ class Student(Person, User):
     def __check_list_for_course(self, course_list, course):
         logging.debug("InMethodCLFC: Checking the list if the course exists inside!")
         if course_list == None or len(course_list) == 0:
-            logging.warning("Given course list doesnt exist or empty!")
+            logging.debug("Given course list doesnt exist or empty!")
             return False
 
         for current in course_list:
@@ -403,6 +405,8 @@ class Student(Person, User):
         for course in system_courses:
             if self.check_course_availability(course):
                 available_courses.append(course)
+
+        return available_courses
 
     def send_message(self, message, user):
         logging.info("Sending message to advisor")

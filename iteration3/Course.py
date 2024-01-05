@@ -183,11 +183,20 @@ class Course:
     def course_status(self):
         return "NumberOfStudent: " + str(self.__number_of_students) + " " + "Capacity: " + str(self.__capacity)
 
+    def get_lecturer(self):
+        return self.__lecturer
+
     def set_lecturer(self, lecturer):
         self.__lecturer = lecturer
+
+    def get_assistant(self):
+        return self.__assistant
 
     def set_assistant(self, assistant):
         self.__assistant = assistant
 
     def set_prerequisite(self, prerequisites):
         self.__prerequisite = prerequisites
+
+    def get_type(self):
+        return self.__type

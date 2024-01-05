@@ -6,7 +6,7 @@ from UI import UI
 from UniversityFileSystem import UniversityFileSystem
 
 # Configure basic logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename='information.log')
 
 
 class Controller:
@@ -32,6 +32,7 @@ class Controller:
 
     def start(self):
         try:
+
             UniversityFileSystem.get_instance().load_files()
             start_menu = ["Select an action.", "1) Log in.", "2) Exit."]
             while True:
@@ -44,8 +45,7 @@ class Controller:
                 if self.__user:
                     self.__user.start_actions()
 
-            Controller.__jsonWriter = jsonwriter.get_instance(self.__user)
-            Controller.__jsonWriter.save_files()
+            jsonwriter.get_instance(self.__user).save_files()
             UI.getInstance().callEndMessage(0)
         except ArithmeticError as e:
             logging.error("Error during Controller's start process: %s", e)

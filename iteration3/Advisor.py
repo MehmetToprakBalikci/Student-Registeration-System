@@ -70,8 +70,8 @@ class Advisor(Lecturer, User):
     def __process_student_actions(self, selected_student):
         control_flag = True
         while control_flag:
-            registration_waiting_courses_size = len(selected_student.registration_waiting_courses)
-            cancel_waiting_courses_size = len(selected_student.cancel_waiting_courses)
+            registration_waiting_courses_size = len(selected_student.get_registration_waiting_courses())
+            cancel_waiting_courses_size = len(selected_student.get_cancel_waiting_courses())
 
             course_menu_list = [
                 f"{selected_student}\nChoose a course for action.",
@@ -79,9 +79,9 @@ class Advisor(Lecturer, User):
             ]
 
             course_menu_list.extend(
-                [f"{i + 1}) {selected_student.registration_waiting_courses[i]}" for i in range(registration_waiting_courses_size)])
+                [f"{i + 1}) {selected_student.get_registration_waiting_courses()[i]}" for i in range(registration_waiting_courses_size)])
             course_menu_list.extend(
-                [f"{i + 1 + registration_waiting_courses_size}) {selected_student.cancel_waiting_courses[i]}"
+                [f"{i + 1 + registration_waiting_courses_size}) {selected_student.get_cancel_waiting_courses()[i]}"
                  for i in range(cancel_waiting_courses_size)])
 
             action_number = Controller.get_instance().print_list_return_selection(course_menu_list, -1)
@@ -91,8 +91,8 @@ class Advisor(Lecturer, User):
                 control_flag = False
                 continue
             logging.info(f"{action_number}) Course selected")
-            selected_course = (selected_student.registration_waiting_courses +
-                               selected_student.cancel_waiting_courses)[action_number - 1]
+            selected_course = (selected_student.get_registration_waiting_courses() +
+                               selected_student.get_cancel_waiting_courses())[action_number - 1]
             self.__process_course_actions(selected_student, selected_course)
 
     def __process_course_actions(self, selected_student, selected_course):
@@ -104,11 +104,12 @@ class Advisor(Lecturer, User):
             logging.info("1) Request accepted")
             selected_student.remove_element_from_registration_waiting_courses(selected_course)
             selected_student.add_element_to_registration_complete_courses(selected_course)
-            selected_course.increase_student_number()
+            selected_course.increment_student_amount()
         else:
             logging.info("2) Request rejected")
             selected_student.remove_element_from_registration_waiting_courses(selected_course)
             selected_student.add_element_to_current_available_courses(selected_course)
+            selected_course.decrement_student_amount()
 
     def __see_messages(self):
         while True:

@@ -8,7 +8,7 @@ class Grade:
         return self.__numerical_grade < 50
 
     def is_passed_grade(self):
-        return self.__numerical_grade < 35
+        return self.__numerical_grade >= 35
 
     def get_letter_grade(self):
         if 90 <= self.__numerical_grade <= 100:

@@ -12,19 +12,26 @@ class jsonwriter:  # Singleton class to write the updated student data into json
         self.__person = person
 
     # override new method to make singleton
-    def __new__(cls, person):
+    # * def __new__(cls, person):
+    #    if cls._instance is None:
+    #       cls._instance = super(jsonwriter, cls).__new__(cls)
+    #   return cls._instance
+
+    @classmethod
+    def get_instance(cls, user):
         if cls._instance is None:
-            cls._instance = super(jsonwriter, cls).__new__(cls)
+            cls._instance = jsonwriter(user)
         return cls._instance
 
     def update_student_file(self, student):
-        file_directory = "iteration3/Students"  # directory for all student files
+        file_directory = "Students"  # directory for all student files
         file_list = os.listdir(file_directory)  # list all files in directory into files_list
         file_name = str(student.get_student_id())  # file currently in search
         file = None
         for f in file_list:  # iterate through list to find the file in search
             if file_name in f:
-                file = open(f)
+                file_path = os.path.join(file_directory, f)
+                file = open(file_path)
                 break
 
         if file is None:
@@ -40,7 +47,8 @@ class jsonwriter:  # Singleton class to write the updated student data into json
         courses = student.get_current_transcript().get_list_of_courses()
         grades = student.get_current_transcript().get_list_of_grades()
         adv_id = student.get_current_advisor().get_lecturer_id()
-        class_level = str(student.get_current_transcript.get_year())
+        t = student.get_current_transcript()
+        class_level = str(t.get_student_year())
 
         cancel_waiting_courses, registration_complete_courses, registration_waiting_courses = [], [], []
         for course in student.get_cancel_waiting_courses():  # make lists and populate for use later
@@ -66,7 +74,8 @@ class jsonwriter:  # Singleton class to write the updated student data into json
         format_for_output += "  \"Transcript\": {\n" + "    \"listOfCourses\": [\n      "
 
         for i in range(len(student.get_current_transcript().get_list_of_courses())):
-            format_for_output += "\"" + (student.get_current_transcript().get_list_of_courses())[i].get_course_code() + "\""
+            format_for_output += "\"" + (student.get_current_transcript().get_list_of_courses())[
+                i].get_course_code() + "\""
             if i != len(student.get_current_transcript().get_list_of_courses()) - 1:
                 format_for_output += ","
             else:
@@ -74,7 +83,8 @@ class jsonwriter:  # Singleton class to write the updated student data into json
 
         format_for_output += "    \"listOfGrades\": [\n      "
         for i in range(len(student.get_current_transcript().get_list_of_grades())):
-            format_for_output += "\"" + (student.get_current_transcript().get_list_of_grades())[i].get_numerical_grade() + "\""
+            format_for_output += "\"" + (t.get_list_of_grades())[
+                i].get_numerical_grade() + "\""
             if i != len(student.get_current_transcript().get_list_of_grades()) - 1:
                 format_for_output += ","
             else:
@@ -111,8 +121,6 @@ class jsonwriter:  # Singleton class to write the updated student data into json
         file_write.close()
         logging.info("Student file updated!")
 
-
-
     def update_student_files_as_advisor(self):
         from Advisor import Advisor
         if not isinstance(self.__person, Advisor):
@@ -128,8 +136,7 @@ class jsonwriter:  # Singleton class to write the updated student data into json
             self.update_student_file(self.__person)  # the function takes person instead
             # of student this time! prepare other func accordingly
         else:
-            self.__person.__class__ = Advisor  # added as per the request of Tolga F. :)
+#            self.__person.__class__ = Advisor  # added as per the request of Tolga F. :)
             self.update_student_files_as_advisor()
 
-    def get_instance(self):
-        pass
+
