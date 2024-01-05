@@ -83,8 +83,7 @@ class jsonwriter:  # Singleton class to write the updated student data into json
 
         format_for_output += "    \"listOfGrades\": [\n      "
         for i in range(len(student.get_current_transcript().get_list_of_grades())):
-            format_for_output += "\"" + (t.get_list_of_grades())[
-                i].get_numerical_grade() + "\""
+            format_for_output += "\"" + str((t.get_list_of_grades())[i].get_numerical_grade()) + "\""
             if i != len(student.get_current_transcript().get_list_of_grades()) - 1:
                 format_for_output += ","
             else:
@@ -96,7 +95,7 @@ class jsonwriter:  # Singleton class to write the updated student data into json
 
         format_for_output += "  \"cancelWaitingCourses\": [\n"
         for i in range(len(cancel_waiting_courses)):
-            format_for_output += "    \"" + cancel_waiting_courses[i] + "\""
+            format_for_output += "    \"" + cancel_waiting_courses[i].__str__() + "\""
             if i != len(cancel_waiting_courses) - 1:
                 format_for_output += ",\n"
         format_for_output += "  \n  ],\n"
@@ -115,7 +114,7 @@ class jsonwriter:  # Singleton class to write the updated student data into json
                 format_for_output += ",\n"
         format_for_output += "  \n  ],\n"
 
-        directory_write = "iteration3/Students/" + student_id + ".json"
+        directory_write = "Students/" + student_id + ".json"
         file_write = open(directory_write, "w")
         file_write.write(format_for_output)
         file_write.close()
