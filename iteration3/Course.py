@@ -135,7 +135,14 @@ class Course:
 
     def check_year_matching(self, year: int) -> bool:
         return self.__course_year <= year
-
+    
+    def __eq__(self, c2) -> bool:
+        if isinstance(c2, Course):
+            return (c2 is not None and
+                    self.__course_name == c2.get_course_name())
+        else:
+            return False
+    
     def equals(self, c2) -> bool:
         if isinstance(c2, Course):
             return (c2 is not None and

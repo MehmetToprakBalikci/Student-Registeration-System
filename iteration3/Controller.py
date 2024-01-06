@@ -25,6 +25,9 @@ class Controller:
         try:
             if cls.__singletonController is None:
                 cls.__singletonController = Controller(input)
+            elif input is not None :
+                UI.getInstance().input_str = input
+                UI.getInstance().input_str_index = 0
             return cls.__singletonController
         except Exception as e:
             logging.error("Error getting Controller instance: %s", e)
@@ -51,17 +54,11 @@ class Controller:
             logging.error("Error during Controller's start process: %s", e)
 
     def print_error_message(self, error_message):
-        try:
-            UI.getInstance().printConsoleErrorMessage(error_message)
-        except Exception as e:
-            logging.error("Error printing Controller error message: %s", e)
+        UI.getInstance().printConsoleErrorMessage(error_message)
+
 
     def print_list_return_selection(self, strings_list, error_int):
-        try:
-            return UI.getInstance().printConsoleListReturnSelection(strings_list, error_int)
-        except Exception as e:
-            logging.error("Error printing Controller list and returning selection: %s", e)
-            return -1
+        return UI.getInstance().printConsoleListReturnSelection(strings_list, error_int)
 
     def print_list(self, string_list):
         try:

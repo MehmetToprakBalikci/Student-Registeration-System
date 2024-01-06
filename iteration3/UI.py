@@ -3,13 +3,14 @@ import sys
 class UI:
     __singletonUI = None
 
-    def __init__(self, input=None):
-        self.file = input if input is not None else sys.stdin
+    def __init__(self, input_string=None):
+        self.input_str = input_string
+        self.input_str_index = 0
 
     @classmethod
-    def getInstance(cls, input=None):
+    def getInstance(cls, input_string=None):
         if cls.__singletonUI is None:
-            cls.__singletonUI = UI(input)
+            cls.__singletonUI = UI(input_string)
         return cls.__singletonUI
 
     def requestCredentials(self):
@@ -34,10 +35,15 @@ class UI:
 
     def readInput(self):
         """ Reads a line from the input source. """
-        if self.file is None :
+        if self.input_str is None :
             return input()
-        return self.file.readline().strip()
-    
+        if len(self.input_str) == self.input_str_index :
+            print("File reached EOF!")
+            raise EOFError
+        return_str = self.input_str[self.input_str_index]
+        self.input_str_index += 1
+        return return_str
+        
     def printConsoleListReturnSelection(self, stringList, errorInt):
         if errorInt == 0:
             raise Exception("emptyListStringException")
@@ -52,9 +58,7 @@ class UI:
                     return choice
             except ValueError:
                 print("Invalid input. Please enter a number.")
-            except Exception as e:
-                print(f"Error reading input: {e}")
-                sys.exit(1)
+                
 
     def printConsoleList(self, stringList):
         for string in stringList:
