@@ -213,8 +213,8 @@ class Student(Person, User):
                                 logging.info("Returning back from recieved messages")
                                 break
                             logging.info("Reading selected message from recieved messages")
-                            message_list[0] = str(self.__received_messages[action_number - 1]) + "\n\n" + str(
-                                self.__received_messages[action_number - 1])
+                            message_list[0] = str(self.__received_messages[action_number - 1]) + "\n" + str(
+                                self.__received_messages[action_number - 1].get_message())
                             message_list[1] = "1) Go back."
                             self.__received_messages[action_number - 1].read_message()
                             action_number = Controller.get_instance().print_list_return_selection(message_list, -1)
@@ -256,8 +256,8 @@ class Student(Person, User):
                                 break
                             else:
                                 logging.info("Reading selected message from recieved messages")
-                                message_list[0] = str(self.__sent_messages[action_number - 1]) + "\n\n" + str(
-                                    self.__sent_messages[action_number - 1])
+                                message_list[0] = str(self.__sent_messages[action_number - 1]) + "\n" + str(
+                                    self.__sent_messages[action_number - 1].get_message())
                                 message_list[1] = "1) Go back."
                                 action_number = Controller.get_instance().print_list_return_selection(message_list, -1)
                                 if not isinstance(action_number, int):

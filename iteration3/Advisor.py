@@ -170,14 +170,17 @@ class Advisor(Lecturer, User):
                     break
                 logging.info(f"{action_number}) Message selected")
                 message = self.__received_messages[action_number - 1]
-                message_list = [f"{message}\n\n{message.get_message()}", "1) Go back."]
+                message_list = [f"{message}\n{message.get_message()}", "1) Go back."]
+                message.read_message()
                 action_number = Controller.get_instance().print_list_return_selection(message_list, -1)
                 if action_number == 1:
                     return
             else:
                 received_messages_list[0] = "There is no received messages."
+                received_messages_list.append("1) Go back")
                 action_number = Controller.get_instance().print_list_return_selection(received_messages_list, -1)
-                break
+                if action_number == 1:
+                    break
 
     def __see_sent_messages(self):
         while True:
@@ -194,14 +197,16 @@ class Advisor(Lecturer, User):
                     break
                 logging.info(f"{action_number}) Message selected")
                 message = self.__sent_messages[action_number - 1]
-                message_list = [f"{message}\n\n{message.get_message()}", "1) Go back."]
+                message_list = [f"{message}\n{message.get_message()}", "1) Go back."]
                 action_number = Controller.get_instance().print_list_return_selection(message_list, -1)
                 if action_number == 1:
                     return
             else:
                 sent_messages_list[0] = "There is no sent messages."
+                sent_messages_list.append("1) Go back.")
                 action_number = Controller.get_instance().print_list_return_selection(sent_messages_list, -1)
-                break
+                if action_number == 1:
+                    break
 
     def __send_message_to_student(self):
         student_size = len(self.__student_list)
