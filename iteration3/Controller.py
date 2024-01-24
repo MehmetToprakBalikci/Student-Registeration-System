@@ -1,6 +1,7 @@
 import logging
 import sys
 
+from GUI import GUI
 from jsonwriter import jsonwriter
 from UI import UI
 from UniversityFileSystem import UniversityFileSystem
@@ -15,7 +16,8 @@ class Controller:
 
     def __init__(self, input=None):
         try:
-            UI.getInstance(input).initialize()
+            # UI.getInstance(input).initialize() TODO functionality implemented
+            self.__gui = GUI.get_instance()
         except Exception as e:
             logging.error("Error initializing Controller: %s", e)
             sys.exit(1)
@@ -25,9 +27,9 @@ class Controller:
         try:
             if cls.__singletonController is None:
                 cls.__singletonController = Controller(input)
-            elif input is not None :
-                UI.getInstance().input_str = input
-                UI.getInstance().input_str_index = 0
+            # elif input is not None :
+            #    UI.getInstance().input_str = input
+            #    UI.getInstance().input_str_index = 0
             return cls.__singletonController
         except Exception as e:
             logging.error("Error getting Controller instance: %s", e)
@@ -37,25 +39,19 @@ class Controller:
         try:
 
             UniversityFileSystem.get_instance().load_files()
-            start_menu = ["Select an action.", "1) Log in.", "2) Exit."]
-            while True:
-                action_number = UI.getInstance().printConsoleListReturnSelection(start_menu, -1)
-                if action_number == 2:
-                    break
+            user_info = self.__gui.initialize()
 
-                user_info = UI.getInstance().requestCredentials()
-                self.__user = UniversityFileSystem.get_instance().get_signed_person(user_info, self)
-                if self.__user:
-                    self.__user.start_actions()
+            self.__user = UniversityFileSystem.get_instance().get_signed_person(user_info, self)
+            if self.__user:
+                self.__user.start_actions()
 
             jsonwriter.get_instance(self.__user).save_files()
-            UI.getInstance().callEndMessage(0)
+            # TODO logout here
         except ArithmeticError as e:
             logging.error("Error during Controller's start process: %s", e)
 
     def print_error_message(self, error_message):
         UI.getInstance().printConsoleErrorMessage(error_message)
-
 
     def print_list_return_selection(self, strings_list, error_int):
         return UI.getInstance().printConsoleListReturnSelection(strings_list, error_int)

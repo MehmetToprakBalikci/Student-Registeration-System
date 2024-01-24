@@ -18,21 +18,26 @@ class UI:
         password = input("Enter your password:\n")
         return [userName, password]
 
+    # TODO wont be used anymore with GUI
     def initialize(self):
         print("HI WELCOME TO COURSE REGISTRATION SYSTEM")
 
+    # TODO wont be used anymore with GUI
     def requestActionNumber(self):
         print("SELECT WHAT YOU WANT TO DO IN THE SYSTEM")
         return int(input())
 
+    # TODO wont be used anymore with GUI
     def printConsoleErrorMessage(self, errorMessage):
         self.__printString(errorMessage)
 
+    # TODO wont be used anymore with GUI
     def callEndMessage(self, status):
         print("Press enter to close this program...")
         input()
         sys.exit(status)
 
+    # TODO wont be used anymore with GUI
     def readInput(self):
         """ Reads a line from the input source. """
         if self.input_str is None :
@@ -43,7 +48,8 @@ class UI:
         return_str = self.input_str[self.input_str_index]
         self.input_str_index += 1
         return return_str
-        
+
+    # TODO wont be used anymore with GUI
     def printConsoleListReturnSelection(self, stringList, errorInt):
         if errorInt == 0:
             raise Exception("emptyListStringException")
@@ -58,8 +64,8 @@ class UI:
                     return choice
             except ValueError:
                 print("Invalid input. Please enter a number.")
-                
 
+    # TODO wont be used anymore with GUI
     def printConsoleList(self, stringList):
         for string in stringList:
             if string:
