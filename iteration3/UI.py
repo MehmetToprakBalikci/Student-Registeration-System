@@ -50,7 +50,7 @@ class UI:
         return return_str
 
     # TODO wont be used anymore with GUI
-    def printConsoleListReturnSelection(self, stringList, errorInt):
+    def printConsoleListReturnSelection(self, stringList, errorInt):  # Returns selected action
         if errorInt == 0:
             raise Exception("emptyListStringException")
 
