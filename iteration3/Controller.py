@@ -62,7 +62,7 @@ class Controller:
         if menu_no == 0:
             return self.__gui.initialize()
         if menu_no == 1:
-            return self.__gui.main_menu()
+            return self.__gui.main_menu(strings_list)
         elif menu_no == 2:
             return self.__gui.register_menu(strings_list)
         elif menu_no == 3:

@@ -14,22 +14,44 @@ class GUI:
             cls._instance = GUI()
         return cls._instance
 
-    def main_menu(self):
-        sg.theme(self.__theme)  # Add a touch of color
-        # All the stuff inside your window.
-        main_layout = [[sg.Button(button_text="Register"), sg.Button(button_text="Your Registered Courses")
-                           , sg.Button(button_text="Accept Waiting Courses"),
-                        sg.Button(button_text="Cancel Waiting Courses")],
-                       [sg.Button(button_text="Your Transcript"), sg.Button(button_text="Your Advisor")
-                           , sg.Button(button_text="Mailbox"),
-                        sg.Button(button_text="Log out")]
-                       ]
+    def main_menu(self, lecturer_info):
+        sg.theme(self.__theme)
+        size = (30, 2)
+        font_size = 20
+        font = 'helvetica'
+        font_tuple = (font, font_size)
+        main_action_column = [
+            [sg.Button(button_text="Register", size=(15,1), font=font_tuple), sg.HSeparator()
+                , sg.Button(button_text="Log out", size=(15,1), font=font_tuple)],
+            [sg.Button(button_text="Your Registered Courses", size=size, font=font_tuple)],
+            [sg.Button(button_text="Accept Waiting Courses", size=size, font=font_tuple)],
+            [sg.Button(button_text="Cancel Waiting Courses", size=size, font=font_tuple)],
+            [sg.Button(button_text="Mailbox", size=size, font=font_tuple)]
+
+        ]
+        main_info_column = [
+            [sg.Text(text=lecturer_info[0][0], justification='left'
+                     , auto_size_text=True, expand_x=True, pad=10, font=font_tuple)],
+            [sg.Text(expand_y=True)],
+            [sg.Text(text=lecturer_info[1][0], justification='left'
+                     , auto_size_text=True, expand_x=True, pad=10, font=font_tuple)]
+        ]
+
+        main_layout = [
+            [
+                sg.Column(main_info_column),
+                sg.VSeparator(),
+                sg.Column(main_action_column)
+            ]
+        ]
 
         # Create the Window
         main_window = sg.Window('Menu', main_layout, finalize=True)
         main_window['Register'].set_focus()
         main_window.bind('<Right>', '-NEXT-')
         main_window.bind('<Left>', '-PREV-')
+        main_window.bind('<Up>', '-UP-')
+        main_window.bind('<Down>', '-DOWN-')
         main_window.bind('<Return>', '-RETURN-')
         # Event Loop to process "events" and get the "values" of the inputs
         while True:
@@ -61,13 +83,41 @@ class GUI:
             if event == '-NEXT-':
                 focus_element = main_window.find_element_with_focus()
                 if not focus_element is None:
-                    next_element = main_window.find_element_with_focus().get_next_focus()
-                    next_element.set_focus()
+                    if focus_element.key == 'Register':
+                        next_element = main_window.find_element('Log out')
+                        next_element.set_focus()
+                    elif focus_element.key == 'Log out':
+                        next_element = main_window.find_element('Register')
+                        next_element.set_focus()
             if event == '-PREV-':
                 focus_element = main_window.find_element_with_focus()
                 if not focus_element is None:
-                    prev_element = main_window.find_element_with_focus().get_previous_focus()
-                    prev_element.set_focus()
+                    if focus_element.key == 'Register':
+                        next_element = main_window.find_element('Log out')
+                        next_element.set_focus()
+                    elif focus_element.key == 'Log out':
+                        next_element = main_window.find_element('Register')
+                        next_element.set_focus()
+            if event == '-DOWN-':
+                focus_element = main_window.find_element_with_focus()
+                if not focus_element is None:
+                    if focus_element.key == 'Register' or focus_element.key == 'Log out':
+                        next_element = main_window.find_element('Your Registered Courses')
+                        next_element.set_focus()
+                    elif focus_element.key == 'Mailbox':
+                        pass
+                    else:
+                        next_element = main_window.find_element_with_focus().get_next_focus()
+                        next_element.set_focus()
+            if event == '-UP-':
+                focus_element = main_window.find_element_with_focus()
+                if not focus_element is None:
+                    if focus_element.key == 'Register' or focus_element.key == 'Log out':
+                        pass
+                    else:
+                        prev_element = main_window.find_element_with_focus().get_previous_focus()
+                        prev_element.set_focus()
+
             if event == '-RETURN-':
                 focus_element = main_window.find_element_with_focus()
                 if not focus_element is None:
@@ -78,7 +128,7 @@ class GUI:
         # All the stuff inside your window.
         course_listbox = sg.Listbox(values=course_list, select_mode="LISTBOX_SELECT_MODE_SINGLE"
                                     , pad=10, size=(60, 30), enable_events=True)
-        register_layout = [[sg.Button(button_text="Back", pad=10), sg.Button(button_text="Confirm", pad=10)],
+        register_layout = [[sg.Button(button_text="Back", pad=10), sg.HSeparator(),sg.Button(button_text="Confirm", pad=10)],
                            [course_listbox]]
 
         # Create the Window
@@ -135,15 +185,19 @@ class GUI:
                 return 4
 
     def initialize(self):
-        sg.theme(self.__theme)  # Add a touch of color
-        # All the stuff inside your window.
-        layout = [[sg.Text('Log In')],
-                  [sg.Text(text='User Name', expand_x=True), sg.InputText()],
-                  [sg.Text(text='Password', expand_x=True), sg.InputText()],
-                  [sg.Button('Sign in'), sg.Button('Quit')]]
+        sg.theme(self.__theme)
+        size = (15,1)
+        font_size = 20
+        font = 'helvetica'
+        font_tuple = (font, font_size)
+        layout = [[sg.Text(text='Log In', font=font_tuple)],
+                  [sg.Text(text='User Name:', expand_x=True, font=font_tuple), sg.InputText(font=font_tuple)],
+                  [sg.Text(text='Password:', expand_x=True, font=font_tuple), sg.InputText(font=font_tuple)],
+                  [sg.Button('Sign in', size=size, pad=10, font=font_tuple)
+                      , sg.HSeparator(),sg.Button('Quit', size=size, pad=10,font=font_tuple)]]
 
         # Create the Window
-        welcome_window = sg.Window('Course Registration System', layout, finalize=True)
+        welcome_window = sg.Window('Course Registration System', layout, finalize=True, element_padding=3)
         welcome_window.bind('<Right>', '-NEXT-')
         welcome_window.bind('<Left>', '-PREV-')
         welcome_window.bind('<Return>', '-RETURN-')
@@ -169,7 +223,12 @@ class GUI:
                     prev_element = welcome_window.find_element_with_focus().get_previous_focus()
                     prev_element.set_focus()
             if event == '-RETURN-':
-                welcome_window.write_event_value('Sign in', 0)
+                focus_element = welcome_window.find_element_with_focus()
+                if not focus_element is None:
+                    if focus_element.key == 'Quit':
+                        welcome_window.write_event_value('Quit', 0)
+                    else:
+                        welcome_window.write_event_value('Sign in', 0)
 
     def course_popup(self, course):
         pop_layout = [[sg.Text(text=course, expand_x=True, pad=10)],
@@ -189,8 +248,7 @@ class GUI:
         # All the stuff inside your window.
         registered_courses_listbox = sg.Listbox(values=course_list, select_mode=None
                                                 , pad=10, size=(60, 30), enable_events=False)
-        registered_courses_layout = [[sg.Button(button_text='Back', expand_x=True)
-                                         , sg.Button(button_text='Confirm', expand_x=True)],
+        registered_courses_layout = [[sg.Button(button_text="Back", pad=10), sg.HSeparator(),sg.Button(button_text="Confirm", pad=10)],
                                      [registered_courses_listbox]]
 
         # Create the Window

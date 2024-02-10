@@ -57,7 +57,7 @@ class Student(Person, User):
         logging.info("Starting actions")
         # int
         # action_number = Controller.get_instance().print_list_return_selection(action_list, -1)
-        action_number = Controller.get_instance().get_menu_selection(1, '')  # go to main menu window
+        action_number = Controller.get_instance().get_menu_selection(1, [self.__string_to_list(str(self.__current_advisor)), self.__CURRENT_TRANSCRIPT.get_student_transcript_string_list()])  # go to main menu window
         MAX_ACTION = 8
 
         while action_number != MAX_ACTION:
@@ -72,7 +72,7 @@ class Student(Person, User):
                 Controller.get_instance().print_error_message(str(e1))
                 raise
             finally:
-                action_number = Controller.get_instance().get_menu_selection(1, None)
+                action_number = Controller.get_instance().get_menu_selection(1, [self.__string_to_list(str(self.__current_advisor)), self.__CURRENT_TRANSCRIPT.get_student_transcript_string_list()])
 
     # int actionNumber, Controller controller
     def run_user_action(self, action_number):
