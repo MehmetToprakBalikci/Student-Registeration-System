@@ -17,11 +17,11 @@
   "classLevel": "4",
   "cancelWaitingCourses": [
     "MATH2059",
-    "MATH2055"  
+    "MATH2055",
+    "CSE1200"  
   ],
   "registrationCompleteCourses": [
     "MATH1001",
-    "CSE1200",
     "CSE1241",
     "CSE1242",
     "CSE2225",

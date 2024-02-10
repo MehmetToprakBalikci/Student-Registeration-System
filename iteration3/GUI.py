@@ -3,6 +3,7 @@ import PySimpleGUI as sg
 
 class GUI:
     _instance = None
+    __theme = 'DarkGrey4'
 
     def __init__(self):
         pass
@@ -14,7 +15,7 @@ class GUI:
         return cls._instance
 
     def main_menu(self):
-        sg.theme('DarkAmber')  # Add a touch of color
+        sg.theme(self.__theme)  # Add a touch of color
         # All the stuff inside your window.
         main_layout = [[sg.Button(button_text="Register"), sg.Button(button_text="Your Registered Courses")
                            , sg.Button(button_text="Accept Waiting Courses"),
@@ -25,14 +26,18 @@ class GUI:
                        ]
 
         # Create the Window
-        main_window = sg.Window('Menu', main_layout)
+        main_window = sg.Window('Menu', main_layout, finalize=True)
+        main_window['Register'].set_focus()
+        main_window.bind('<Right>', '-NEXT-')
+        main_window.bind('<Left>', '-PREV-')
+        main_window.bind('<Return>', '-RETURN-')
         # Event Loop to process "events" and get the "values" of the inputs
         while True:
             event, values = main_window.read()
             if event == sg.WIN_CLOSED or event == 'Log out':  # if user closes window or clicks cancel
                 main_window.close()
                 return 8
-            elif event == "Register":  # Should be done better, frankly idk how rn
+            elif event == "Register":
                 main_window.close()
                 return 1
             elif event == "Your Registered Courses":
@@ -53,9 +58,23 @@ class GUI:
             elif event == "Mailbox":
                 main_window.close()
                 return 7
+            if event == '-NEXT-':
+                focus_element = main_window.find_element_with_focus()
+                if not focus_element is None:
+                    next_element = main_window.find_element_with_focus().get_next_focus()
+                    next_element.set_focus()
+            if event == '-PREV-':
+                focus_element = main_window.find_element_with_focus()
+                if not focus_element is None:
+                    prev_element = main_window.find_element_with_focus().get_previous_focus()
+                    prev_element.set_focus()
+            if event == '-RETURN-':
+                focus_element = main_window.find_element_with_focus()
+                if not focus_element is None:
+                    main_window.write_event_value(focus_element.key, 0)
 
     def register_menu(self, course_list):
-        sg.theme('DarkAmber')  # Add a touch of color
+        sg.theme(self.__theme)  # Add a touch of color
         # All the stuff inside your window.
         course_listbox = sg.Listbox(values=course_list, select_mode="LISTBOX_SELECT_MODE_SINGLE"
                                     , pad=10, size=(60, 30), enable_events=True)
@@ -82,7 +101,7 @@ class GUI:
                 return selected_course
 
     def course_menu(self, course: str):
-        sg.theme('DarkAmber')  # Add a touch of color
+        sg.theme(self.__theme)  # Add a touch of color
         # All the stuff inside your window.
         course_layout = [[sg.Button(button_text="Back", pad=10, expand_x=True),
                           sg.Button(button_text="Main Menu", pad=10, expand_x=True)],
@@ -116,15 +135,18 @@ class GUI:
                 return 4
 
     def initialize(self):
-        sg.theme('DarkAmber')  # Add a touch of color
+        sg.theme(self.__theme)  # Add a touch of color
         # All the stuff inside your window.
-        layout = [[sg.Text('Account Information')],
-                  [sg.Text('User Name'), sg.InputText()],
-                  [sg.Text('Password'), sg.InputText()],
+        layout = [[sg.Text('Log In')],
+                  [sg.Text(text='User Name', expand_x=True), sg.InputText()],
+                  [sg.Text(text='Password', expand_x=True), sg.InputText()],
                   [sg.Button('Sign in'), sg.Button('Quit')]]
 
         # Create the Window
-        welcome_window = sg.Window('Course Registration System', layout)
+        welcome_window = sg.Window('Course Registration System', layout, finalize=True)
+        welcome_window.bind('<Right>', '-NEXT-')
+        welcome_window.bind('<Left>', '-PREV-')
+        welcome_window.bind('<Return>', '-RETURN-')
         # Event Loop to process "events" and get the "values" of the inputs
         while True:
             event, values = welcome_window.read()
@@ -136,6 +158,18 @@ class GUI:
             if event == 'Sign in':
                 welcome_window.close()
                 return [values[0], values[1]]
+            if event == '-NEXT-':
+                focus_element = welcome_window.find_element_with_focus()
+                if not focus_element is None:
+                    next_element = welcome_window.find_element_with_focus().get_next_focus()
+                    next_element.set_focus()
+            if event == '-PREV-':
+                focus_element = welcome_window.find_element_with_focus()
+                if not focus_element is None:
+                    prev_element = welcome_window.find_element_with_focus().get_previous_focus()
+                    prev_element.set_focus()
+            if event == '-RETURN-':
+                welcome_window.write_event_value('Sign in', 0)
 
     def course_popup(self, course):
         pop_layout = [[sg.Text(text=course, expand_x=True, pad=10)],
@@ -151,7 +185,7 @@ class GUI:
                 break
 
     def registered_courses_menu(self, course_list):
-        sg.theme('DarkAmber')  # Add a touch of color
+        sg.theme(self.__theme)  # Add a touch of color
         # All the stuff inside your window.
         registered_courses_listbox = sg.Listbox(values=course_list, select_mode=None
                                                 , pad=10, size=(60, 30), enable_events=False)
@@ -180,7 +214,7 @@ class GUI:
                 return selected_course
 
     def registeration_waiting_courses_menu(self, course_list):
-        sg.theme('DarkAmber')  # Add a touch of color
+        sg.theme(self.__theme)  # Add a touch of color
         # All the stuff inside your window.
         register_waiting_courses_listbox = sg.Listbox(values=course_list, select_mode=None
                                                       , pad=10, size=(60, 30), enable_events=False)
@@ -205,7 +239,7 @@ class GUI:
                 return 1
 
     def cancel_waiting_courses_menu(self, course_list):
-        sg.theme('DarkAmber')  # Add a touch of color
+        sg.theme(self.__theme)  # Add a touch of color
         # All the stuff inside your window.
         cancel_waiting_courses_listbox = sg.Listbox(values=course_list, select_mode=None
                                                     , pad=10, size=(60, 30), enable_events=False)
@@ -230,7 +264,7 @@ class GUI:
                 return 1
 
     def lecturer_info_menu(self, course_string):
-        sg.theme('DarkAmber')  # Add a touch of color
+        sg.theme(self.__theme)  # Add a touch of color
         # All the stuff inside your window.
         lecturer_layout = [[[sg.Button(button_text='Back', expand_x=True, pad=10)]],
                            [sg.Text(text=course_string[0], justification='center', auto_size_text=True
@@ -249,7 +283,7 @@ class GUI:
                 break
 
     def transcript_info_menu(self, course_string):
-        sg.theme('DarkAmber')  # Add a touch of color
+        sg.theme(self.__theme)  # Add a touch of color
         # All the stuff inside your window.
         lecturer_layout = [[[sg.Button(button_text='Back', expand_x=True, pad=10)]],
                            [sg.Text(text=course_string[0], justification='left', auto_size_text=True
@@ -268,7 +302,7 @@ class GUI:
                 break
 
     def message_menu(self):
-        sg.theme('DarkAmber')  # Add a touch of color
+        sg.theme(self.__theme)  # Add a touch of color
         # All the stuff inside your window.
         lecturer_layout = [[[sg.Button(button_text='Back', expand_x=True, pad=10)]],
                            [sg.Button(button_text='Inbox',
@@ -300,7 +334,7 @@ class GUI:
                 return 3
 
     def message_send_menu(self):
-        sg.theme('DarkAmber')  # Add a touch of color
+        sg.theme(self.__theme)  # Add a touch of color
         # All the stuff inside your window.
         title = sg.InputText(size=(100, 50))
         message = sg.InputText(expand_y=True, expand_x=True)
@@ -326,7 +360,7 @@ class GUI:
                 return [title.get(), message.get()]
 
     def inbox_menu(self, inbox):
-        sg.theme('DarkAmber')  # Add a touch of color
+        sg.theme(self.__theme)  # Add a touch of color
         # All the stuff inside your window.
         inbox_listbox = sg.Listbox(values=inbox[1:], select_mode=None
                                    , pad=10, size=(90, 40), enable_events=False)
@@ -354,7 +388,7 @@ class GUI:
                 return selected_message
 
     def outbox_menu(self, inbox):
-        sg.theme('DarkAmber')  # Add a touch of color
+        sg.theme(self.__theme)  # Add a touch of color
         # All the stuff inside your window.
         outbox_listbox = sg.Listbox(values=inbox[1:], select_mode=None
                                     , pad=10, size=(90, 40), enable_events=False)
@@ -382,7 +416,7 @@ class GUI:
                 return selected_message
 
     def message_read_menu(self, course_string):
-        sg.theme('DarkAmber')  # Add a touch of color
+        sg.theme(self.__theme)  # Add a touch of color
         # All the stuff inside your window.
         message_read_layout = [[[sg.Button(button_text='Back', expand_x=True, pad=10)]],
                                [sg.Text(text=course_string[0], justification='left', auto_size_text=True
