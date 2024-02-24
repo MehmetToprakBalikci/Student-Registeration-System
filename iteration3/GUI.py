@@ -4,6 +4,9 @@ import PySimpleGUI as sg
 class GUI:
     _instance = None
     __theme = 'DarkGrey4'
+    __font = 'helvetica'
+    __font_size = 20
+    __font_tuple = (__font, __font_size)
 
     def __init__(self):
         pass
@@ -17,24 +20,21 @@ class GUI:
     def main_menu(self, lecturer_info):
         sg.theme(self.__theme)
         size = (30, 2)
-        font_size = 20
-        font = 'helvetica'
-        font_tuple = (font, font_size)
         main_action_column = [
-            [sg.Button(button_text="Register", size=(15,1), font=font_tuple), sg.HSeparator()
-                , sg.Button(button_text="Log out", size=(15,1), font=font_tuple)],
-            [sg.Button(button_text="Your Registered Courses", size=size, font=font_tuple)],
-            [sg.Button(button_text="Accept Waiting Courses", size=size, font=font_tuple)],
-            [sg.Button(button_text="Cancel Waiting Courses", size=size, font=font_tuple)],
-            [sg.Button(button_text="Mailbox", size=size, font=font_tuple)]
+            [sg.Button(button_text="Register", size=(15,1), font=self.__font_tuple), sg.HSeparator()
+                , sg.Button(button_text="Log out", size=(15,1), font=self.__font_tuple)],
+            [sg.Button(button_text="Your Registered Courses", size=size, font=self.__font_tuple)],
+            [sg.Button(button_text="Accept Waiting Courses", size=size, font=self.__font_tuple)],
+            [sg.Button(button_text="Cancel Waiting Courses", size=size, font=self.__font_tuple)],
+            [sg.Button(button_text="Mailbox", size=size, font=self.__font_tuple)]
 
         ]
         main_info_column = [
             [sg.Text(text=lecturer_info[0][0], justification='left'
-                     , auto_size_text=True, expand_x=True, pad=10, font=font_tuple)],
+                     , auto_size_text=True, expand_x=True, pad=10, font=self.__font_tuple)],
             [sg.Text(expand_y=True)],
             [sg.Text(text=lecturer_info[1][0], justification='left'
-                     , auto_size_text=True, expand_x=True, pad=10, font=font_tuple)]
+                     , auto_size_text=True, expand_x=True, pad=10, font=self.__font_tuple)]
         ]
 
         main_layout = [
@@ -124,8 +124,7 @@ class GUI:
                     main_window.write_event_value(focus_element.key, 0)
 
     def register_menu(self, course_list):
-        sg.theme(self.__theme)  # Add a touch of color
-        # All the stuff inside your window.
+        sg.theme(self.__theme)
         course_listbox = sg.Listbox(values=course_list, select_mode="LISTBOX_SELECT_MODE_SINGLE"
                                     , pad=10, size=(60, 30), enable_events=True)
         register_layout = [[sg.Button(button_text="Back", pad=10), sg.HSeparator(),sg.Button(button_text="Confirm", pad=10)],
@@ -151,8 +150,7 @@ class GUI:
                 return selected_course
 
     def course_menu(self, course: str):
-        sg.theme(self.__theme)  # Add a touch of color
-        # All the stuff inside your window.
+        sg.theme(self.__theme)
         course_layout = [[sg.Button(button_text="Back", pad=10, expand_x=True),
                           sg.Button(button_text="Main Menu", pad=10, expand_x=True)],
                          [sg.Button(button_text="Send for Registration", expand_x=True, pad=10)],
@@ -187,14 +185,11 @@ class GUI:
     def initialize(self):
         sg.theme(self.__theme)
         size = (15,1)
-        font_size = 20
-        font = 'helvetica'
-        font_tuple = (font, font_size)
-        layout = [[sg.Text(text='Log In', font=font_tuple)],
-                  [sg.Text(text='User Name:', expand_x=True, font=font_tuple), sg.InputText(font=font_tuple)],
-                  [sg.Text(text='Password:', expand_x=True, font=font_tuple), sg.InputText(font=font_tuple)],
-                  [sg.Button('Sign in', size=size, pad=10, font=font_tuple)
-                      , sg.HSeparator(),sg.Button('Quit', size=size, pad=10,font=font_tuple)]]
+        layout = [[sg.Text(text='Log In', font=self.__font_tuple)],
+                  [sg.Text(text='User Name:', expand_x=True, font=self.__font_tuple), sg.InputText(font=self.__font_tuple)],
+                  [sg.Text(text='Password:', expand_x=True, font=self.__font_tuple), sg.InputText(font=self.__font_tuple)],
+                  [sg.Button('Sign in', size=size, pad=10, font=self.__font_tuple)
+                      , sg.HSeparator(),sg.Button('Quit', size=size, pad=10,font=self.__font_tuple)]]
 
         # Create the Window
         welcome_window = sg.Window('Course Registration System', layout, finalize=True, element_padding=3)
@@ -244,11 +239,12 @@ class GUI:
                 break
 
     def registered_courses_menu(self, course_list):
-        sg.theme(self.__theme)  # Add a touch of color
-        # All the stuff inside your window.
+        sg.theme(self.__theme)
+        size = (45, 25)
+        size_button = (15,1)
         registered_courses_listbox = sg.Listbox(values=course_list, select_mode=None
-                                                , pad=10, size=(60, 30), enable_events=False)
-        registered_courses_layout = [[sg.Button(button_text="Back", pad=10), sg.HSeparator(),sg.Button(button_text="Confirm", pad=10)],
+                                                , pad=10, size=size, enable_events=False, font=self.__font_tuple)
+        registered_courses_layout = [[sg.Button(button_text="Back", pad=10, size=size_button, font= self.__font_tuple), sg.HSeparator(),sg.Button(button_text="Confirm", pad=10, size=size_button, font= self.__font_tuple)],
                                      [registered_courses_listbox]]
 
         # Create the Window
@@ -272,11 +268,12 @@ class GUI:
                 return selected_course
 
     def registeration_waiting_courses_menu(self, course_list):
-        sg.theme(self.__theme)  # Add a touch of color
-        # All the stuff inside your window.
+        sg.theme(self.__theme)
+        size = (45, 25)
+        size_button = (15, 1)
         register_waiting_courses_listbox = sg.Listbox(values=course_list, select_mode=None
-                                                      , pad=10, size=(60, 30), enable_events=False)
-        register_waiting_courses_layout = [[sg.Button(button_text='Back', expand_x=True)],
+                                                      , pad=10, size=size, enable_events=False, font=self.__font_tuple)
+        register_waiting_courses_layout = [[sg.Button(button_text='Back', expand_x=True, size=size_button, font=self.__font_tuple)],
                                            [register_waiting_courses_listbox]]
 
         # Create the Window
@@ -297,33 +294,33 @@ class GUI:
                 return 1
 
     def cancel_waiting_courses_menu(self, course_list):
-        sg.theme(self.__theme)  # Add a touch of color
-        # All the stuff inside your window.
+        sg.theme(self.__theme)
+        size = (45, 25)
+        size_button = (15, 1)
         cancel_waiting_courses_listbox = sg.Listbox(values=course_list, select_mode=None
-                                                    , pad=10, size=(60, 30), enable_events=False)
-        cancel_waiting_courses_layout = [[sg.Button(button_text='Back', expand_x=True)],
+                                                    , pad=10, size=size, enable_events=False, font=self.__font_tuple)
+        cancel_waiting_courses_layout = [[sg.Button(button_text='Back', expand_x=True, font=self.__font_tuple, size=size_button)],
                                          [cancel_waiting_courses_listbox]]
 
         # Create the Window
-        register_waiting_courses_window = sg.Window('Courses waiting to be registered', cancel_waiting_courses_layout)
+        cancel_waiting_courses_window = sg.Window('Courses waiting to be cancelled', cancel_waiting_courses_layout)
         # Event Loop to process "events" and get the "values" of the inputs
         selected_course = None
         while True:
-            event, values = register_waiting_courses_window.read()
+            event, values = cancel_waiting_courses_window.read()
             if cancel_waiting_courses_listbox.get_indexes() is not None and len(
                     cancel_waiting_courses_listbox.get_indexes()) != 0:
                 selected_course = cancel_waiting_courses_listbox.get_indexes()[
                                       0] + 2  # i dont know why this 2 is here but it fixes an offset
             if event == sg.WIN_CLOSED:  # if user closes window or clicks cancel
-                register_waiting_courses_window.close()
+                cancel_waiting_courses_window.close()
                 return 8
             if event == 'Back':
-                register_waiting_courses_window.close()
+                cancel_waiting_courses_window.close()
                 return 1
 
     def lecturer_info_menu(self, course_string):
-        sg.theme(self.__theme)  # Add a touch of color
-        # All the stuff inside your window.
+        sg.theme(self.__theme)  
         lecturer_layout = [[[sg.Button(button_text='Back', expand_x=True, pad=10)]],
                            [sg.Text(text=course_string[0], justification='center', auto_size_text=True
                                     , expand_x=True, expand_y=True, pad=10)]]
@@ -341,8 +338,7 @@ class GUI:
                 break
 
     def transcript_info_menu(self, course_string):
-        sg.theme(self.__theme)  # Add a touch of color
-        # All the stuff inside your window.
+        sg.theme(self.__theme)  
         lecturer_layout = [[[sg.Button(button_text='Back', expand_x=True, pad=10)]],
                            [sg.Text(text=course_string[0], justification='left', auto_size_text=True
                                     , expand_x=True, expand_y=True, pad=10)]]
@@ -360,8 +356,7 @@ class GUI:
                 break
 
     def message_menu(self):
-        sg.theme(self.__theme)  # Add a touch of color
-        # All the stuff inside your window.
+        sg.theme(self.__theme) 
         lecturer_layout = [[[sg.Button(button_text='Back', expand_x=True, pad=10)]],
                            [sg.Button(button_text='Inbox',
                                       expand_x=True, expand_y=True, pad=10),
@@ -392,8 +387,7 @@ class GUI:
                 return 3
 
     def message_send_menu(self):
-        sg.theme(self.__theme)  # Add a touch of color
-        # All the stuff inside your window.
+        sg.theme(self.__theme)  
         title = sg.InputText(size=(100, 50))
         message = sg.InputText(expand_y=True, expand_x=True)
         message_send_layout = [[sg.Button(button_text='Back', expand_x=True, pad=10),
@@ -418,8 +412,7 @@ class GUI:
                 return [title.get(), message.get()]
 
     def inbox_menu(self, inbox):
-        sg.theme(self.__theme)  # Add a touch of color
-        # All the stuff inside your window.
+        sg.theme(self.__theme)  
         inbox_listbox = sg.Listbox(values=inbox[1:], select_mode=None
                                    , pad=10, size=(90, 40), enable_events=False)
         inbox_layout = [[sg.Button(button_text='Back', expand_x=True), sg.Button(button_text='Read', expand_x=True)],
@@ -446,8 +439,7 @@ class GUI:
                 return selected_message
 
     def outbox_menu(self, inbox):
-        sg.theme(self.__theme)  # Add a touch of color
-        # All the stuff inside your window.
+        sg.theme(self.__theme)  
         outbox_listbox = sg.Listbox(values=inbox[1:], select_mode=None
                                     , pad=10, size=(90, 40), enable_events=False)
         outbox_layout = [[sg.Button(button_text='Back', expand_x=True), sg.Button(button_text='Read', expand_x=True)],
@@ -474,8 +466,7 @@ class GUI:
                 return selected_message
 
     def message_read_menu(self, course_string):
-        sg.theme(self.__theme)  # Add a touch of color
-        # All the stuff inside your window.
+        sg.theme(self.__theme)
         message_read_layout = [[[sg.Button(button_text='Back', expand_x=True, pad=10)]],
                                [sg.Text(text=course_string[0], justification='left', auto_size_text=True
                                         , expand_x=True, expand_y=True, pad=10)]]
